@@ -1,70 +1,67 @@
 import PropTypes from "prop-types";
 import { Field, Form } from "react-final-form";
-import { FORM_ERROR } from "final-form";
+import { Link } from "react-router-dom";
 import "../../styles/components/_login-form.scss";
 
-const AuthForm = ({ register }) => {
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  const onSubmit = async (values) => {
-    await sleep(300);
-
-    if (values.username === "") {
-      return { username: "Unknown username" };
-    }
-    if (values.password === "") {
-      return { [FORM_ERROR]: "Login Failed" };
-    }
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-    const updatedUsers = [...existingUsers, values];
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-    window.alert("LOGIN SUCCESS!");
-  };
-
+const AuthForm = ({ register, handleSubmit }) => {
   return (
     <div className="form-container">
       <Form
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         validate={(values) => {
           const errors = {};
-          if (!values.username) {
-            errors.username = "Required";
+          if (register) {
+            if (!values.firstname) {
+              errors.firstname = "First name is required";
+            }
+            if (!values.lastname) {
+              errors.lastname = "Last name is required";
+            }
+            if (!values.email) {
+              errors.email = "Email is required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
           }
+
+          if (!values.username) {
+            errors.username = "User name is required";
+          }
+
           if (!values.password) {
-            errors.password = "Required";
+            errors.password = "Password is required";
+          } else if (values.password.length < 8) {
+            errors.password = "Password must be at least 8 characters";
           }
           return errors;
         }}
-        render={({ submitError, handleSubmit, submitting }) => (
-          <form onSubmit={handleSubmit}>
+        render={({ submitError, handleSubmit }) => (
+          <form className="form-container__form" onSubmit={handleSubmit}>
             {register && (
               <>
-                <Field name="first_name">
+                <Field name="firstname">
                   {({ input, meta }) => (
-                    <div>
+                    <div className="form-container__field">
                       <input {...input} type="text" placeholder="First name" />
-                      {(meta.error || meta.submitError) && meta.touched && (
-                        <span>{meta.error || meta.submitError}</span>
-                      )}
+                      {meta.error && <span>{meta.error}</span>}
                     </div>
                   )}
                 </Field>
-                <Field name="last_name">
+                <Field name="lastname">
                   {({ input, meta }) => (
-                    <div>
+                    <div className="form-container__field">
                       <input {...input} type="text" placeholder="Last name" />
-                      {(meta.error || meta.submitError) && meta.touched && (
-                        <span>{meta.error || meta.submitError}</span>
-                      )}
+                      {meta.error && <span>{meta.error}</span>}
                     </div>
                   )}
                 </Field>
                 <Field name="email">
                   {({ input, meta }) => (
-                    <div>
+                    <div className="form-container__field">
                       <input {...input} type="email" placeholder="Email" />
-                      {(meta.error || meta.submitError) && meta.touched && (
-                        <span>{meta.error || meta.submitError}</span>
-                      )}
+                      {meta.error && <span>{meta.error}</span>}
                     </div>
                   )}
                 </Field>
@@ -72,34 +69,34 @@ const AuthForm = ({ register }) => {
             )}
             <Field name="username">
               {({ input, meta }) => (
-                <div>
+                <div className="form-container__field">
                   <input {...input} type="text" placeholder="Username" />
-                  {(meta.error || meta.submitError) && meta.touched && (
-                    <span>{meta.error || meta.submitError}</span>
-                  )}
+                  {meta.error && <span>{meta.error}</span>}
                 </div>
               )}
             </Field>
             <Field name="password">
               {({ input, meta }) => (
-                <div>
+                <div className="form-container__field">
                   <input {...input} type="password" placeholder="Password" />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                  {meta.error && <span>{meta.error}</span>}
                 </div>
               )}
             </Field>
-            {submitError && <div className="error">{submitError}</div>}
-            <div className="buttons">
-              <button type="submit" disabled={submitting}>
-                Log In
+            {submitError && (
+              <div className="form-container__error">{submitError}</div>
+            )}
+            <div className="form-container__buttons">
+              <button type="submit" className="form-container__buttons__button">
+                {register ? "Register" : "Log In"}
               </button>
-              {/* <button
-                type="button"
-                onClick={form.reset}
-                disabled={submitting || pristine}
-              >
-                Reset
-              </button> */}
+            </div>
+            <div className="form-container__link-button">
+              {register ? (
+                <Link to="/login">Already have an account? Login</Link>
+              ) : (
+                <Link to="/register">Do not have an account? Register</Link>
+              )}
             </div>
           </form>
         )}
@@ -114,6 +111,7 @@ AuthForm.defaultProps = {
 
 AuthForm.propTypes = {
   register: PropTypes.bool,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default AuthForm;

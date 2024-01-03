@@ -1,32 +1,66 @@
 @import "../variables";
-@import "../mixins";
 
 .form-container {
-  @include center-flexbox();
-  flex-direction: column;
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  label {
-    margin-bottom: 8px;
+  &__form {
+    min-width: 30rem;
+    margin: auto;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
   }
 
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  &__field {
+    margin-bottom: 1rem;
+
+    & input {
+      width: 100%;
+      padding: 0.625rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+    }
+
+    & span {
+      color: $error-color;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: block;
+    }
   }
 
-  button {
-    background-color: $button-color;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  &__error {
+    color: $error-color;
+    margin-top: 1rem;
+  }
+
+  &__buttons {
+    margin-top: 1rem;
+
+    &__button {
+      width: 100%;
+      padding: 1rem;
+      background-color: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+    }
+  }
+
+  &__link-button {
+    margin-top: 1rem;
+
+    & a {
+      color: $primary-color;
+      text-decoration: none;
+      font-size: 0.875rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
