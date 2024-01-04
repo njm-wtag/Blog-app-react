@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Field, Form } from "react-final-form";
 import { Link } from "react-router-dom";
-import "../../styles/components/_login-form.scss";
+import "../AuthForm/AuthForm.scss";
 
 const AuthForm = ({ register, handleSubmit }) => {
   return (
