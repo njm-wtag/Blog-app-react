@@ -1,3 +1,5 @@
+import Header from "../components/Header/Header";
+
 const Home = () => {
   const handleLogout = () => {
     console.log("logout");
@@ -6,7 +8,7 @@ const Home = () => {
   };
   return (
     <div>
-      <h1> Home </h1>
+      <Header />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
