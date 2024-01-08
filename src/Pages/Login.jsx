@@ -1,15 +1,9 @@
 import AuthForm from "../components/AuthForm/AuthForm";
+import authenticateUser from "../utils/authUtils";
 
 const Login = () => {
   const handleSubmit = (values) => {
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    console.log({ existingUsers });
-
-    const authUser = existingUsers.find(
-      (user) =>
-        user.username === values.username && user.password === values.password
-    );
+    const authUser = authenticateUser(values);
 
     if (authUser) {
       localStorage.setItem("authUser", JSON.stringify(authUser));

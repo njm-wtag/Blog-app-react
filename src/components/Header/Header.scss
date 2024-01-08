@@ -1,0 +1,51 @@
+@import "../../styles/colors";
+@import "../../styles/variables";
+
+.navbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $sp-64;
+  padding: $sp-12;
+
+  &__title {
+    font-family: "Inter", sans-serif;
+    font-size: $sp-32;
+    font-weight: 400;
+    line-height: $sp-20;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+  &__search {
+    position: relative;
+    input {
+      width: 359px;
+      height: 36px;
+      padding: $sp-8 $sp-16;
+      border: 0;
+      border-radius: $sp-4;
+      gap: $sp-12;
+      background-color: #f4f4f5;
+    }
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__auth-access {
+    a {
+      font-family: "Inter", sans-serif;
+      font-size: $sp-20;
+      font-weight: 400;
+      line-height: $sp-20;
+      letter-spacing: 0em;
+      text-align: center;
+      text-decoration: none;
+      color: #0d58b0;
+    }
+  }
+}
