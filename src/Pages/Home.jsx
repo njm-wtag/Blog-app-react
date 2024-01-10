@@ -2,17 +2,19 @@ import BlogList from "../components/BlogList/BlogList";
 import Header from "../components/Header/Header";
 import HomeBanner from "../components/HomeBanner/HomeBanner";
 
+import { Link, useNavigate } from "react-router-dom";
+
 const Home = () => {
+  const navigate = useNavigate();
   const authUser = JSON.parse(localStorage.getItem("authUser"));
   const handleLogout = () => {
     localStorage.removeItem("authUser");
-    // window.location.href = "/login";
+    navigate("/login");
   };
   return (
     <div>
-      <Header authUser={authUser} handleLogout={handleLogout} />
-      <HomeBanner />
-      <BlogList />
+      <h1> Home </h1>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

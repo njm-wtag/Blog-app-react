@@ -30,11 +30,11 @@ const BlogCard = (blog) => {
 };
 
 BlogCard.propTypes = {
-  authorId: PropTypes.number.isRequired,
-  bannerImage: PropTypes.string.isRequired,
-  categoryId: PropTypes.number.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  authorId: PropTypes.number,
+  bannerImage: PropTypes.string,
+  categoryId: PropTypes.number,
+  createdAt: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default BlogCard;

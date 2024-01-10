@@ -9,12 +9,14 @@
   padding: $sp-12;
 
   &__title {
+    color: black;
     font-family: "Inter", sans-serif;
     font-size: $sp-32;
     font-weight: 400;
     line-height: $sp-20;
     letter-spacing: 0em;
     text-align: left;
+    text-decoration: none;
   }
 
   &__search {
