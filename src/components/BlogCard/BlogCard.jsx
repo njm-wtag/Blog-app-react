@@ -3,12 +3,13 @@ import { getAuthorById, getCategoryById } from "../../utils/helperData";
 import "./BlogCard.scss";
 
 const BlogCard = (blog) => {
-  const { bannerImage, categoryId, title, authorId, createdAt } = blog.blog;
+  console.log(blog);
+  const { imagePreview, categoryId, title, authorId, createdAt } = blog.blog;
   const category = getCategoryById(categoryId);
   const author = getAuthorById(authorId);
   return (
     <div className="blog-card">
-      <img src={bannerImage} alt={title} className="blog-card__banner" />
+      <img src={imagePreview} alt={title} className="blog-card__banner" />
       <div className="blog-card__category-badge">
         {category ? category.name : "Unknown Category"}
       </div>
@@ -31,7 +32,7 @@ const BlogCard = (blog) => {
 
 BlogCard.propTypes = {
   authorId: PropTypes.number,
-  bannerImage: PropTypes.string,
+  imagePreview: PropTypes.string,
   categoryId: PropTypes.number,
   createdAt: PropTypes.string,
   title: PropTypes.string,

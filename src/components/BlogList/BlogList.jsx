@@ -1,11 +1,10 @@
-import { mockBlogs } from "../../data/mockData";
 import BlogCard from "../BlogCard/BlogCard";
 import "./BlogList.scss";
 
-const BlogList = () => {
+const BlogList = ({ blogs }) => {
   return (
     <div className="blog-list">
-      {mockBlogs.map((blog) => (
+      {blogs?.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
     </div>
