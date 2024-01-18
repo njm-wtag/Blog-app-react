@@ -6,7 +6,6 @@ const Profile = () => {
   return (
     <div className="profile-page">
       <AuthorAbout authUser={authUser} />
-
       <BlogList />
     </div>
   );

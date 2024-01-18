@@ -2,13 +2,21 @@ import PropTypes from "prop-types";
 import { Field, Form } from "react-final-form";
 import { Link } from "react-router-dom";
 import "./AuthForm.scss";
-
-const AuthForm = ({ register, handleSubmit }) => {
+const AuthForm = ({ register, handleSubmit, responseMessage }) => {
   return (
     <div className="form-container">
+      <div
+        className={
+          register
+            ? "form-container__success-message"
+            : "form-container__error-message"
+        }
+      >
+        {responseMessage}
+      </div>
       <Form
         onSubmit={handleSubmit}
-        valicreatedAt={(values) => {
+        validate={(values) => {
           const errors = {};
           if (register) {
             if (!values.firstname) {
@@ -112,6 +120,7 @@ AuthForm.defaultProps = {
 AuthForm.propTypes = {
   register: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
+  responseMessage: PropTypes.string,
 };
 
 export default AuthForm;
