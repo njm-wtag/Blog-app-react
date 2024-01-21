@@ -1,19 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm/AuthForm";
 import authenticateUser from "../utils/authUtils";
-import { useState } from "react";
 
 const Login = () => {
-  const [responseMessage, setResponseMessage] = useState("");
-  const navigate = useNavigate();
   const handleSubmit = (values) => {
-    const authUser = authenticateUser(values);
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    console.log({ existingUsers });
+
+    const authUser = existingUsers.find(
+      (user) =>
+        user.username === values.username && user.password === values.password
+    );
 
     if (authUser) {
       localStorage.setItem("authUser", JSON.stringify(authUser));
-      navigate("/");
-    } else {
-      setResponseMessage("Invalid username or password.");
     }
   };
 
@@ -21,7 +21,7 @@ const Login = () => {
     <>
       <h1>Login</h1>
 
-      <AuthForm handleSubmit={handleSubmit} responseMessage={responseMessage} />
+      <AuthForm handleSubmit={handleSubmit} />
     </>
   );
 };
