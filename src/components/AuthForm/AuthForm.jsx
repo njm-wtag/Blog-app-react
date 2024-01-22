@@ -1,15 +1,27 @@
 import PropTypes from "prop-types";
 import { Field, Form } from "react-final-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./AuthForm.scss";
-const AuthForm = ({ register, handleSubmit }) => {
+const AuthForm = ({ handleSubmit, responseMessage }) => {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const isRegisterForm = pathname === "/register";
   return (
     <div className="form-container">
+      <div
+        className={
+          isRegisterForm
+            ? "form-container__success-message"
+            : "form-container__error-message"
+        }
+      >
+        {responseMessage}
+      </div>
       <Form
         onSubmit={handleSubmit}
         validate={(values) => {
           const errors = {};
-          if (register) {
+          if (isRegisterForm) {
             if (!values.firstname) {
               errors.firstname = "First name is required";
             }
@@ -38,7 +50,7 @@ const AuthForm = ({ register, handleSubmit }) => {
         }}
         render={({ submitError, handleSubmit }) => (
           <form className="form-container__form" onSubmit={handleSubmit}>
-            {register && (
+            {isRegisterForm && (
               <>
                 <Field name="firstname">
                   {({ input, meta }) => (
@@ -82,16 +94,23 @@ const AuthForm = ({ register, handleSubmit }) => {
                 </div>
               )}
             </Field>
+            <Field name="joinDate">
+              {({ input }) => (
+                <div className="form-container__field">
+                  <input {...input} type="date" hidden />
+                </div>
+              )}
+            </Field>
             {submitError && (
               <div className="form-container__error">{submitError}</div>
             )}
             <div className="form-container__buttons">
               <button type="submit" className="form-container__buttons__button">
-                {register ? "Register" : "Log In"}
+                {isRegisterForm ? "Register" : "Log In"}
               </button>
             </div>
             <div className="form-container__link-button">
-              {register ? (
+              {isRegisterForm ? (
                 <Link to="/login">Already have an account? Login</Link>
               ) : (
                 <Link to="/register">Do not have an account? Register</Link>
@@ -104,13 +123,9 @@ const AuthForm = ({ register, handleSubmit }) => {
   );
 };
 
-AuthForm.defaultProps = {
-  register: false,
-};
-
 AuthForm.propTypes = {
-  register: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
+  responseMessage: PropTypes.string,
 };
 
 export default AuthForm;
