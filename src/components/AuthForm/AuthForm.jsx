@@ -1,11 +1,19 @@
 import PropTypes from "prop-types";
 import { Field, Form } from "react-final-form";
 import { Link } from "react-router-dom";
-import "../AuthForm/AuthForm.scss";
-
-const AuthForm = ({ register, handleSubmit }) => {
+import "./AuthForm.scss";
+const AuthForm = ({ register, handleSubmit, responseMessage }) => {
   return (
     <div className="form-container">
+      <div
+        className={
+          register
+            ? "form-container__success-message"
+            : "form-container__error-message"
+        }
+      >
+        {responseMessage}
+      </div>
       <Form
         onSubmit={handleSubmit}
         validate={(values) => {
@@ -83,6 +91,13 @@ const AuthForm = ({ register, handleSubmit }) => {
                 </div>
               )}
             </Field>
+            <Field name="joinDate">
+              {({ input }) => (
+                <div className="form-container__field">
+                  <input {...input} type="date" hidden />
+                </div>
+              )}
+            </Field>
             {submitError && (
               <div className="form-container__error">{submitError}</div>
             )}
@@ -112,6 +127,7 @@ AuthForm.defaultProps = {
 AuthForm.propTypes = {
   register: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
+  responseMessage: PropTypes.string,
 };
 
 export default AuthForm;
