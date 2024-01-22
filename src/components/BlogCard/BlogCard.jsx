@@ -29,6 +29,7 @@ const BlogCard = ({ blog }) => {
 };
 
 BlogCard.propTypes = {
+  blog: PropTypes.object,
   authorId: PropTypes.number,
   bannerImage: PropTypes.string,
   categoryId: PropTypes.number,

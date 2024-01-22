@@ -5,12 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLoggedOut } from "../../rtk/features/auth/authSlice";
 
 const Header = () => {
-  // const navigate = useNavigate();
-  // const authUser = JSON.parse(localStorage.getItem("authUser"));
-  // const handleLogout = () => {
-  //   localStorage.removeItem("authUser");
-  //   navigate("/login");
-  // };
   const { authUser } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
