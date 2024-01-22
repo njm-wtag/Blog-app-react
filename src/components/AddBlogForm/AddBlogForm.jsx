@@ -3,6 +3,7 @@ import Dropzone, { useDropzone } from "react-dropzone";
 import { Field, Form } from "react-final-form";
 import Select from "react-select";
 import "./AddBlogForm.scss";
+import { useSelector } from "react-redux";
 
 const img = {
   display: "block",
@@ -75,11 +76,13 @@ const options = [
 ];
 
 const AddBlogForm = () => {
+  const { authUser } = useSelector((state) => state.auth);
   const onSubmit = async (values) => {
     console.log(values);
 
     let imagePreview = await convertToBase64(files[0]);
     values.imagePreview = imagePreview;
+    values.author = authUser;
     const existingBlogs = JSON.parse(localStorage.getItem("blogs")) || [];
     const newBlog = [...existingBlogs, values];
     localStorage.setItem("blogs", JSON.stringify(newBlog));

@@ -1,29 +1,28 @@
 import PropTypes from "prop-types";
-import { getAuthorById, getCategoryById } from "../../utils/helperData";
 import "./BlogCard.scss";
+import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
+import { useSelector } from "react-redux";
 
-const BlogCard = (blog) => {
-  console.log(blog);
-  const { imagePreview, categoryId, title, authorId, createdAt } = blog.blog;
-  const category = getCategoryById(categoryId);
-  const author = getAuthorById(authorId);
+const BlogCard = ({ blog }) => {
+  const { imagePreview, title, tags, createdAt } = blog;
+  const { authUser } = useSelector((state) => state.auth);
   return (
     <div className="blog-card">
       <img src={imagePreview} alt={title} className="blog-card__banner" />
       <div className="blog-card__category-badge">
-        {category ? category.name : "Unknown Category"}
+        {tags ? tags[0].value : "Unknown Category"}
       </div>
       <h3 className="blog-card__blog-title">{title}</h3>
       <div className="blog-card__author-info">
         <img
-          src={author ? author.profileImage : ""}
-          alt={`${author ? author.name : "Unknown Author"}'s profile`}
+          src={
+            authUser?.profileImage ? authUser.profileImage : defaultProfileIcon
+          }
+          alt={authUser?.usernamename}
           className="blog-card__author-info__author-image"
         />
 
-        <p className="blog-card__author-infoauthor-name">
-          {author ? author.name : "Unknown Author"}
-        </p>
+        <p className="blog-card__author-infoauthor-name">{authUser.username}</p>
         <p className="blog-card__author-info__blog-createdAt">{createdAt}</p>
       </div>
     </div>
@@ -31,11 +30,7 @@ const BlogCard = (blog) => {
 };
 
 BlogCard.propTypes = {
-  authorId: PropTypes.number,
-  imagePreview: PropTypes.string,
-  categoryId: PropTypes.number,
-  createdAt: PropTypes.string,
-  title: PropTypes.string,
+  blog: PropTypes.object,
 };
 
 export default BlogCard;

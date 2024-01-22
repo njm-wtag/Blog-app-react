@@ -5,8 +5,7 @@ const authenticateUser = (values) => {
     (user) =>
       user.username === values.username && user.password === values.password
   );
-
-  return authUser;
+  if (authUser !== undefined) return authUser;
 };
 
 export default authenticateUser;

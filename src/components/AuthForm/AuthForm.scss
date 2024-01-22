@@ -63,4 +63,15 @@
       }
     }
   }
+
+  &__success-message {
+    text-align: center;
+    color: #056b1c;
+    padding-bottom: 2rem;
+  }
+  &__error-message {
+    text-align: center;
+    color: #d42604;
+    padding-bottom: 2rem;
+  }
 }

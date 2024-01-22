@@ -1,25 +1,32 @@
-import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm/AuthForm";
-import authenticateUser from "../utils/authUtils";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userLoggedIn } from "../rtk/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [responseMessage, setResponseMessage] = useState("");
+
+  const { success, error } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = (values) => {
-    const authUser = authenticateUser(values);
-
-    if (authUser) {
-      localStorage.setItem("authUser", JSON.stringify(authUser));
-      window.alert("Login successful!");
-      navigate("/");
-    } else {
-      window.alert("Invalid username or password.");
-    }
+    dispatch(userLoggedIn(values));
   };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/");
+    }
+    if (error) setResponseMessage("Invalid username or password.");
+  }, [success, error, navigate, setResponseMessage]);
 
   return (
     <>
       <h1>Login</h1>
-      <AuthForm handleSubmit={handleSubmit} />
+
+      <AuthForm handleSubmit={handleSubmit} responseMessage={responseMessage} />
     </>
   );
 };

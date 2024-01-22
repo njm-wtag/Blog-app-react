@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import BlogCard from "../BlogCard/BlogCard";
 import "./BlogList.scss";
 
@@ -9,6 +11,10 @@ const BlogList = ({ blogs }) => {
       ))}
     </div>
   );
+};
+
+BlogList.propTypes = {
+  blogs: PropTypes.array,
 };
 
 export default BlogList;
