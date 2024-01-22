@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthForm from "../components/AuthForm/AuthForm";
 import { useNavigate } from "react-router-dom";
-import { registeredUser } from "../rtk/features/register/registerSlice";
+import {
+  registeredUser,
+  resetRegisterState,
+} from "../rtk/features/register/registerSlice";
 
 const Register = () => {
   const { success, error } = useSelector((state) => state.register);
@@ -18,20 +21,17 @@ const Register = () => {
 
   useEffect(() => {
     if (success) {
+      dispatch(resetRegisterState());
       navigate("/login");
     }
 
     if (error) setResponseMessage(error);
-  }, [success, error, navigate]);
+  }, [success, error, navigate, dispatch]);
 
   return (
     <>
       <h1>Register</h1>
-      <AuthForm
-        register
-        handleSubmit={handleSubmit}
-        responseMessage={responseMessage}
-      />
+      <AuthForm handleSubmit={handleSubmit} responseMessage={responseMessage} />
     </>
   );
 };
