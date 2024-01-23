@@ -23,7 +23,9 @@ const BlogCard = ({ blog }) => {
         />
 
         <p className="blog-card__author-infoauthor-name">{authUser.username}</p>
-        <p className="blog-card__author-info__blog-createdAt">{createdAt}</p>
+        <p className="blog-card__author-info__blog-createdAt">
+          {createdAt?.substring(0, 10)}
+        </p>
       </div>
     </div>
   );

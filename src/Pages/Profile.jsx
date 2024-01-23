@@ -7,7 +7,7 @@ import AddBlogForm from "../components/AddBlogForm/AddBlogForm";
 
 const Profile = () => {
   const { authUser } = useSelector((state) => state.auth);
-  const blogs = JSON.parse(localStorage.getItem("blogs"));
+  const { blogs } = useSelector((state) => state.blogs);
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
 
   return (
@@ -17,7 +17,10 @@ const Profile = () => {
         setIsAddBlogFormOpen={setIsAddBlogFormOpen}
       />
       {authUser && <AuthorAbout authUser={authUser} />}
-      {isAddBlogFormOpen && <AddBlogForm />}
+      {isAddBlogFormOpen && (
+        <AddBlogForm setIsAddBlogFormOpen={setIsAddBlogFormOpen} />
+      )}
+      <h3>My published posts</h3>
       <BlogList blogs={blogs} />
     </div>
   );

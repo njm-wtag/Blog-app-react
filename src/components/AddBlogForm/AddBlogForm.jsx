@@ -2,8 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import Dropzone, { useDropzone } from "react-dropzone";
 import { Field, Form } from "react-final-form";
 import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import "./AddBlogForm.scss";
-import { useSelector } from "react-redux";
+import { postBlog } from "../../rtk/features/blogs/blogsSlice";
 
 const img = {
   display: "block",
@@ -75,18 +77,22 @@ const options = [
   { value: "world politics", label: "World Politics" },
 ];
 
-const AddBlogForm = () => {
+const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
+  const dispatch = useDispatch();
+  const [createdDate, setCreatedDate] = useState("");
+  useEffect(() => {
+    setCreatedDate(() => new Date().toISOString());
+  }, []);
   const { authUser } = useSelector((state) => state.auth);
-  const onSubmit = async (values) => {
-    console.log(values);
-
-    let imagePreview = await convertToBase64(files[0]);
-    values.imagePreview = imagePreview;
-    values.author = authUser;
-    const existingBlogs = JSON.parse(localStorage.getItem("blogs")) || [];
-    const newBlog = [...existingBlogs, values];
-    localStorage.setItem("blogs", JSON.stringify(newBlog));
+  const onSubmit = async (blog) => {
+    blog.id = Date.now();
+    blog.author = authUser;
+    const imagePreview = await convertToBase64(files[0]);
+    blog.imagePreview = imagePreview;
+    dispatch(postBlog(blog));
+    setIsAddBlogFormOpen(false);
   };
+
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -124,12 +130,13 @@ const AddBlogForm = () => {
     setFiles(newFiles);
   };
 
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    const cleanUpPreviews = () => {
       files.forEach((file) => URL.revokeObjectURL(file.preview));
-    },
-    [files]
-  );
+    };
+
+    return cleanUpPreviews;
+  }, [files]);
 
   const style = useMemo(
     () => ({
@@ -141,8 +148,6 @@ const AddBlogForm = () => {
   return (
     <Form
       onSubmit={onSubmit}
-      //   validate={validate}
-      //   initialValues={initialValues}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <div className="title-tags-form-container">
@@ -223,19 +228,34 @@ const AddBlogForm = () => {
               </div>
             )}
           </Field>
+          <Field name="createdAt" defaultValue={createdDate}>
+            {({ input }) => (
+              <div className="form-container__field">
+                <input {...input} type="date" hidden />
+              </div>
+            )}
+          </Field>
 
-          <div>
-            <button
-              type="submit"
-              // disabled={submitting || pristine}
-            >
+          <div className="form__buttons">
+            <button type="submit" className="submit-button">
               Submit
+            </button>
+            <button
+              onClick={() => setIsAddBlogFormOpen(false)}
+              type="button"
+              className="cancel-button"
+            >
+              Cancel
             </button>
           </div>
         </form>
       )}
     />
   );
+};
+
+AddBlogForm.propTypes = {
+  setIsAddBlogFormOpen: PropTypes.func,
 };
 
 export default AddBlogForm;

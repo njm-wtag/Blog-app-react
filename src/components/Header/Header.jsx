@@ -6,11 +6,10 @@ import { userLoggedOut } from "../../rtk/features/auth/authSlice";
 
 const Header = () => {
   const { authUser } = useSelector((state) => state.auth);
-  console.log(authUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const handleLogout = () => {
+    dispatch(userLoggedOut());
     dispatch(userLoggedOut());
     navigate("/login");
   };
@@ -29,8 +28,7 @@ const Header = () => {
           <div className="navbar__auth-access">
             <div>
               Welcome{" "}
-              {/* <Link to={`/${authUser.username}`}>{authUser.username}!</Link> */}
-              <Link to="/me">{authUser.username}!</Link>
+              <Link to={`/${authUser.username}`}>{authUser.username}!</Link>
               <Link to="/login" onClick={handleLogout}>
                 Logout
               </Link>
