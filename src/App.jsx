@@ -11,8 +11,6 @@ import Profile from "./Pages/Profile";
 import Header from "./components/Header/Header";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { useSelector } from "react-redux";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import { useSelector } from "react-redux";
 
 function App() {
   const { authUser } = useSelector((state) => state.auth);

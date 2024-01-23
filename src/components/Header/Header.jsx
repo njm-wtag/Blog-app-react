@@ -3,20 +3,16 @@ import "./Header.scss";
 import SearchIcon from "../icons/SearchIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoggedOut } from "../../rtk/features/auth/authSlice";
-import SearchIcon from "../icons/SearchIcon";
-import { useDispatch, useSelector } from "react-redux";
-import { userLoggedOut } from "../../rtk/features/auth/authSlice";
 
 const Header = () => {
   const { authUser } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const handleLogout = () => {
     dispatch(userLoggedOut());
     navigate("/login");
   };
-
 
   return (
     <div>
