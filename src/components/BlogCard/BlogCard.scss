@@ -3,6 +3,9 @@
   border-radius: 0.5rem;
   overflow: hidden;
   margin-bottom: 1rem;
+  & a {
+    text-decoration: none;
+  }
   &__banner {
     width: 100%;
     height: 15rem;
@@ -19,6 +22,7 @@
   }
 
   &__blog-title {
+    color: #000;
     font-size: 1.125rem;
     font-weight: bold;
     margin: 1rem;
@@ -37,6 +41,7 @@
     }
 
     &__author-name {
+      color: #777;
       font-weight: bold;
       margin-bottom: 0.25rem;
     }
