@@ -87,6 +87,7 @@ const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
   const onSubmit = async (blog) => {
     blog.id = Date.now();
     blog.author = authUser;
+    blog.createdAt = new Date().toISOString();
     const imagePreview = await convertToBase64(files[0]);
     blog.imagePreview = imagePreview;
     dispatch(postBlog(blog));
@@ -225,13 +226,6 @@ const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
                 <label>Blog Body</label>
                 <textarea {...input} type="text" />
                 {meta.error && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-          <Field name="createdAt" defaultValue={createdDate}>
-            {({ input }) => (
-              <div className="form-container__field">
-                <input {...input} type="date" hidden />
               </div>
             )}
           </Field>
