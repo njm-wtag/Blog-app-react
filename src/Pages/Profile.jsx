@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import AddBlogEditProfileButtonsContainer from "../components/AddBlogEditProfileButtonsContainer/AddBlogEditProfileButtonsContainer";
 import AuthorAbout from "../components/AuthorAbout/AuthorAbout";
 import BlogList from "../components/BlogList/BlogList";
 import AddBlogForm from "../components/AddBlogForm/AddBlogForm";
+import ButtonContainer from "../components/AddBlogEditProfileButtonsContainer/ButtonContainer";
 
 const Profile = () => {
   const { authUser } = useSelector((state) => state.auth);
@@ -12,7 +12,7 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      <AddBlogEditProfileButtonsContainer
+      <ButtonContainer
         isAddBlogFormOpen={isAddBlogFormOpen}
         setIsAddBlogFormOpen={setIsAddBlogFormOpen}
       />

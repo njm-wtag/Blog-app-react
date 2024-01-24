@@ -9,6 +9,10 @@ const store = configureStore({
     auth: authSlice,
     blogs: blogsSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;
