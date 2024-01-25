@@ -39,28 +39,34 @@ const ImageDnD = ({ input, files, setFiles }) => {
 
   return (
     <Dropzone onDrop={(file) => input.onChange(file)}>
-      {({ getRootProps, getInputProps }) => (
-        <section className="container" onClick={open}>
-          <div {...getRootProps({ style })}>
-            <input {...getInputProps()} type="file" />
-            <p>
-              Drop your image here, or
-              <span> browse</span>
-            </p>
+      {({ getRootProps, getInputProps }) => {
+        return (
+          <section className="container" onClick={open}>
+            <div {...getRootProps({ style })}>
+              <input {...getInputProps()} type="file" />
+              <p>
+                Drop your image here, or
+                <span> browse</span>
+              </p>
 
-            {files.map((file) => (
-              <div key={file.name}>
-                <img
-                  src={file.preview}
-                  className="image-preview"
-                  alt={file.name}
-                />
-                <button onClick={removeFile(file)}>Remove File</button>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+              {files.map((file) => {
+                console.log("-------------------", file);
+
+                return (
+                  <div key={file.name}>
+                    <img
+                      src={file.preview}
+                      className="image-preview"
+                      alt={file.name}
+                    />
+                    <button onClick={removeFile(file)}>Remove File</button>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        );
+      }}
     </Dropzone>
   );
 };

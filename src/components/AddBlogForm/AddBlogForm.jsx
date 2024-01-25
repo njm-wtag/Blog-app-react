@@ -1,46 +1,22 @@
-import { useState } from "react";
 import { Field, Form } from "react-final-form";
-import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import "./AddBlogForm.scss";
-import { postBlog } from "../../rtk/features/blogs/blogsSlice";
 import ImageDnD from "../ImageDnD/ImageDnD";
 import Button from "../Button/Button";
 import SelectBox from "../SelectBox/SelectBox";
 
-const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
-  const [files, setFiles] = useState([]);
-  const dispatch = useDispatch();
-  const { authUser } = useSelector((state) => state.auth);
-
-  const onSubmit = async (blog) => {
-    blog.id = Date.now();
-    blog.author = authUser;
-    blog.createdAt = new Date().toISOString();
-    const imagePreview = await convertToBase64(files[0]);
-    blog.imagePreview = imagePreview;
-    dispatch(postBlog(blog));
-    setIsAddBlogFormOpen(false);
-  };
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-
-      reader.onerror = (error) => {
-        reject(error);
-      };
-
-      reader.readAsDataURL(file);
-    });
-  };
+const AddBlogForm = ({
+  setIsAddBlogFormOpen,
+  blogDetails,
+  onSubmit,
+  files,
+  setFiles,
+}) => {
+  if (blogDetails) console.log(blogDetails);
 
   return (
     <Form
+      initialValues={blogDetails ? blogDetails : null}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
@@ -75,6 +51,7 @@ const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
                 <label>Banner Image</label>
 
                 <ImageDnD input={input} files={files} setFiles={setFiles} />
+                <img src={blogDetails?.imagePreview} />
 
                 {meta.error && <span>{meta.error}</span>}
               </div>

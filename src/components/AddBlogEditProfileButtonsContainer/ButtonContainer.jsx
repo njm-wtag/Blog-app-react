@@ -4,7 +4,10 @@ import AddIcon from "../icons/AddIcon";
 import EditIcon from "../icons/EditIcon";
 import Button from "../Button/Button";
 
-const ButtonContainer = ({ setIsAddBlogFormOpen }) => {
+const ButtonContainer = ({
+  setIsAddBlogFormOpen,
+  setIsEditProfileFormOpen,
+}) => {
   return (
     <div className="button-container">
       <Button
@@ -16,7 +19,14 @@ const ButtonContainer = ({ setIsAddBlogFormOpen }) => {
         <AddIcon />
       </Button>
 
-      <Button className="button-container_edit-profile">
+      <Button
+        className="button-container_edit-profile"
+        onclickHandler={() =>
+          setIsEditProfileFormOpen(
+            (isEditProfileFormOpen) => !isEditProfileFormOpen
+          )
+        }
+      >
         <EditIcon />
       </Button>
     </div>
