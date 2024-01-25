@@ -1,8 +1,20 @@
+import { useSelector } from "react-redux";
 import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
 import "./BlogDetails.scss";
+import EditIcon from "../icons/EditIcon";
+import { Link } from "react-router-dom";
 const BlogDetails = ({ blogDetails }) => {
+  const { authUser } = useSelector((state) => state.auth);
+  const isEditable = blogDetails.author.id === authUser.id;
   return (
     <div className="blog-details">
+      {isEditable && (
+        <div className="blog-details__edit button-container">
+          <Link to={`/edit-blog/${blogDetails.id}`}>
+            <EditIcon />
+          </Link>
+        </div>
+      )}
       <div className="blog-details__category-badge blog-card__category-badge">
         {blogDetails.tags ? blogDetails.tags[0].value : "Unknown Category"}
       </div>
@@ -25,6 +37,7 @@ const BlogDetails = ({ blogDetails }) => {
           {blogDetails.createdAt?.substring(0, 10)}
         </p>
       </div>
+
       <img
         src={blogDetails.imagePreview}
         alt=""
