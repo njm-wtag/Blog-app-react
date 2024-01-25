@@ -1,12 +1,10 @@
 import PropTypes from "prop-types";
 import "./BlogCard.scss";
 import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {
   const { imagePreview, title, tags, createdAt, author } = blog;
-  console.log({ blog });
   return (
     <div className="blog-card">
       <Link to={`/blog/${blog.id}`}>
