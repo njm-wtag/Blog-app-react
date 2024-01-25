@@ -9,6 +9,10 @@ const Profile = () => {
   const { authUser } = useSelector((state) => state.auth);
   const { blogs } = useSelector((state) => state.blogs);
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
+  const reversedBlog = [...blogs].reverse();
+  const authBlogs = reversedBlog.filter(
+    (blog) => blog.author.id === authUser.id
+  );
 
   return (
     <div className="profile-page">
@@ -21,7 +25,7 @@ const Profile = () => {
         <AddBlogForm setIsAddBlogFormOpen={setIsAddBlogFormOpen} />
       )}
       <h3>My published posts</h3>
-      <BlogList blogs={blogs} />
+      <BlogList blogs={authBlogs} />
     </div>
   );
 };

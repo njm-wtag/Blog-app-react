@@ -3,10 +3,9 @@ import BlogCard from "../BlogCard/BlogCard";
 import "./BlogList.scss";
 
 const BlogList = ({ blogs }) => {
-  const reversedBlog = [...blogs].reverse();
   return (
     <div className="blog-list">
-      {reversedBlog.map((blog) => (
+      {blogs.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
     </div>
