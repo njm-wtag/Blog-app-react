@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {
-  const { imagePreview, title, tags, createdAt } = blog;
-  const { authUser } = useSelector((state) => state.auth);
+  const { imagePreview, title, tags, createdAt, author } = blog;
+  console.log({ blog });
   return (
     <div className="blog-card">
       <Link to={`/blog/${blog.id}`}>
@@ -18,16 +18,14 @@ const BlogCard = ({ blog }) => {
         <div className="blog-card__author-info">
           <img
             src={
-              authUser?.profileImage
-                ? authUser.profileImage
-                : defaultProfileIcon
+              author?.profileImage ? author.profileImage : defaultProfileIcon
             }
-            alt={authUser?.usernamename}
+            alt={author?.usernamename}
             className="blog-card__author-info__author-image"
           />
 
           <p className="blog-card__author-info__author-name">
-            {authUser.username}
+            {author.firstname} {author.lastname}
           </p>
           <p className="blog-card__author-info__blog-createdAt">
             {createdAt?.substring(0, 10)}
