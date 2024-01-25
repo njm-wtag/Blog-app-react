@@ -9,9 +9,8 @@ const ButtonContainer = ({ setIsAddBlogFormOpen }) => {
     <div className="button-container">
       <Button
         className="button-container_add-blog"
-        onclickHandler={
-          // () => setIsAddBlogFormOpen(console.log("add button"))
-          () => setIsAddBlogFormOpen((isAddBlogFormOpen) => !isAddBlogFormOpen)
+        onclickHandler={() =>
+          setIsAddBlogFormOpen((isAddBlogFormOpen) => !isAddBlogFormOpen)
         }
       >
         <AddIcon />
