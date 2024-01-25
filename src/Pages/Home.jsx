@@ -1,7 +1,11 @@
+import { useSelector } from "react-redux";
+import BlogList from "../components/BlogList/BlogList";
+
 const Home = () => {
+  const { blogs } = useSelector((state) => state.blogs);
   return (
     <div>
-      <h1> Home </h1>
+      <BlogList blogs={blogs} />
     </div>
   );
 };
