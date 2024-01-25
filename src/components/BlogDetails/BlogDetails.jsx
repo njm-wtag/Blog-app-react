@@ -1,7 +1,6 @@
 import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
 import "./BlogDetails.scss";
 const BlogDetails = ({ blogDetails }) => {
-  console.log(blogDetails);
   return (
     <div className="blog-details">
       <div className="blog-details__category-badge blog-card__category-badge">
