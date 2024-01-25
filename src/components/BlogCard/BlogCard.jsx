@@ -4,8 +4,8 @@ import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
 import { useSelector } from "react-redux";
 
 const BlogCard = ({ blog }) => {
-  const { imagePreview, title, tags, createdAt } = blog;
-  const { authUser } = useSelector((state) => state.auth);
+  const { imagePreview, title, tags, createdAt, author } = blog;
+  console.log({ blog });
   return (
     <div className="blog-card">
       <img src={imagePreview} alt={title} className="blog-card__banner" />
@@ -15,14 +15,14 @@ const BlogCard = ({ blog }) => {
       <h3 className="blog-card__blog-title">{title}</h3>
       <div className="blog-card__author-info">
         <img
-          src={
-            authUser?.profileImage ? authUser.profileImage : defaultProfileIcon
-          }
-          alt={authUser?.usernamename}
+          src={author?.profileImage ? author.profileImage : defaultProfileIcon}
+          alt={author?.usernamename}
           className="blog-card__author-info__author-image"
         />
 
-        <p className="blog-card__author-infoauthor-name">{authUser.username}</p>
+        <p className="blog-card__author-info__author-name">
+          {author.firstname} {author.lastname}
+        </p>
         <p className="blog-card__author-info__blog-createdAt">
           {createdAt?.substring(0, 10)}
         </p>
