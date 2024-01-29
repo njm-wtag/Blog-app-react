@@ -13,10 +13,9 @@ const Profile = () => {
   const [files, setFiles] = useState([]);
   const { authUser } = useSelector((state) => state.auth);
   const { blogs } = useSelector((state) => state.blogs);
-  const reversedBlog = [...blogs].reverse();
-  const authBlogs = reversedBlog.filter(
-    (blog) => blog.author.id === authUser.id
-  );
+  const blogByAuthor = [...blogs]
+    .filter(({ author }) => author.id === authUser.id)
+    .reverse();
   const dispatch = useDispatch();
 
   const convertToBase64 = (file) => {
@@ -44,7 +43,6 @@ const Profile = () => {
     dispatch(postBlog(blog));
     setIsAddBlogFormOpen && setIsAddBlogFormOpen(false);
   };
-
   return (
     <div className="profile-page">
       <ButtonContainer
@@ -63,7 +61,7 @@ const Profile = () => {
         />
       )}
       <h3>My published posts</h3>
-      <BlogList blogs={authBlogs} />
+      <BlogList blogs={blogByAuthor} />
     </div>
   );
 };
