@@ -5,7 +5,7 @@ import "./BlogList.scss";
 const BlogList = ({ blogs }) => {
   return (
     <div className="blog-list">
-      {blogs.map((blog) => (
+      {[...blogs].reverse().map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
     </div>

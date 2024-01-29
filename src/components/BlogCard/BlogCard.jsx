@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
-import "./BlogCard.scss";
 import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
 import { Link } from "react-router-dom";
+import "./BlogCard.scss";
 
 const BlogCard = ({ blog }) => {
-  const { imagePreview, title, tags, createdAt, author } = blog;
+  const { bannerImage, title, tags, createdAt, author } = blog;
   return (
     <div className="blog-card">
       <Link to={`/blog/${blog.id}`}>
-        <img src={imagePreview} alt={title} className="blog-card__banner" />
+        <img src={bannerImage} alt={title} className="blog-card__banner" />
         <div className="blog-card__category-badge">
           {tags ? tags[0].value : "Unknown Category"}
         </div>

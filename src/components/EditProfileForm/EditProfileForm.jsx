@@ -1,8 +1,17 @@
 import { Field, Form } from "react-final-form";
 import "./EditProfileForm.scss";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updatedAuthUser } from "../../rtk/features/auth/authSlice";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import Button from "../Button/Button";
+import { convertToBase64 } from "../../utils/base64Image";
 
-const EditProfileForm = () => {
+const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
+  const { authUser, success } = useSelector((state) => state.auth);
+  const [imagePreview, setImagePreview] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const dispatch = useDispatch();
   const validate = (values) => {
     const errors = {};
     if (!values.firstname) {
@@ -12,45 +21,20 @@ const EditProfileForm = () => {
     return errors;
   };
 
-  // const saveToLocalStorage = (values) => {
-  //   const formData = new FormData();
-  //   formData.append("image", values.image);
-
-  //   console.log(formData);
-
-  //   console.log(values);
-
-  //   // localStorage.setItem("authUser", JSON.stringify(values));
-  // };
-
-  const loadFromLocalStorage = () => {
-    const storedValues = localStorage.getItem("authUser");
-    return storedValues ? JSON.parse(storedValues) : {};
-  };
-  const initialValues = loadFromLocalStorage();
-
-  const onSubmit = (values) => {
-    localStorage.setItem("authUser", JSON.stringify(values));
-    console.log(values);
-    // const reader = new FileReader();
-    // reader.readAsDataURL(values.image);
-    // console.log(reader);
-    // const formData = new FormData();
-    // formData.append("name", values.name);
-    // if (values.image.length > 0) formData.append("image", values.image);
-    // formData.append("name", values.name);
-    // console.log(formData);
+  const onSubmit = (userInfo) => {
+    dispatch(updatedAuthUser(userInfo));
+    setIsEditProfileFormOpen(false);
   };
 
   useEffect(() => {
-    loadFromLocalStorage();
-  }, []);
+    setImagePreview(selectedImage !== null || Boolean(authUser.profileImage));
+  }, [success === true, selectedImage, authUser.profileImage]);
 
   return (
     <Form
       onSubmit={onSubmit}
       validate={validate}
-      initialValues={initialValues}
+      initialValues={authUser}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <Field name="firstname">
@@ -75,7 +59,7 @@ const EditProfileForm = () => {
             {({ input, meta }) => (
               <div className="form-container__field">
                 <label>Userame</label>
-                <input {...input} type="text" placeholder="Username" />
+                <input {...input} type="text" placeholder="Username" readOnly />
                 {meta.error && <span>{meta.error}</span>}
               </div>
             )}
@@ -98,37 +82,41 @@ const EditProfileForm = () => {
               </div>
             )}
           </Field>
-          <Field name="image">
+          <Field name="profileImage">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-container__field custom-file-input">
                 <label>Profile Image</label>
                 <input
                   type="file"
-                  placeholder="Profile Image"
-                  // onChange={() => console.log(form.getState().values)}
-                  onChange={(e) => input.onChange(e.target.files[0])}
+                  onChange={async (e) => {
+                    const newSelectedImage = await convertToBase64(
+                      e.target.files[0]
+                    );
+                    setSelectedImage(newSelectedImage);
+                    input.onChange(newSelectedImage);
+                  }}
                 />
+                {
+                  <img
+                    className="author-about__details__image"
+                    src={selectedImage ? selectedImage : authUser.profileImage}
+                  />
+                }
                 {meta.error && <span>{meta.error}</span>}
               </div>
             )}
           </Field>
-
-          {/* <Field name="profileImage">
-            {({ input: { ...input }, }) => (
-              <input
-                {...input}
-                type="file"
-                onChange={({ target }) => onChange(target.files)}
-              />
-            )}
-          </Field> */}
-          <div>
-            <button
-              type="submit"
-              // disabled={submitting || pristine}
-            >
+          <div className="form__buttons">
+            <Button type={"submit"} className="submit-button">
               Submit
-            </button>
+            </Button>
+            <Button
+              type={"button"}
+              onclickHandler={() => setIsEditProfileFormOpen(false)}
+              className="cancel-button"
+            >
+              Cancel
+            </Button>
           </div>
         </form>
       )}
@@ -137,3 +125,7 @@ const EditProfileForm = () => {
 };
 
 export default EditProfileForm;
+
+EditProfileForm.propTypes = {
+  setIsAddBlogFormOpen: PropTypes.func,
+};

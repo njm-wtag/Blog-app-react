@@ -15,6 +15,11 @@ form {
       margin-bottom: 5px;
     }
 
+    input[type="file"] {
+      border: 2px dashed #e8e8ea;
+      background-color: #fff;
+    }
+
     input,
     textarea {
       width: 100%;

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import "./AuthorAbout.scss";
+import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
 import fb from "../../assets/images/fb.png";
 import twitter from "../../assets/images/twitter.png";
 import insta from "../../assets/images/insta.png";
@@ -11,7 +12,9 @@ const AuthorAbout = ({ authUser }) => {
       <div className="author-about__details">
         <img
           className="author-about__details__image"
-          src={`https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png`}
+          src={
+            authUser.profileImage ? authUser.profileImage : defaultProfileIcon
+          }
           alt="Profile"
         />
         <div className="author-about__details__info">

@@ -1,18 +1,20 @@
 import { Field, Form } from "react-final-form";
 import PropTypes from "prop-types";
-import "./AddBlogForm.scss";
-import ImageDnD from "../ImageDnD/ImageDnD";
+import "./BlogForm.scss";
 import Button from "../Button/Button";
 import SelectBox from "../SelectBox/SelectBox";
+import { useEffect, useState } from "react";
+import { convertToBase64 } from "../../utils/base64Image";
 
-const AddBlogForm = ({
-  setIsAddBlogFormOpen,
-  blogDetails,
-  onSubmit,
-  files,
-  setFiles,
-}) => {
-  if (blogDetails) console.log(blogDetails);
+const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
+  const [imagePreview, setImagePreview] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    setImagePreview(
+      selectedImage !== null || Boolean(blogDetails?.bannerImage)
+    );
+  }, [selectedImage, blogDetails?.bannerImage]);
 
   return (
     <Form
@@ -49,9 +51,24 @@ const AddBlogForm = ({
             {({ meta, input }) => (
               <div className="form-container__field">
                 <label>Banner Image</label>
-
-                <ImageDnD input={input} files={files} setFiles={setFiles} />
-                <img src={blogDetails?.imagePreview} />
+                <input
+                  type="file"
+                  onChange={async (e) => {
+                    const newSelectedImage = await convertToBase64(
+                      e.target.files[0]
+                    );
+                    setSelectedImage(newSelectedImage);
+                    input.onChange(newSelectedImage);
+                  }}
+                />
+                {(blogDetails || selectedImage) && (
+                  <img
+                    className="author-about__details__image"
+                    src={
+                      selectedImage ? selectedImage : blogDetails.bannerImage
+                    }
+                  />
+                )}
 
                 {meta.error && <span>{meta.error}</span>}
               </div>
@@ -85,8 +102,8 @@ const AddBlogForm = ({
   );
 };
 
-AddBlogForm.propTypes = {
+BlogForm.propTypes = {
   setIsAddBlogFormOpen: PropTypes.func,
 };
 
-export default AddBlogForm;
+export default BlogForm;

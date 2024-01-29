@@ -39,7 +39,7 @@ const BlogDetails = ({ blogDetails }) => {
       </div>
 
       <img
-        src={blogDetails.imagePreview}
+        src={blogDetails.bannerImage}
         alt=""
         className="blog-details__banner"
       />

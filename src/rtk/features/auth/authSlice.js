@@ -20,6 +20,13 @@ export const userLoggedIn = createAsyncThunk(
     return authUser;
   }
 );
+export const updatedAuthUser = createAsyncThunk(
+  "auth/updatedAuthUser",
+  async (userInfo) => {
+    localStorage.setItem("authUser", JSON.stringify(userInfo));
+    return userInfo;
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -43,6 +50,20 @@ const authSlice = createSlice({
         state.success = true;
       })
       .addCase(userLoggedIn.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updatedAuthUser.pending, (state) => {
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(updatedAuthUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        state.authUser = action.payload;
+        state.success = true;
+      })
+      .addCase(updatedAuthUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
