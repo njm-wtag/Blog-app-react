@@ -1,23 +1,28 @@
-import { mockBlogs } from "../../data/mockData";
-import { getCategoryById } from "../../utils/helperData";
+import PropTypes from "prop-types";
 import "./HomeBanner.scss";
 
-const HomeBanner = () => {
-  const authUser = JSON.parse(localStorage.getItem("authUser"));
-  const category = getCategoryById(mockBlogs[1].categoryId);
+const HomeBanner = ({ authUser, blogs }) => {
+  console.log(blogs);
   return (
     <div className="home-banner">
       <div className="home-banner__background-image"></div>
       {authUser ? (
-        <h2 className="home-banner__blog-title">{mockBlogs[1].title}</h2>
+        <h2 className="home-banner__blog-title">{blogs[0].title}</h2>
       ) : (
         <div className="home-banner__card">
-          <h2 className="home-banner__card_blog-title">{mockBlogs[1].title}</h2>
-          <p className="home-banner__card_category-name">{category.name}</p>
+          <h2 className="home-banner__card_blog-title">{blogs[0].title}</h2>
+          <p className="home-banner__card_category-name">
+            {blogs[0].tags[0].label}
+          </p>
         </div>
       )}
     </div>
   );
+};
+
+HomeBanner.propTypes = {
+  authUser: PropTypes.object,
+  blogs: PropTypes.array,
 };
 
 export default HomeBanner;
