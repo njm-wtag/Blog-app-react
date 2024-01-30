@@ -5,7 +5,7 @@ const HomeBanner = ({ authUser, blog }) => {
   return (
     <div
       className="home-banner"
-      style={{ backgroundImage: `url(${blog.bannerImage})` }}
+      style={{ backgroundImage: `url(${blog?.bannerImage})` }}
     >
       <div
         className={!authUser ? "home-banner__card" : "home-banner__auth-card"}
@@ -26,7 +26,7 @@ const HomeBanner = ({ authUser, blog }) => {
               : "home-banner__auth-card__blog-title"
           }
         >
-          {blog.title}
+          {blog?.title}
         </h2>
 
         <div
@@ -37,8 +37,8 @@ const HomeBanner = ({ authUser, blog }) => {
           }
         >
           <img
-            src={blog.author?.profileImage}
-            alt={blog.author?.usernamename}
+            src={blog?.author?.profileImage}
+            alt={blog?.author?.usernamename}
             className={
               !authUser
                 ? "blog-details__author-info__author-image"
@@ -53,14 +53,14 @@ const HomeBanner = ({ authUser, blog }) => {
                 : "home-banner__auth-card__author-info__author-name"
             }
           >
-            {blog.author.username}
+            {blog?.author?.username}
           </p>
           <p
             className={
               !authUser ? "blog-details__author-info__blog-createdAt" : ""
             }
           >
-            {blog.createdAt?.substring(0, 10)}
+            {blog?.createdAt?.substring(0, 10)}
           </p>
         </div>
       </div>
