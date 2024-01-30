@@ -22,9 +22,10 @@ function App() {
         <Route index path="/" element={<Home />} />
         <Route path="/" element={<PrivateRoute />}>
           <Route path={authUser?.username} element={<Profile />} />
+          <Route path="/edit-blog/:blogId" element={<EditBlog />} />
         </Route>
         <Route path="/blog/:blogId" element={<Blog />} />
-        <Route path="/edit-blog/:blogId" element={<EditBlog />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
