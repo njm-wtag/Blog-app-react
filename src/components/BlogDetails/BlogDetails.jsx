@@ -5,7 +5,8 @@ import EditIcon from "../icons/EditIcon";
 import { Link } from "react-router-dom";
 const BlogDetails = ({ blogDetails }) => {
   const { authUser } = useSelector((state) => state.auth);
-  const isEditable = blogDetails.author.id === authUser.id;
+  const isEditable = blogDetails.author.id === authUser?.id;
+
   return (
     <div className="blog-details">
       {isEditable && (
