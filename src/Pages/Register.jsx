@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, React } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthForm from "../components/AuthForm/AuthForm";
 import { useNavigate } from "react-router-dom";
@@ -6,18 +6,18 @@ import {
   registeredUser,
   resetRegisterState,
 } from "../rtk/features/register/registerSlice";
+import Layout from "../components/Layout/Layout";
 
 const Register = () => {
-  const { success, error } = useSelector((state) => state.register);
-
-  const [responseMessage, setResponseMessage] = useState("");
+  const { success } = useSelector((state) => state.register);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (values) => {
-    values.id = Date.now();
-    dispatch(registeredUser(values));
+  const handleSubmit = (user) => {
+    console.log(user);
+    user.id = Date.now();
+    dispatch(registeredUser(user));
   };
 
   useEffect(() => {
@@ -25,15 +25,13 @@ const Register = () => {
       dispatch(resetRegisterState());
       navigate("/login");
     }
-
-    if (error) setResponseMessage(error);
-  }, [success, error, navigate, dispatch]);
+  }, [success, dispatch]);
 
   return (
-    <>
+    <Layout>
       <h1>Register</h1>
-      <AuthForm handleSubmit={handleSubmit} responseMessage={responseMessage} />
-    </>
+      <AuthForm handleSubmit={handleSubmit} />
+    </Layout>
   );
 };
 

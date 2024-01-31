@@ -10,7 +10,7 @@ const initialState = {
 export const registeredUser = createAsyncThunk(
   "register/registeredUser",
   async (user) => {
-    const existingUsers = JSON.parse(
+    const existingUsers = await JSON.parse(
       localStorage.getItem("users") || JSON.stringify([])
     );
     const updatedUsers = [...existingUsers, user];
