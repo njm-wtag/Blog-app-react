@@ -1,14 +1,15 @@
+import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { userLoggedOut } from "../../rtk/features/auth/authSlice";
+import { loggedOutUser } from "../../rtk/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const RootLayout = () => {
+const Layout = ({ children }) => {
   const { authUser } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(userLoggedOut());
+    dispatch(loggedOutUser());
     navigate("/login");
   };
 
@@ -16,11 +17,12 @@ const RootLayout = () => {
     <div>
       <h1>header</h1>
       {authUser && <button onClick={handleLogout}>Logout</button>}
-      <main>
+      {/* <main>
         <Outlet />
-      </main>
+      </main> */}
+      <div>{children}</div>
     </div>
   );
 };
 
-export default RootLayout;
+export default Layout;

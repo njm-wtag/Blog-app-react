@@ -1,23 +1,28 @@
+import React from "react";
 import PropTypes from "prop-types";
 import { Field, Form } from "react-final-form";
 import { Link, useLocation } from "react-router-dom";
 import "./AuthForm.scss";
 import authValidation from "../../utils/authValidation";
+import { useSelector } from "react-redux";
 const AuthForm = ({ handleSubmit, responseMessage }) => {
+  const { success, authUser, error } = useSelector((state) => state.auth);
   const location = useLocation();
   const pathname = location.pathname;
   const isRegisterForm = pathname === "/register";
   return (
     <div className="form-container">
-      <div
-        className={
-          isRegisterForm
-            ? "form-container__success-message"
-            : "form-container__error-message"
-        }
-      >
-        {responseMessage}
-      </div>
+      {error && (
+        <div
+          className={
+            isRegisterForm
+              ? "form-container__success-message"
+              : "form-container__error-message"
+          }
+        >
+          {error}
+        </div>
+      )}
       <Form
         onSubmit={handleSubmit}
         validate={(values) => authValidation(values, isRegisterForm)}
