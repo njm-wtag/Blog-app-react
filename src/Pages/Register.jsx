@@ -15,7 +15,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (user) => {
-    console.log(user);
     user.id = Date.now();
     dispatch(registeredUser(user));
   };
