@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authenticateUser from "../../../utils/authUtils";
+import authenticateUser from "../../utils/authUtils";
 
-const initialState = {
+const INITIAL_STATE = {
   loading: false,
   authUser: JSON.parse(localStorage.getItem("authUser")),
   error: "",
@@ -28,7 +28,7 @@ export const loggedInUser = createAsyncThunk(
 
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: INITIAL_STATE,
   reducers: {
     loggedOutUser: () => {
       localStorage.removeItem("authUser");

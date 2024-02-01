@@ -1,10 +1,12 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import { loggedOutUser } from "../../rtk/features/auth/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import { loggedOutUser } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import useAuth from "../../hook/useAuth";
 
 const Layout = ({ children }) => {
-  const { authUser } = useSelector((state) => state.auth);
+  const { authUser } = useAuth();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,12 +19,13 @@ const Layout = ({ children }) => {
     <div>
       <h1>header</h1>
       {authUser && <button onClick={handleLogout}>Logout</button>}
-      {/* <main>
-        <Outlet />
-      </main> */}
       <div>{children}</div>
     </div>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

@@ -1,21 +1,23 @@
 import { useEffect, React } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import AuthForm from "../components/AuthForm/AuthForm";
 import { useNavigate } from "react-router-dom";
 import {
   registeredUser,
   resetRegisterState,
-} from "../rtk/features/register/registerSlice";
+} from "../features/register/registerSlice";
 import Layout from "../components/Layout/Layout";
+import useRegister from "../hook/useRegister";
+import { v4 as uuidv4 } from "uuid";
 
 const Register = () => {
-  const { success } = useSelector((state) => state.register);
+  const { success } = useRegister();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleSubmit = (user) => {
-    user.id = Date.now();
+    user.id = uuidv4();
+    user.joinedDate = new Date().toISOString();
     dispatch(registeredUser(user));
   };
 
@@ -24,7 +26,7 @@ const Register = () => {
       dispatch(resetRegisterState());
       navigate("/login");
     }
-  }, [success, dispatch]);
+  }, [success, navigate, dispatch]);
 
   return (
     <Layout>

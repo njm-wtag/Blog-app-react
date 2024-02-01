@@ -1,12 +1,12 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { Field, Form } from "react-final-form";
 import { Link, useLocation } from "react-router-dom";
-import "./AuthForm.scss";
 import authValidation from "../../utils/authValidation";
-import { useSelector } from "react-redux";
-const AuthForm = ({ handleSubmit, responseMessage }) => {
-  const { success, authUser, error } = useSelector((state) => state.auth);
+import useAuth from "../../hook/useAuth";
+import "./AuthForm.scss";
+
+const AuthForm = ({ handleSubmit }) => {
+  const { error } = useAuth();
   const location = useLocation();
   const pathname = location.pathname;
   const isRegisterForm = pathname === "/register";
@@ -72,13 +72,7 @@ const AuthForm = ({ handleSubmit, responseMessage }) => {
                 </div>
               )}
             </Field>
-            <Field name="joinDate">
-              {({ input }) => (
-                <div className="form-container__field">
-                  <input {...input} type="date" hidden />
-                </div>
-              )}
-            </Field>
+
             {submitError && (
               <div className="form-container__error">{submitError}</div>
             )}
@@ -89,9 +83,15 @@ const AuthForm = ({ handleSubmit, responseMessage }) => {
             </div>
             <div className="form-container__link-button">
               {isRegisterForm ? (
-                <Link to="/login">Already have an account? Login</Link>
+                <span>
+                  {" "}
+                  Already have an account? <Link to="/login"> Login</Link>
+                </span>
               ) : (
-                <Link to="/register">Do not have an account? Register</Link>
+                <span>
+                  {" "}
+                  Do not have an account? <Link to="/register">Register</Link>
+                </span>
               )}
             </div>
           </form>
@@ -103,7 +103,6 @@ const AuthForm = ({ handleSubmit, responseMessage }) => {
 
 AuthForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  responseMessage: PropTypes.string,
 };
 
 export default AuthForm;
