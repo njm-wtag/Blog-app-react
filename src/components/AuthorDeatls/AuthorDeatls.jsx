@@ -1,17 +1,18 @@
 import PropTypes from "prop-types";
-import "./AuthorAbout.scss";
-import fb from "../../assets/images/fb.png";
-import twitter from "../../assets/images/twitter.png";
-import insta from "../../assets/images/insta.png";
-import youtube from "../../assets/images/youtube.png";
+import defaultProfileIcon from "assets/images/default-profile-icon.svg";
+import facebook from "assets/images/fb.png";
+import twitter from "assets/images/twitter.png";
+import instagram from "assets/images/insta.png";
+import youtube from "assets/images/youtube.png";
+import "./AuthorDeatls.scss";
 
-const AuthorAbout = ({ authUser }) => {
+const AuthorDeatls = ({ authUser }) => {
   return (
     <div className="author-about">
       <div className="author-about__details">
         <img
-          className="author-about__details__image"
-          src={`https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png`}
+          className="author-about__details--image"
+          src={defaultProfileIcon}
           alt="Profile"
         />
         <div className="author-about__details__info">
@@ -27,7 +28,7 @@ const AuthorAbout = ({ authUser }) => {
       <p className="author-about__about">{authUser?.about}</p>
       <div className="author-about__social-links">
         <div className="author-about__social-links_link">
-          <img src={fb} alt="fb-link" />
+          <img src={facebook} alt="fb-link" />
         </div>
         <div>
           <img
@@ -37,7 +38,7 @@ const AuthorAbout = ({ authUser }) => {
           />
         </div>
         <div className="author-about__social-links_link">
-          <img src={insta} alt="fb-link" />
+          <img src={instagram} alt="fb-link" />
         </div>
         <div className="author-about__social-links_link">
           <img src={youtube} alt="fb-link" />
@@ -46,7 +47,19 @@ const AuthorAbout = ({ authUser }) => {
     </div>
   );
 };
-AuthorAbout.propTypes = {
-  authUser: PropTypes.object,
+
+AuthorDeatls.defaultProps = { authUser: null };
+
+AuthorDeatls.propTypes = {
+  authUser: PropTypes.shape({
+    id: PropTypes.number,
+    firstname: PropTypes.string,
+    lastname: PropTypes.string,
+    email: PropTypes.string,
+    username: PropTypes.string,
+    about: PropTypes.string,
+    subtitle: PropTypes.string,
+  }),
 };
-export default AuthorAbout;
+
+export default AuthorDeatls;

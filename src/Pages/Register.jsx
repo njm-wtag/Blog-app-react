@@ -1,12 +1,12 @@
 import { useEffect, React } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AuthForm from "../components/AuthForm/AuthForm";
+import AuthForm from "components/AuthForm/AuthForm";
 import { useNavigate } from "react-router-dom";
 import {
   registeredUser,
   resetRegisterState,
-} from "../rtk/features/register/registerSlice";
-import Layout from "../components/Layout/Layout";
+} from "rtk/features/register/registerSlice";
+import Layout from "components/Layout/Layout";
 
 const Register = () => {
   const { success } = useSelector((state) => state.register);

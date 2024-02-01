@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { getAuthorById, getCategoryById } from "../../utils/helpers";
+import { getAuthorById, getCategoryById } from "utils/helpers";
 import "./BlogCard.scss";
-import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
+import defaultProfileIcon from "assets/images/default-profile-icon.svg";
 
 const BlogCard = ({ blog }) => {
   const { bannerImage, categoryId, title, authorId, createdAt } = blog;

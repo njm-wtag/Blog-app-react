@@ -1,9 +1,9 @@
-import AuthForm from "../components/AuthForm/AuthForm";
+import AuthForm from "components/AuthForm/AuthForm";
 import { useEffect, React } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loggedInUser } from "../rtk/features/auth/authSlice";
+import { loggedInUser } from "rtk/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout/Layout";
+import Layout from "components/Layout/Layout";
 
 const Login = () => {
   const { success } = useSelector((state) => state.auth);

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { Field, Form } from "react-final-form";
 import { Link, useLocation } from "react-router-dom";
 import "./AuthForm.scss";
-import authValidation from "../../utils/authValidation";
+import authValidation from "utils/authValidation";
 import { useSelector } from "react-redux";
-const AuthForm = ({ handleSubmit, responseMessage }) => {
-  const { success, authUser, error } = useSelector((state) => state.auth);
+const AuthForm = ({ handleSubmit }) => {
+  const { error } = useSelector((state) => state.auth);
   const location = useLocation();
   const pathname = location.pathname;
   const isRegisterForm = pathname === "/register";

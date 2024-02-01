@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { loggedOutUser } from "../../rtk/features/auth/authSlice";
+import { loggedOutUser } from "rtk/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Layout = ({ children }) => {
