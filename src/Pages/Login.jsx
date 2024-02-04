@@ -1,15 +1,16 @@
 import AuthForm from "components/AuthForm/AuthForm";
-import { useEffect, React } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loggedInUser } from "rtk/features/auth/authSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loggedInUser } from "features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import Layout from "components/Layout/Layout";
+import useAuth from "../hook/useAuth";
 
 const Login = () => {
-  const { success } = useSelector((state) => state.auth);
-
+  const { success } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleSubmit = (values) => {
     dispatch(loggedInUser(values));
   };
@@ -18,7 +19,7 @@ const Login = () => {
     if (success) {
       navigate("/");
     }
-  }, [success]);
+  }, [success, navigate]);
 
   return (
     <Layout>

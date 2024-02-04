@@ -1,11 +1,11 @@
-import React from "react";
 import Layout from "components/Layout/Layout";
-import { useSelector } from "react-redux";
 import AuthorDeatls from "components/AuthorDeatls/AuthorDeatls";
 import BlogList from "components/BlogList/BlogList";
+import useAuth from "src/hook/useAuth";
 
 const Profile = () => {
-  const { authUser } = useSelector((state) => state.auth);
+  const { authUser } = useAuth();
+  console.log();
   return (
     <Layout className="profile-page">
       <AuthorDeatls authUser={authUser} />

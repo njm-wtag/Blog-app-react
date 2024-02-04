@@ -1,4 +1,4 @@
-const useAuth = () => {
+const useLocalStorageAuth = () => {
   const getAuthUser = localStorage.getItem("authUser");
   const auth = JSON.parse(getAuthUser);
   if (getAuthUser !== undefined && auth?.username && auth?.password) {
@@ -7,4 +7,4 @@ const useAuth = () => {
   return false;
 };
 
-export default useAuth;
+export default useLocalStorageAuth;
