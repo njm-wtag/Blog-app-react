@@ -1,8 +1,15 @@
+import { Link } from "react-router-dom";
+import Layout from "components/Layout/Layout";
+import { useSelector } from "react-redux";
+
 const Home = () => {
+  const { blogs } = useSelector((state) => state.blogs);
+  console.log(blogs);
   return (
-    <div>
+    <Layout>
       <h1> Home </h1>
-    </div>
+      <Link to={`/me`}>Profile</Link>
+    </Layout>
   );
 };
 

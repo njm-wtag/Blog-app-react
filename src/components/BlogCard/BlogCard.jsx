@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import "./BlogCard.scss";
-import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
-import { useSelector } from "react-redux";
+import defaultProfileIcon from "assets/images/default-profile-icon.svg";
 
 const BlogCard = ({ blog }) => {
   const { imagePreview, title, tags, createdAt, author } = blog;
@@ -16,20 +15,21 @@ const BlogCard = ({ blog }) => {
       <div className="blog-card__author-info">
         <img
           src={author?.profileImage ? author.profileImage : defaultProfileIcon}
-          alt={author?.usernamename}
-          className="blog-card__author-info__author-image"
+          alt={author?.username}
+          className="blog-card__author-info--author-image"
         />
-
-        <p className="blog-card__author-info__author-name">
-          {author.firstname} {author.lastname}
+        <p className="blog-card__author-info--author-name">
+          {author?.firstname} {author?.lastname}
         </p>
-        <p className="blog-card__author-info__blog-createdAt">
+        <p className="blog-card__author-info--blog-createdAt">
           {createdAt?.substring(0, 10)}
         </p>
       </div>
     </div>
   );
 };
+
+BlogCard.defaultProps = { blog: null };
 
 BlogCard.propTypes = {
   blog: PropTypes.object,

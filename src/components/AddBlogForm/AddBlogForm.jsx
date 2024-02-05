@@ -3,7 +3,7 @@ import { Field, Form } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import "./AddBlogForm.scss";
-import { postBlog } from "../../rtk/features/blogs/blogsSlice";
+import { postBlog } from "../../features/blogs/blogsSlice";
 import ImageDnD from "../ImageDnD/ImageDnD";
 import Button from "../Button/Button";
 import SelectBox from "../SelectBox/SelectBox";

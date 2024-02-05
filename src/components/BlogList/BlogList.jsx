@@ -6,7 +6,7 @@ const BlogList = ({ blogs }) => {
   const reversedBlog = [...blogs].reverse();
   return (
     <div className="blog-list">
-      {reversedBlog.map((blog) => (
+      {reversedBlog?.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
     </div>

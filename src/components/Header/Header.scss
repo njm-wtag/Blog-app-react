@@ -1,20 +1,17 @@
-@import "../../styles/colors";
-@import "../../styles/variables";
-
 .navbar {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: $sp-64;
+  margin-bottom: calc($sp-16 * 4);
   padding: $sp-12;
 
   &__title {
     color: black;
     font-family: "Inter", sans-serif;
-    font-size: $sp-32;
-    font-weight: 400;
+    font-size: calc($sp-16 * 2);
+    font-weight: $font-normal;
     line-height: $sp-20;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: left;
     text-decoration: none;
   }
@@ -22,32 +19,35 @@
   &__search {
     position: relative;
     input {
-      width: 359px;
-      height: 36px;
-      padding: $sp-8 $sp-16;
+      background-color: $background-gray;
       border: 0;
       border-radius: $sp-4;
       gap: $sp-12;
-      background-color: #f4f4f5;
+      height: $sp-36;
+      padding: $sp-8 $sp-16;
+      width: calc($sp-16 * 22 + $sp-8);
     }
     .search-icon {
       position: absolute;
       top: 50%;
-      right: 10px;
+      right: calc($sp-12 - $sp-2);
       transform: translateY(-50%);
     }
   }
 
   &__auth-access {
+    align-items: center;
+    display: flex;
+    gap: $sp-8;
     a {
+      color: $button-secondary-color;
       font-family: "Inter", sans-serif;
       font-size: $sp-20;
-      font-weight: 400;
+      font-weight: $font-bold;
+      letter-spacing: 0;
       line-height: $sp-20;
-      letter-spacing: 0em;
       text-align: center;
       text-decoration: none;
-      color: #0d58b0;
     }
   }
 }

@@ -1,16 +1,19 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./Header.scss";
 import SearchIcon from "../icons/SearchIcon";
-import { useDispatch, useSelector } from "react-redux";
-import { userLoggedOut } from "../../rtk/features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import useAuth from "hooks/useAuth";
+import { loggedOutUser } from "features/auth/authSlice";
+import LogoutIcon from "components/icons/LogoutIcon";
 
 const Header = () => {
-  const { authUser } = useSelector((state) => state.auth);
+  const { authUser } = useAuth();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(userLoggedOut());
+    dispatch(loggedOutUser());
     navigate("/login");
   };
 
@@ -27,12 +30,11 @@ const Header = () => {
         {authUser ? (
           <div className="navbar__auth-access">
             <div>
-              Welcome{" "}
-              <Link to={`/${authUser.username}`}>{authUser.username}!</Link>
-              <Link to="/login" onClick={handleLogout}>
-                Logout
-              </Link>
+              Welcome <Link to={`/me`}>{authUser.username}!</Link>
             </div>
+            <Link to="/login" onClick={handleLogout}>
+              <LogoutIcon />
+            </Link>
           </div>
         ) : (
           <div className="navbar__auth-access">

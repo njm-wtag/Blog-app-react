@@ -1,28 +1,30 @@
-import { useSelector } from "react-redux";
+import Layout from "components/Layout/Layout";
+import BlogList from "components/BlogList/BlogList";
+import AuthorDetails from "components/AuthorDetails/AuthorDetails";
 import { useState } from "react";
-import AuthorAbout from "../components/AuthorAbout/AuthorAbout";
-import BlogList from "../components/BlogList/BlogList";
-import AddBlogForm from "../components/AddBlogForm/AddBlogForm";
-import ButtonContainer from "../components/AddBlogEditProfileButtonsContainer/ButtonContainer";
+import { useSelector } from "react-redux";
+import AddBlogForm from "components/AddBlogForm/AddBlogForm";
+import ButtonContainer from "components/AddBlogEditProfileButtonsContainer/ButtonContainer";
 
 const Profile = () => {
   const { authUser } = useSelector((state) => state.auth);
   const { blogs } = useSelector((state) => state.blogs);
+  console.log(blogs);
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
 
   return (
-    <div className="profile-page">
+    <Layout className="profile-page">
       <ButtonContainer
         isAddBlogFormOpen={isAddBlogFormOpen}
         setIsAddBlogFormOpen={setIsAddBlogFormOpen}
       />
-      {authUser && <AuthorAbout authUser={authUser} />}
+      {authUser && <AuthorDetails />}
       {isAddBlogFormOpen && (
         <AddBlogForm setIsAddBlogFormOpen={setIsAddBlogFormOpen} />
       )}
       <h3>My published posts</h3>
       <BlogList blogs={blogs} />
-    </div>
+    </Layout>
   );
 };
 
