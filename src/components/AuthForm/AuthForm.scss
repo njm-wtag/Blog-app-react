@@ -1,11 +1,8 @@
-@import "../../styles/colors";
-@import "../../styles/variables";
-
 .form-container {
   &__form {
     min-width: calc($sp-16 * 30);
     margin: auto;
-    box-shadow: 0 0 $sp-16 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 $sp-16 $primary-gray;
     padding: $sp-20;
   }
   &__field {
@@ -34,7 +31,7 @@
       width: 100%;
       padding: $sp-16;
       background-color: $button-secondary-color;
-      color: $button-primary-color;
+      color: $primary-gray;
       border: none;
       border-radius: $sp-4;
       cursor: pointer;

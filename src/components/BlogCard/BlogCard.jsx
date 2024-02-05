@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { getAuthorById, getCategoryById } from "utils/helpers";
-import "./BlogCard.scss";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
+import "./BlogCard.scss";
 
 const BlogCard = ({ blog }) => {
   const { bannerImage, categoryId, title, authorId, createdAt } = blog;
@@ -18,15 +18,16 @@ const BlogCard = ({ blog }) => {
         <img
           src={author ? author.profileImage : defaultProfileIcon}
           alt={author.name}
-          className="blog-card__author-info__author-image"
+          className="blog-card__author-info--author-image"
         />
-
-        <p className="blog-card__author-infoauthor-name">{author.name}</p>
-        <p className="blog-card__author-info__blog-createdAt">{createdAt}</p>
+        <p className="blog-card__author-info--author-name">{author?.name}</p>
+        <p className="blog-card__author-info--blog-createdAt">{createdAt}</p>
       </div>
     </div>
   );
 };
+
+BlogCard.defaultProps = { blog: null };
 
 BlogCard.propTypes = {
   blog: PropTypes.object,

@@ -1,14 +1,11 @@
 import Layout from "components/Layout/Layout";
-import AuthorDeatls from "components/AuthorDeatls/AuthorDeatls";
 import BlogList from "components/BlogList/BlogList";
-import useAuth from "src/hook/useAuth";
+import AuthorDetails from "components/AuthorDetails/AuthorDetails";
 
 const Profile = () => {
-  const { authUser } = useAuth();
-  console.log();
   return (
     <Layout className="profile-page">
-      <AuthorDeatls authUser={authUser} />
+      <AuthorDetails />
       <BlogList />
     </Layout>
   );

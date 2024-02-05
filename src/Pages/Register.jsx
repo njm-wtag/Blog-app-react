@@ -7,7 +7,7 @@ import {
   resetRegisterState,
 } from "../features/register/registerSlice";
 import Layout from "../components/Layout/Layout";
-import useRegister from "../hook/useRegister";
+import useRegister from "../hooks/useRegister";
 import { v4 as uuidv4 } from "uuid";
 
 const Register = () => {

@@ -1,6 +1,6 @@
 .blog-list {
   display: grid;
+  gap: $sp-16;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin: 1.75rem 0;
+  margin: calc($sp-24 + $sp-4) 0;
 }

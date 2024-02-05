@@ -5,7 +5,7 @@ import "./BlogList.scss";
 const BlogList = () => {
   return (
     <div className="blog-list">
-      {mockBlogs.map((blog) => (
+      {mockBlogs?.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
     </div>

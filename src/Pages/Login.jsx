@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { loggedInUser } from "features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import Layout from "components/Layout/Layout";
-import useAuth from "../hook/useAuth";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const { success } = useAuth();
