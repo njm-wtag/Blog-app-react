@@ -1,10 +1,10 @@
-import AuthForm from "components/AuthForm/AuthForm";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { loggedInUser } from "features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import useAuth from "hooks/useAuth";
+import { loggedInUser } from "features/auth/authSlice";
+import AuthForm from "components/AuthForm/AuthForm";
 import Layout from "components/Layout/Layout";
-import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const { success } = useAuth();

@@ -1,15 +1,21 @@
 import PropTypes from "prop-types";
-import "./BlogCard.scss";
+import useRegister from "hooks/useRegister";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
+import "./BlogCard.scss";
 
 const BlogCard = ({ blog }) => {
-  const { imagePreview, title, tags, createdAt, author } = blog;
-  console.log({ blog });
+  const { bannerImage, imagePreview, title, tags, createdAt, authorId } = blog;
+  const { users } = useRegister();
+  const author = users.find((user) => user.id === authorId);
   return (
     <div className="blog-card">
-      <img src={imagePreview} alt={title} className="blog-card__banner" />
+      <img
+        src={imagePreview ? imagePreview : bannerImage}
+        alt={title}
+        className="blog-card__banner"
+      />
       <div className="blog-card__category-badge">
-        {tags ? tags[0].value : "Unknown Category"}
+        {tags ? tags[0].label : "Unknown Category"}
       </div>
       <h3 className="blog-card__blog-title">{title}</h3>
       <div className="blog-card__author-info">
@@ -29,10 +35,28 @@ const BlogCard = ({ blog }) => {
   );
 };
 
-BlogCard.defaultProps = { blog: null };
+BlogCard.defaultProps = {
+  blog: {
+    blog: {
+      bannerImage: [],
+      imagePreview: "",
+      title: "",
+      tags: [],
+      createdAt: "",
+      authorId: "",
+    },
+  },
+};
 
 BlogCard.propTypes = {
-  blog: PropTypes.object,
+  blog: PropTypes.shape({
+    bannerImage: PropTypes.array,
+    imagePreview: PropTypes.string,
+    title: PropTypes.string,
+    tags: PropTypes.array,
+    createdAt: PropTypes.string,
+    authorId: PropTypes.string,
+  }),
 };
 
 export default BlogCard;

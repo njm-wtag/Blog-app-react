@@ -1,9 +1,10 @@
-import PropTypes from "prop-types";
-import BlogCard from "../BlogCard/BlogCard";
+import useBlogs from "hooks/useBlogs";
+import BlogCard from "components/BlogCard/BlogCard";
 import "./BlogList.scss";
 
-const BlogList = ({ blogs }) => {
-  const reversedBlog = [...blogs].reverse();
+const BlogList = () => {
+  const reversedBlog = useBlogs();
+
   return (
     <div className="blog-list">
       {reversedBlog?.map((blog) => (
@@ -11,10 +12,6 @@ const BlogList = ({ blogs }) => {
       ))}
     </div>
   );
-};
-
-BlogList.propTypes = {
-  blogs: PropTypes.array,
 };
 
 export default BlogList;

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = {
+const INITIAL_STATE = {
   blogs: JSON.parse(localStorage.getItem("blogs")) || [],
   isLoading: false,
   isError: false,
@@ -18,7 +18,7 @@ export const postBlog = createAsyncThunk("blog/postBlog", async (blog) => {
 
 const blogSlice = createSlice({
   name: "blog",
-  initialState,
+  initialState: INITIAL_STATE,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -32,7 +32,7 @@ const blogSlice = createSlice({
       })
       .addCase(postBlog.rejected, (state, action) => {
         state.isLoading = false;
-        state.videos = [];
+        state.blogs = [];
         state.isError = true;
         state.error = action.error?.message;
       });

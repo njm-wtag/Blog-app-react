@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import AuthForm from "components/AuthForm/AuthForm";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import useRegister from "hooks/useRegister";
+import AuthForm from "components/AuthForm/AuthForm";
 import {
   registeredUser,
   resetRegisterState,
-} from "../features/register/registerSlice";
-import Layout from "../components/Layout/Layout";
-import useRegister from "../hooks/useRegister";
-import { v4 as uuidv4 } from "uuid";
+} from "features/register/registerSlice";
+import Layout from "components/Layout/Layout";
 
 const Register = () => {
   const { success } = useRegister();
