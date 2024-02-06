@@ -1,48 +1,48 @@
 form {
-  background-color: #f6f6f7;
-  padding: 1rem;
-  border-radius: 8px;
+  background-color: $background-gray;
+  border-radius: $sp-8;
   display: flex;
-
   flex-direction: column;
-  margin: 1.75rem 0;
+  margin: calc($sp-24 + $sp-4) 0;
+  padding: $sp-16;
 
   .title-tags-form-container {
     display: grid;
-    gap: 2rem;
+    gap: calc($sp-16 * 2);
     grid-template-columns: repeat(2, 1fr);
   }
 
   input,
   textarea {
-    width: 100%;
-    padding: 0.5rem;
+    border-radius: $sp-4;
+    border: $sp-2 solid $button-border-color;
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
+    padding: $sp-8;
+    width: 100%;
   }
 
   label {
     display: block;
-    font-weight: bold;
+    font-weight: $font-bold;
   }
   .form__buttons {
     text-align: center;
 
     .submit-button {
-      color: #fff;
-      background-color: #49a4cb;
-      border-radius: 0.25rem;
-      border: 1px solid #e8e8ea;
-      margin: 0 0.3rem;
-      padding: 0.25rem 0.75rem;
+      background-color: $button-secondary-color;
+      border-radius: $sp-4;
+      border: $sp-2 solid $primary-gray;
+      color: $primary-white;
+      margin: 0 calc($sp-4 + $sp-1);
+      padding: $sp-4 $sp-12;
     }
+
     .cancel-button {
-      background-color: #f2f2f2;
-      border-radius: 0.25rem;
-      border: 1px solid #e8e8ea;
-      margin: 0 0.3rem;
-      padding: 0.25rem 0.75rem;
+      background-color: $background-gray;
+      border-radius: $sp-4;
+      border: $sp-2 solid $primary-gray;
+      margin: 0 calc($sp-4 + $sp-1);
+      padding: $sp-4 $sp-12;
     }
   }
 }

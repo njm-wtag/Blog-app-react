@@ -32,7 +32,7 @@ const ImageDnD = ({ input, files, setFiles }) => {
 
   const style = useMemo(
     () => ({
-      container: true,
+      imgContainer: true,
     }),
     []
   );

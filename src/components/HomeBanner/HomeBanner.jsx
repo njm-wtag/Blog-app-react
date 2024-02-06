@@ -1,5 +1,5 @@
 import { mockBlogs } from "../../data/mockData";
-import { getCategoryById } from "../../utils/helperData";
+import { getCategoryById } from "utils/helperData";
 import "./HomeBanner.scss";
 
 const HomeBanner = () => {

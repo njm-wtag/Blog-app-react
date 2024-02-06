@@ -1,30 +1,33 @@
-import { useSelector } from "react-redux";
+import Layout from "components/Layout/Layout";
+import BlogList from "components/BlogList/BlogList";
+import AuthorDetails from "components/AuthorDetails/AuthorDetails";
 import { useState } from "react";
-import AuthorAbout from "../components/AuthorAbout/AuthorAbout";
-import BlogList from "../components/BlogList/BlogList";
-import AddBlogForm from "../components/AddBlogForm/AddBlogForm";
-import ButtonContainer from "../components/AddBlogEditProfileButtonsContainer/ButtonContainer";
+import AddBlogForm from "components/AddBlogForm/AddBlogForm";
+import ButtonContainer from "components/ButtonContainer/ButtonContainer";
+import useAuth from "hooks/useAuth";
+import useBlogs from "hooks/useBlogs";
 
 const Profile = () => {
-  const { authUser } = useSelector((state) => state.auth);
-  const { blogs } = useSelector((state) => state.blogs);
+  const { authUser } = useAuth();
+  const reversedBlog = useBlogs();
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
-  const blogByAuthor = [...blogs]
-    .filter(({ author }) => author.id === authUser.id)
-    .reverse();
+  const blogByAuthor = [...reversedBlog].filter(
+    ({ authorId }) => authorId === authUser.id
+  );
+
   return (
-    <div className="profile-page">
+    <Layout className="profile-page">
       <ButtonContainer
         isAddBlogFormOpen={isAddBlogFormOpen}
         setIsAddBlogFormOpen={setIsAddBlogFormOpen}
       />
-      {authUser && <AuthorAbout authUser={authUser} />}
+      {authUser && <AuthorDetails />}
       {isAddBlogFormOpen && (
         <AddBlogForm setIsAddBlogFormOpen={setIsAddBlogFormOpen} />
       )}
       <h3>My published posts</h3>
       <BlogList blogs={blogByAuthor} />
-    </div>
+    </Layout>
   );
 };
 

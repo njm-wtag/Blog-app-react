@@ -1,21 +1,23 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Field, Form } from "react-final-form";
-import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { v4 as uuidv4 } from "uuid";
+import useAuth from "hooks/useAuth";
+import { postBlog } from "features/blogs/blogsSlice";
+import ImageDnD from "components/ImageDnD/ImageDnD";
+import Button from "components/Button/Button";
+import SelectBox from "components/SelectBox/SelectBox";
 import "./AddBlogForm.scss";
-import { postBlog } from "../../rtk/features/blogs/blogsSlice";
-import ImageDnD from "../ImageDnD/ImageDnD";
-import Button from "../Button/Button";
-import SelectBox from "../SelectBox/SelectBox";
 
 const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
   const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
-  const { authUser } = useSelector((state) => state.auth);
+  const { authUser } = useAuth();
 
   const onSubmit = async (blog) => {
-    blog.id = Date.now();
-    blog.author = authUser;
+    blog.id = uuidv4();
+    blog.authorId = authUser.id;
     blog.createdAt = new Date().toISOString();
     const imagePreview = await convertToBase64(files[0]);
     blog.imagePreview = imagePreview;
@@ -96,7 +98,7 @@ const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
             </Button>
             <Button
               type={"button"}
-              onclickHandler={() => setIsAddBlogFormOpen(false)}
+              onClickHandler={() => setIsAddBlogFormOpen(false)}
               className="cancel-button"
             >
               Cancel
@@ -109,7 +111,7 @@ const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
 };
 
 AddBlogForm.propTypes = {
-  setIsAddBlogFormOpen: PropTypes.func,
+  setIsAddBlogFormOpen: PropTypes.func.isRequired,
 };
 
 export default AddBlogForm;

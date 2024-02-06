@@ -1,38 +1,38 @@
 .blog-details {
-  padding: 0 0.75rem;
+  padding: 0 $sp-12;
   &__category-badge {
-    background-color: #5b98da;
-    border-radius: 0 0.5rem 0 0;
-    color: #fff;
-    margin: 1rem 0;
-    padding: 0.5rem;
-    width: 9.375rem;
+    background-color: $button-secondary-color;
+    border-radius: 0 $sp-8 0 0;
+    color: $primary-white;
+    margin: $sp-16 0;
+    padding: $sp-8;
+    width: calc($sp-48 * 3 + $sp-2);
   }
 
   &__author-info {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.25rem;
+    gap: $sp-24;
+    margin-bottom: $sp-20;
 
     &__author-image {
-      width: 1rem;
-      height: 1rem;
+      width: $sp-16;
+      height: $sp-16;
     }
 
     &__author-name {
-      color: #777;
-      font-weight: bold;
+      color: $secondary-gray;
+      font-weight: $font-bold;
       margin: 0;
     }
 
     &__blog-createdAt {
-      color: #777;
+      color: $secondary-gray;
       margin: 0;
     }
   }
   &__banner {
     max-width: 100%;
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: $sp-8 $sp-8 0 0;
   }
 }

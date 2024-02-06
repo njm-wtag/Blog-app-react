@@ -1,16 +1,23 @@
-import PropTypes from "prop-types";
-import "./BlogCard.scss";
-import defaultProfileIcon from "../../assets/images/default-profile-icon.svg";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import useRegister from "hooks/useRegister";
+import defaultProfileIcon from "assets/images/default-profile-icon.svg";
+import "./BlogCard.scss";
 
 const BlogCard = ({ blog }) => {
-  const { imagePreview, title, tags, createdAt, author } = blog;
+  const { bannerImage, imagePreview, title, tags, createdAt, authorId } = blog;
+  const { users } = useRegister();
+  const author = users.find((user) => user.id === authorId);
   return (
     <div className="blog-card">
       <Link to={`/blog/${blog.id}`}>
-        <img src={imagePreview} alt={title} className="blog-card__banner" />
+        <img
+          src={imagePreview ? imagePreview : bannerImage}
+          alt={title}
+          className="blog-card__banner"
+        />
         <div className="blog-card__category-badge">
-          {tags ? tags[0].value : "Unknown Category"}
+          {tags ? tags[0].label : "Unknown Category"}
         </div>
         <h3 className="blog-card__blog-title">{title}</h3>
         <div className="blog-card__author-info">
@@ -18,14 +25,13 @@ const BlogCard = ({ blog }) => {
             src={
               author?.profileImage ? author.profileImage : defaultProfileIcon
             }
-            alt={author?.usernamename}
-            className="blog-card__author-info__author-image"
+            alt={author?.username}
+            className="blog-card__author-info--author-image"
           />
-
-          <p className="blog-card__author-info__author-name">
-            {author.firstname} {author.lastname}
+          <p className="blog-card__author-info--author-name">
+            {author?.firstname} {author?.lastname}
           </p>
-          <p className="blog-card__author-info__blog-createdAt">
+          <p className="blog-card__author-info--blog-createdAt">
             {createdAt?.substring(0, 10)}
           </p>
         </div>
@@ -34,8 +40,28 @@ const BlogCard = ({ blog }) => {
   );
 };
 
+BlogCard.defaultProps = {
+  blog: {
+    blog: {
+      bannerImage: [],
+      imagePreview: "",
+      title: "",
+      tags: [],
+      createdAt: "",
+      authorId: "",
+    },
+  },
+};
+
 BlogCard.propTypes = {
-  blog: PropTypes.object,
+  blog: PropTypes.shape({
+    bannerImage: PropTypes.array,
+    imagePreview: PropTypes.string,
+    title: PropTypes.string,
+    tags: PropTypes.array,
+    createdAt: PropTypes.string,
+    authorId: PropTypes.string,
+  }),
 };
 
 export default BlogCard;

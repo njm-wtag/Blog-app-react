@@ -6,20 +6,34 @@ const customStyles = {
     backgroundColor: "white",
     height: "32px",
   }),
+
   indicatorSeparator: () => null,
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    let backgroundColor, color, cursor;
+
+    if (isDisabled) {
+      backgroundColor = undefined;
+      color = "#ccc";
+      cursor = "not-allowed";
+    } else if (isSelected) {
+      backgroundColor = data.color;
+      color = "white";
+      cursor = "default";
+    } else if (isFocused) {
+      backgroundColor = "white";
+      color = "black";
+      cursor = "default";
+    } else {
+      backgroundColor = undefined;
+      color = "black";
+      cursor = "default";
+    }
+
     return {
       ...styles,
-      backgroundColor: isDisabled
-        ? undefined
-        : isSelected
-        ? data.color
-        : isFocused
-        ? "white"
-        : undefined,
-      color: isDisabled ? "#ccc" : isSelected ? "white" : "black",
-
-      cursor: isDisabled ? "not-allowed" : "default",
+      backgroundColor,
+      color,
+      cursor,
     };
   },
   multiValue: (styles) => {
@@ -38,8 +52,8 @@ const customStyles = {
     color: "white",
     borderRadius: "25px",
     position: "absolute",
-    top: -5,
-    right: -15,
+    bottom: "50%",
+    left: "90%",
     ":hover": {
       backgroundColor: "#E30B59",
       color: "white",
