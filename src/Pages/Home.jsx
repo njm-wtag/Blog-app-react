@@ -1,12 +1,15 @@
 import { useSelector } from "react-redux";
-import BlogList from "../components/BlogList/BlogList";
+import Layout from "components/Layout/Layout";
+import BlogList from "components/BlogList/BlogList";
+import useBlogs from "hooks/useBlogs";
 
 const Home = () => {
-  const { blogs } = useSelector((state) => state.blogs);
+  const { blogs } = useBlogs();
+
   return (
-    <div>
+    <Layout>
       <BlogList blogs={blogs} />
-    </div>
+    </Layout>
   );
 };
 

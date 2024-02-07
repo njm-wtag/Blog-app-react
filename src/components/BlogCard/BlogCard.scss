@@ -1,53 +1,57 @@
 .blog-card {
-  border: 1px solid #ddd;
-  border-radius: 0.5rem;
+  border: $sp-2 solid $primary-gray;
+  border-radius: calc($sp-4 * 2);
+  margin-bottom: $sp-16;
   overflow: hidden;
   margin-bottom: 1rem;
   & a {
     text-decoration: none;
   }
   &__banner {
+    border-radius: calc($sp-4 * 2) calc($sp-4 * 2) 0 0;
+    height: calc($sp-48 * 5 + $sp-2 * 5);
+    object-fit: cover;
     width: 100%;
-    height: 15rem;
-    border-radius: 0.5rem 0.5rem 0 0;
   }
 
   &__category-badge {
-    background-color: #5b98da;
-    border-radius: 0 0.5rem 0 0;
-    color: #fff;
-    margin: 1rem;
-    padding: 0.5rem;
-    width: 9.375rem;
+    background-color: $category-bg-color;
+    border-radius: calc($sp-4 + $sp-2);
+    color: $category-color;
+    margin: $sp-16;
+    padding: $sp-4 calc($sp-8 + $sp-2);
+    width: calc($sp-48 * 3 + $sp-2);
   }
 
   &__blog-title {
-    color: #000;
-    font-size: 1.125rem;
-    font-weight: bold;
-    margin: 1rem;
+    color: $primary-black;
+    font-size: calc($sp-16 + $sp-2);
+    font-weight: $font-bold;
+    margin: $sp-16;
   }
 
   &__author-info {
+    align-items: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    gap: 1rem;
-    padding: 0 1rem 1rem;
+    gap: $sp-16;
+    padding: 0 $sp-16 $sp-16;
 
-    &__author-image {
-      width: 1rem;
-      height: 1rem;
+    &--author-image {
+      border-radius: 50%;
+      height: $sp-36;
+      object-fit: cover;
+      width: $sp-36;
     }
 
-    &__author-name {
-      color: #777;
-      font-weight: bold;
-      margin-bottom: 0.25rem;
+    &--author-name {
+      color: $secondary-gray;
+      font-weight: $font-bold;
+      margin-bottom: $sp-4;
     }
 
-    &__blog-createdAt {
-      color: #777;
+    &--blog-createdAt {
+      color: $secondary-gray;
     }
   }
 }

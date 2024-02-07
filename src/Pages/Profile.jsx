@@ -1,36 +1,43 @@
-import { useDispatch, useSelector } from "react-redux";
+import Layout from "components/Layout/Layout";
+import { v4 as uuidv4 } from "uuid";
+import AuthorDetails from "components/AuthorDetails/AuthorDetails";
 import { useState } from "react";
-import AuthorAbout from "../components/AuthorAbout/AuthorAbout";
-import BlogList from "../components/BlogList/BlogList";
-import ButtonContainer from "../components/AddBlogEditProfileButtonsContainer/ButtonContainer";
-import EditProfileForm from "../components/EditProfileForm/EditProfileForm";
-import { postBlog } from "../rtk/features/blogs/blogsSlice";
-import BlogForm from "../components/BlogForm/BlogForm";
+import BlogList from "components/BlogList/BlogList";
+import EditProfileForm from "components/EditProfileForm/EditProfileForm";
+import { postBlog } from "features/blogs/blogsSlice";
+import BlogForm from "components/BlogForm/BlogForm";
+import useAuth from "hooks/useAuth";
+import useBlogs from "hooks/useBlogs";
+import ButtonContainer from "components/ButtonContainer/ButtonContainer";
+import { useDispatch } from "react-redux";
 
 const Profile = () => {
   const [isEditProfileFormOpen, setIsEditProfileFormOpen] = useState(false);
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
-  const { authUser } = useSelector((state) => state.auth);
-  const { blogs } = useSelector((state) => state.blogs);
-  const blogByAuthor = blogs.filter(({ author }) => author.id === authUser.id);
+  const { authUser } = useAuth();
+  const blogs = useBlogs();
   const dispatch = useDispatch();
 
+  const blogByAuthor = blogs?.filter(
+    ({ authorId }) => authorId === authUser.id
+  );
+
   const onSubmit = async (blog) => {
-    blog.id = Date.now();
-    blog.author = authUser;
+    blog.id = uuidv4();
+    blog.authorId = authUser.id;
     blog.createdAt = new Date().toISOString();
     dispatch(postBlog(blog));
     setIsAddBlogFormOpen && setIsAddBlogFormOpen(false);
   };
 
   return (
-    <div className="profile-page">
+    <Layout className="profile-page">
       <ButtonContainer
         setIsAddBlogFormOpen={setIsAddBlogFormOpen}
         setIsEditProfileFormOpen={setIsEditProfileFormOpen}
       />
 
-      {authUser && <AuthorAbout authUser={authUser} />}
+      {authUser && <AuthorDetails authUser={authUser} />}
       {isEditProfileFormOpen && (
         <EditProfileForm setIsEditProfileFormOpen={setIsEditProfileFormOpen} />
       )}
@@ -42,7 +49,7 @@ const Profile = () => {
       )}
       <h3>My published posts</h3>
       <BlogList blogs={blogByAuthor} />
-    </div>
+    </Layout>
   );
 };
 

@@ -1,0 +1,54 @@
+.author-about {
+  background-color: $background-gray;
+  border-radius: $sp-12;
+  padding: calc($sp-16 * 3);
+  text-align: center;
+
+  &__details {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: $sp-4;
+
+    &--image {
+      border-radius: 50%;
+      height: calc($sp-16 * 4);
+      margin-right: $sp-16;
+      object-fit: cover;
+      width: calc($sp-16 * 4);
+    }
+
+    &--info {
+      &-fullname {
+        color: $text-dark;
+        font-size: $sp-20;
+        font-weight: $font-medium;
+        line-height: calc($sp-24 + $sp-4);
+        letter-spacing: 0;
+        text-align: left;
+      }
+
+      &-subtitle {
+        color: $text-subtitle;
+        font-size: calc($sp-12 + $sp-2);
+        font-weight: $font-normal;
+        line-height: $sp-20;
+        letter-spacing: 0;
+        text-align: left;
+      }
+    }
+  }
+
+  &__about {
+    color: $text-about;
+    font-size: calc($sp-16 + $sp-2);
+    font-weight: $font-normal;
+    line-height: $sp-24;
+  }
+
+  &__social-links {
+    display: flex;
+    justify-content: center;
+    gap: $sp-4;
+  }
+}

@@ -1,10 +1,13 @@
+import { useSelector } from "react-redux";
+
 const useAuth = () => {
-  const getAuthUser = localStorage.getItem("authUser");
-  const auth = JSON.parse(getAuthUser);
-  if (getAuthUser !== undefined && auth?.username && auth?.password) {
-    return true;
-  }
-  return false;
+  const { authUser, success, error } = useSelector((state) => state.auth);
+
+  return {
+    authUser,
+    success,
+    error,
+  };
 };
 
 export default useAuth;

@@ -1,48 +1,47 @@
 form {
-  background-color: #f6f6f7;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  border-radius: 8px;
+  background-color: $background-gray;
+  box-shadow: 0 $sp-2 $sp-4 $primary-gray;
+  border-radius: calc($sp-4 * 2);
   display: flex;
   flex-direction: column;
-  margin: 28px 0;
+  margin: calc($sp-4 * 2) 0;
+  padding: $sp-16;
 
   div {
-    margin-bottom: 15px;
+    margin-bottom: $sp-16;
 
     label {
-      font-weight: bold;
-      margin-bottom: 5px;
+      font-weight: $font-bold;
+      margin-bottom: $sp-4;
     }
 
     input[type="file"] {
-      border: 2px dashed #e8e8ea;
+      border: $sp-2 dashed #e8e8ea;
       background-color: #fff;
     }
 
     input,
     textarea {
-      width: 100%;
-      padding: 8px;
+      border: $sp-2 solid $button-border-color;
+      border-radius: $sp-4;
       box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: calc($sp-4 * 2);
+      width: 100%;
     }
 
     button {
-      background-color: #4caf50;
-      color: white;
       border: none;
-      padding: 10px 15px;
+      border-radius: $sp-4;
+      color: $primary-white;
+      cursor: pointer;
+      display: inline-block;
+      font-size: $sp-16;
+      padding: calc($sp-12 - $sp-2) $sp-16;
       text-align: center;
       text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 4px;
 
       &:disabled {
-        background-color: #ccc;
+        background-color: $secondary-gray;
         cursor: not-allowed;
       }
     }
