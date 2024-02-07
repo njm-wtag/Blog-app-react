@@ -1,38 +1,42 @@
 .blog-details {
   padding: 0 $sp-12;
   &__category-badge {
-    background-color: $button-secondary-color;
-    border-radius: 0 $sp-8 0 0;
-    color: $primary-white;
+    background-color: $category-bg-color;
+    border-radius: calc($sp-4 + $sp-2);
+    color: $category-color;
     margin: $sp-16 0;
-    padding: $sp-8;
+    padding: $sp-4 calc($sp-8 + $sp-2);
     width: calc($sp-48 * 3 + $sp-2);
   }
 
   &__author-info {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: $sp-24;
-    margin-bottom: $sp-20;
+    margin: $sp-20 0;
 
-    &__author-image {
-      width: $sp-16;
+    &--author-image {
       height: $sp-16;
+      width: $sp-16;
     }
 
-    &__author-name {
+    &--author-name {
       color: $secondary-gray;
       font-weight: $font-bold;
-      margin: 0;
     }
 
-    &__blog-createdAt {
+    &--blog-createdAt {
       color: $secondary-gray;
-      margin: 0;
     }
   }
+
   &__banner {
-    max-width: 100%;
     border-radius: $sp-8 $sp-8 0 0;
+    max-width: 100%;
+  }
+
+  &__blog-body {
+    color: $text-dark;
+    margin: $sp-16 0;
   }
 }

@@ -9,9 +9,9 @@ import useBlogs from "hooks/useBlogs";
 
 const Profile = () => {
   const { authUser } = useAuth();
-  const reversedBlog = useBlogs();
+  const blogs = useBlogs();
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
-  const blogByAuthor = [...reversedBlog].filter(
+  const blogByAuthor = [...blogs].filter(
     ({ authorId }) => authorId === authUser.id
   );
 

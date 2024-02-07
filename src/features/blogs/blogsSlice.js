@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 
 export const postBlog = createAsyncThunk("blog/postBlog", async (blog) => {
   const existingBlogs = JSON.parse(localStorage.getItem("blogs")) || [];
-  const updatedBlogs = [...existingBlogs, blog];
+  const updatedBlogs = [blog, ...existingBlogs];
 
   localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
 

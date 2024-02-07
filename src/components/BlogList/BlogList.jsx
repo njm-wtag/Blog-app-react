@@ -3,11 +3,11 @@ import BlogCard from "components/BlogCard/BlogCard";
 import "./BlogList.scss";
 
 const BlogList = () => {
-  const reversedBlog = useBlogs();
+  const blogs = useBlogs();
 
   return (
     <div className="blog-list">
-      {reversedBlog?.map((blog) => (
+      {blogs?.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
     </div>

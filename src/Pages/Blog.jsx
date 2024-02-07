@@ -6,8 +6,8 @@ import useBlogs from "hooks/useBlogs";
 
 const Blog = () => {
   const { blogId } = useParams();
-  const reversedBlog = useBlogs();
-  const blogDetails = reversedBlog?.find((blog) => blog.id == blogId);
+  const blogs = useBlogs();
+  const blogDetails = blogs?.find((blog) => blog.id == blogId);
   return (
     <Layout>
       <BlogDetails blogDetails={blogDetails} />
