@@ -5,10 +5,10 @@
   position: relative;
   background-size: cover;
   background-position: center;
-  border-radius: 0.5rem;
+  border-radius: $sp-4;
   width: 100%;
-  height: 25rem;
-  margin-bottom: 3.75rem;
+  height: calc($sp-16 * 25);
+  margin-bottom: $sp-4;
 
   &::before {
     content: "";
@@ -18,8 +18,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 0.5rem;
+    background-color: $text-shadow;
+    border-radius: $sp-4;
   }
 
   &__card {
@@ -30,48 +30,48 @@
     max-width: calc($sp-16 * 18 + $sp-12);
     padding: $sp-20;
     position: absolute;
-    bottom: -1.75rem;
-    left: 5rem;
+    bottom: -calc($sp-24 + $sp-8);
+    left: calc($sp-16 * 5);
     background-color: rgba(255, 255, 255);
-    padding: 1.25rem;
-    border-radius: 0.5rem;
-    box-shadow: 0px 12px 24px -6px rgba(24, 26, 42, 0.12);
+    padding: $sp-20;
+    border-radius: $sp-4;
+    box-shadow: $box-shadow;
     min-width: 18.75rem;
 
     &__blog-title {
-      font-size: 1.5rem;
+      font-size: $sp-24;
       font-weight: bold;
-      margin-bottom: 0.625rem;
+      margin-bottom: $sp-2;
     }
 
     &__category-name {
-      font-size: 1rem;
-      background-color: #5b98da;
-      border-radius: 0 0.5rem 0 0;
-      color: #fff;
-      padding: 0.5rem;
+      font-size: $sp-16;
+      background-color: $category-color;
+      border-radius: 0 $sp-4 0 0;
+      color: $primary-white;
+      padding: $sp-4;
       width: 9.375rem;
     }
   }
 
   &__auth-card {
     position: absolute;
-    bottom: 3rem;
-    left: 5rem;
+    bottom: $sp-48;
+    left: calc($sp-16 * 5);
     min-width: 18.75rem;
 
     &__category-name {
-      font-size: 1rem;
-      background-color: #5b98da;
-      border-radius: 0 0.5rem 0 0;
-      color: #fff;
-      padding: 0.5rem;
+      font-size: $sp-16;
+      background-color: $category-color;
+      border-radius: 0 $sp-4 0 0;
+      color: $primary-white;
+      padding: $sp-4;
       width: 9.375rem;
     }
 
     &__blog-title {
       margin: 0;
-      font-size: 2.25rem;
+      font-size: $sp-36;
       font-weight: bold;
       color: rgba(255, 255, 255, 1);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -82,11 +82,11 @@
       color: rgba(255, 255, 255, 1);
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: $sp-24;
 
       &__author-image {
-        width: 1.75rem;
-        height: 1.75rem;
+        width: calc($sp-24 + $sp-8);
+        height: calc($sp-24 + $sp-8);
         border-radius: 50%;
       }
       &__author-name {

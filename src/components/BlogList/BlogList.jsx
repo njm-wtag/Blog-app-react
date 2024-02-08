@@ -1,10 +1,8 @@
-import useBlogs from "hooks/useBlogs";
+import PropTypes from "prop-types";
 import BlogCard from "components/BlogCard/BlogCard";
 import "./BlogList.scss";
 
-const BlogList = () => {
-  const blogs = useBlogs();
-
+const BlogList = ({ blogs }) => {
   return (
     <div className="blog-list">
       {blogs?.map((blog) => (
@@ -12,6 +10,23 @@ const BlogList = () => {
       ))}
     </div>
   );
+};
+
+BlogList.defaultProps = {
+  blogs: [],
+};
+
+BlogList.propTypes = {
+  blogs: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      authorId: PropTypes.string.isRequired,
+      bannerImage: PropTypes.string,
+      createdAt: PropTypes.string,
+      tags: PropTypes.array,
+      title: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default BlogList;

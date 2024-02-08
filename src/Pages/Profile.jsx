@@ -18,9 +18,7 @@ const Profile = () => {
   const blogs = useBlogs();
   const dispatch = useDispatch();
 
-  const blogByAuthor = blogs?.filter(
-    ({ authorId }) => authorId === authUser.id
-  );
+  const blogByAuthor = blogs?.filter((blog) => blog.authorId === authUser.id);
 
   const onSubmit = async (blog) => {
     blog.id = uuidv4();
