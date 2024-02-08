@@ -4,7 +4,7 @@ const customStyles = {
   control: (styles) => ({
     ...styles,
     backgroundColor: "white",
-    height: "32px",
+    height: "28px",
   }),
 
   indicatorSeparator: () => null,
