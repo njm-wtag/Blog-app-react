@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import Layout from "components/Layout/Layout";
 import { v4 as uuidv4 } from "uuid";
 import AuthorDetails from "components/AuthorDetails/AuthorDetails";
-import { useState } from "react";
 import BlogList from "components/BlogList/BlogList";
 import EditProfileForm from "components/EditProfileForm/EditProfileForm";
 import { postBlog } from "features/blogs/blogsSlice";
@@ -17,6 +17,8 @@ const Profile = () => {
   const { authUser } = useAuth();
   const blogs = useBlogs();
   const dispatch = useDispatch();
+
+  // console.log({ blogs, authUser });
 
   const blogByAuthor = blogs?.filter((blog) => blog.authorId === authUser.id);
 
@@ -46,7 +48,11 @@ const Profile = () => {
         />
       )}
       <h3>My published posts</h3>
-      <BlogList blogs={blogByAuthor} />
+      {blogByAuthor.length ? (
+        <BlogList blogs={blogByAuthor} />
+      ) : (
+        "No blog published yet"
+      )}
     </Layout>
   );
 };

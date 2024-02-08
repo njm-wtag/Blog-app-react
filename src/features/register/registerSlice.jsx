@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { updatedAuthUser } from "features/auth/authSlice";
 
 const INITIAL_STATE = {
   loading: false,
@@ -25,6 +26,15 @@ const registerSlice = createSlice({
       state.success = false;
       state.error = null;
     },
+    updateUsersById: (state, action) => {
+      const userInfo = action.payload;
+
+      state.users = state.users.map((user) =>
+        user.id === userInfo.id ? userInfo : user
+      );
+
+      localStorage.setItem("users", JSON.stringify(state.users));
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,4 +56,4 @@ const registerSlice = createSlice({
 });
 
 export default registerSlice.reducer;
-export const { resetRegisterState } = registerSlice.actions;
+export const { resetRegisterState, updateUsersById } = registerSlice.actions;

@@ -1,7 +1,13 @@
+import useAuth from "hooks/useAuth";
 import PropTypes from "prop-types";
 import "./HomeBanner.scss";
+import useRegister from "hooks/useRegister";
 
-const HomeBanner = ({ authUser, blog }) => {
+const HomeBanner = ({ blog }) => {
+  const { authUser } = useAuth();
+  const { users } = useRegister();
+  const authorDetails = users.find((user) => user.id === blog.authorId);
+
   return (
     <div
       className="home-banner"
@@ -37,8 +43,8 @@ const HomeBanner = ({ authUser, blog }) => {
           }
         >
           <img
-            src={blog?.author?.profileImage}
-            alt={blog?.author?.usernamename}
+            src={authorDetails?.profileImage}
+            alt={authorDetails?.username}
             className={
               authUser
                 ? "home-banner__auth-card__author-info__author-image"
@@ -53,7 +59,7 @@ const HomeBanner = ({ authUser, blog }) => {
                 : "blog-details__author-info__author-name"
             }
           >
-            {blog?.author?.username}
+            {authorDetails?.firstname} {authorDetails?.lastname}
           </p>
           <p
             className={
@@ -68,9 +74,22 @@ const HomeBanner = ({ authUser, blog }) => {
   );
 };
 
+HomeBanner.defaultProps = {
+  blog: {
+    bannerImage: "",
+    createdAt: "",
+    tags: [],
+  },
+};
+
 HomeBanner.propTypes = {
-  authUser: PropTypes.object,
-  blog: PropTypes.object,
+  blog: PropTypes.shape({
+    authorId: PropTypes.string.isRequired,
+    bannerImage: PropTypes.string,
+    createdAt: PropTypes.string,
+    tags: PropTypes.array,
+    title: PropTypes.string.isRequired,
+  }),
 };
 
 export default HomeBanner;

@@ -63,7 +63,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
                 />
                 {(blogDetails || selectedImage) && (
                   <img
-                    className="author-about__details__image"
+                    className=""
                     src={
                       selectedImage ? selectedImage : blogDetails.bannerImage
                     }

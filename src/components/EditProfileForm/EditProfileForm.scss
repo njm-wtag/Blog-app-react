@@ -27,6 +27,14 @@ form {
       width: 100%;
     }
 
+    img {
+      border-radius: 50%;
+      height: calc($sp-16 * 4);
+      margin-right: $sp-16;
+      object-fit: cover;
+      width: calc($sp-16 * 4);
+    }
+
     button {
       border: none;
       border-radius: $sp-4;

@@ -1,8 +1,8 @@
-import Layout from "components/Layout/Layout";
-import HomeBanner from "../components/HomeBanner/HomeBanner";
-import BlogList from "components/BlogList/BlogList";
 import useBlogs from "hooks/useBlogs";
 import useAuth from "hooks/useAuth";
+import BlogList from "components/BlogList/BlogList";
+import HomeBanner from "components/HomeBanner/HomeBanner";
+import Layout from "components/Layout/Layout";
 
 const Home = () => {
   const { authUser } = useAuth();
@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <HomeBanner blog={randomBlog} authUser={authUser} />
+      <HomeBanner blog={randomBlog} />
       <BlogList blogs={blogsByOtherAuthor} />
     </Layout>
   );

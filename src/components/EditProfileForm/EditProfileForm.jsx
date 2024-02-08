@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
-import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import useAuth from "hooks/useAuth";
-import Button from "components/Button/Button";
-import { updatedAuthUser } from "features/auth/authSlice";
 import { convertToBase64 } from "utils/base64Image";
+import { updatedAuthUser } from "features/auth/authSlice";
+import { updateUsersById } from "features/register/registerSlice";
+import Button from "components/Button/Button";
 import "./EditProfileForm.scss";
 
 const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
@@ -25,6 +26,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
 
   const onSubmit = (userInfo) => {
     dispatch(updatedAuthUser(userInfo));
+    dispatch(updateUsersById(userInfo));
     setIsEditProfileFormOpen(false);
   };
 
@@ -86,7 +88,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           </Field>
           <Field name="profileImage">
             {({ input, meta }) => (
-              <div className="form-container__field custom-file-input">
+              <div className="form-container__field">
                 <label>Profile Image</label>
                 <input
                   type="file"
@@ -100,7 +102,6 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
                 />
                 {
                   <img
-                    className="author-about__details__image"
                     src={selectedImage ? selectedImage : authUser.profileImage}
                   />
                 }
