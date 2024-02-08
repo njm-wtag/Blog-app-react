@@ -1,14 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useAuth from "hooks/useAuth";
 import { loggedOutUser } from "features/auth/authSlice";
 import LogoutIcon from "components/icons/LogoutIcon";
 import SearchIcon from "components/icons/SearchIcon";
 import "./Header.scss";
+import { updateQuery } from "features/search/searchSlice";
+import useSearch from "hooks/useSearch";
 
 const Header = () => {
   const { authUser } = useAuth();
-
+  const { query } = useSearch();
+  console.log(query);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,13 +20,22 @@ const Header = () => {
     navigate("/login");
   };
 
+  const handleSearch = (e) => {
+    dispatch(updateQuery(e.target.value));
+  };
+
   return (
     <nav className="navbar">
       <Link to="/" className="navbar__title">
         WellBlog
       </Link>
       <div className="navbar__search">
-        <input type="search" placeholder="Search" />
+        <input
+          type="search"
+          placeholder="Search"
+          value={query}
+          onChange={handleSearch}
+        />
         <SearchIcon />
       </div>
       {authUser ? (
