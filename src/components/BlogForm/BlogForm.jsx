@@ -112,7 +112,7 @@ BlogForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   blogDetails: PropTypes.shape({
     authorId: PropTypes.string,
-    bannerImage: PropTypes.arrayOf(PropTypes.string),
+    bannerImage: PropTypes.string,
     createdAt: PropTypes.string,
     tags: PropTypes.array,
     title: PropTypes.string,

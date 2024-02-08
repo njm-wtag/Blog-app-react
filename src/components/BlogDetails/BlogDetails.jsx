@@ -61,7 +61,7 @@ BlogDetails.defaultProps = {
 BlogDetails.propTypes = {
   blogDetails: PropTypes.shape({
     authorId: PropTypes.string.isRequired,
-    bannerImage: PropTypes.arrayOf(PropTypes.string),
+    bannerImage: PropTypes.string,
     createdAt: PropTypes.string,
     tags: PropTypes.array,
     title: PropTypes.string.isRequired,
