@@ -1,77 +1,64 @@
-@import "../../styles/colors";
-
 .form-container {
   &__form {
-    min-width: 30rem;
+    min-width: calc($sp-16 * 30);
     margin: auto;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-    padding: 1.25rem;
+    box-shadow: 0 0 $sp-16 $primary-gray;
+    padding: $sp-20;
   }
-
   &__field {
-    margin-bottom: 1rem;
-
+    margin-bottom: $sp-16;
     & input {
       width: 100%;
-      padding: 0.625rem;
-      border: 1px solid #ccc;
-      border-radius: 0.25rem;
+      padding: calc($sp-2 * 5);
+      border: $sp-2 solid $button-border-color;
+      border-radius: $sp-4;
       box-sizing: border-box;
     }
-
     & span {
       color: $error-color;
-      font-size: 0.75rem;
-      margin-top: 0.25rem;
+      font-size: $sp-12;
+      margin-top: $sp-4;
       display: block;
     }
   }
-
   &__error {
     color: $error-color;
-    margin-top: 1rem;
+    margin-top: $sp-16;
   }
-
   &__buttons {
-    margin-top: 1rem;
-
+    margin-top: $sp-16;
     &__button {
       width: 100%;
-      padding: 1rem;
+      padding: $sp-16;
       background-color: $button-secondary-color;
-      color: $button-primary-color;
+      color: $primary-gray;
       border: none;
-      border-radius: 0.25rem;
+      border-radius: $sp-4;
       cursor: pointer;
-
       &:hover {
         background-color: $button-secondary-color;
       }
     }
   }
-
   &__link-button {
-    margin-top: 1rem;
-
+    margin-top: $sp-16;
     & a {
       color: $button-secondary-color;
       text-decoration: none;
-      font-size: 0.875rem;
-
+      font-size: calc($sp-16 + $sp-2);
       &:hover {
         text-decoration: underline;
       }
     }
   }
-
   &__success-message {
     text-align: center;
-    color: #056b1c;
-    padding-bottom: 2rem;
+    color: $success-color;
+    padding-bottom: calc($sp-16 * 2);
   }
   &__error-message {
     text-align: center;
-    color: #d42604;
-    padding-bottom: 2rem;
+    color: $error-color;
+    padding-bottom: calc($sp-16 * 2);
   }
 }

@@ -1,16 +1,29 @@
-import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import "./Button.scss";
 
-const Button = ({ children, className, onclickHandler, type }) => {
+const Button = ({ children, className, onClickHandler, type }) => {
   return (
     <button
-      type={type ? type : null}
+      type={type}
       className={`${className} custom-button`}
-      onClick={onclickHandler}
+      onClick={onClickHandler}
     >
       {children}
     </button>
   );
+};
+
+Button.defaultProps = {
+  className: null,
+  onClickHandler: null,
+  type: null,
+};
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  onClickHandler: PropTypes.func,
+  type: PropTypes.string,
 };
 
 export default Button;

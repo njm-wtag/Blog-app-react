@@ -1,56 +1,72 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authenticateUser from "../../../utils/authUtils";
+import authenticateUser from "utils/authUtils";
 
-const storedAuthUser = JSON.parse(localStorage.getItem("authUser"));
-
-const initialState = {
+const INITIAL_STATE = {
   loading: false,
-  authUser: storedAuthUser || null,
-  error: null,
+  authUser: JSON.parse(localStorage.getItem("authUser")),
+  error: "",
   success: false,
 };
 
-export const userLoggedIn = createAsyncThunk(
-  "auth/userLoggedIn",
+export const loggedInUser = createAsyncThunk(
+  "auth/loggedInUser",
   async (user) => {
-    const authUser = authenticateUser(user);
-    if (authUser) {
-      localStorage.setItem("authUser", JSON.stringify(authUser));
+    try {
+      const authUser = await authenticateUser(user);
+
+      if (authUser) {
+        localStorage.setItem("authUser", JSON.stringify(authUser));
+        return authUser;
+      } else {
+        throw new Error("Invalid username or password");
+      }
+    } catch (error) {
+      throw error.message;
     }
-    return authUser;
   }
 );
+
 export const updatedAuthUser = createAsyncThunk(
   "auth/updatedAuthUser",
   async (userInfo) => {
+    console.log(userInfo);
     localStorage.setItem("authUser", JSON.stringify(userInfo));
+    const users = JSON.parse(localStorage.getItem("users"));
+
+    const updatedUsers = users?.map((user) =>
+      user.id === userInfo.id ? userInfo : user
+    );
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+
     return userInfo;
   }
 );
 
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: INITIAL_STATE,
   reducers: {
-    userLoggedOut: () => {
+    loggedOutUser: () => {
       localStorage.removeItem("authUser");
-      return initialState;
+      return INITIAL_STATE;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(userLoggedIn.pending, (state) => {
+      .addCase(loggedInUser.pending, (state) => {
         state.loading = true;
+        state.success = false;
         state.error = "";
       })
-      .addCase(userLoggedIn.fulfilled, (state, action) => {
+      .addCase(loggedInUser.fulfilled, (state, action) => {
         state.loading = false;
         state.error = "";
         state.authUser = action.payload;
         state.success = true;
       })
-      .addCase(userLoggedIn.rejected, (state, action) => {
+      .addCase(loggedInUser.rejected, (state, action) => {
         state.loading = false;
+        state.success = false;
         state.error = action.error.message;
       })
       .addCase(updatedAuthUser.pending, (state) => {
@@ -71,4 +87,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { userLoggedOut } = authSlice.actions;
+export const { loggedOutUser } = authSlice.actions;

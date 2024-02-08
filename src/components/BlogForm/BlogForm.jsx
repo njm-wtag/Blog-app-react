@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import PropTypes from "prop-types";
+import { convertToBase64 } from "utils/base64Image";
+import Button from "components/Button/Button";
+import SelectBox from "components/SelectBox/SelectBox";
 import "./BlogForm.scss";
-import Button from "../Button/Button";
-import SelectBox from "../SelectBox/SelectBox";
-import { useEffect, useState } from "react";
-import { convertToBase64 } from "../../utils/base64Image";
 
 const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
   const [imagePreview, setImagePreview] = useState(false);
@@ -102,8 +102,21 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
   );
 };
 
+BlogForm.defaultProps = {
+  setIsAddBlogFormOpen: null,
+  blogDetails: {},
+};
+
 BlogForm.propTypes = {
   setIsAddBlogFormOpen: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  blogDetails: PropTypes.shape({
+    authorId: PropTypes.string,
+    bannerImage: PropTypes.arrayOf(PropTypes.string),
+    createdAt: PropTypes.string,
+    tags: PropTypes.array,
+    title: PropTypes.string,
+  }),
 };
 
 export default BlogForm;

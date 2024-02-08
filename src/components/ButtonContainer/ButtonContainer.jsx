@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
+import AddIcon from "components/icons/AddIcon";
+import Button from "components/Button/Button";
+import EditIcon from "components/icons/EditIcon";
 import "./ButtonContainer.scss";
-import AddIcon from "../icons/AddIcon";
-import EditIcon from "../icons/EditIcon";
-import Button from "../Button/Button";
 
 const ButtonContainer = ({
   setIsAddBlogFormOpen,
@@ -12,7 +12,7 @@ const ButtonContainer = ({
     <div className="button-container">
       <Button
         className="button-container_add-blog"
-        onclickHandler={() =>
+        onClickHandler={() =>
           setIsAddBlogFormOpen((isAddBlogFormOpen) => !isAddBlogFormOpen)
         }
       >
@@ -21,7 +21,7 @@ const ButtonContainer = ({
 
       <Button
         className="button-container_edit-profile"
-        onclickHandler={() =>
+        onClickHandler={() =>
           setIsEditProfileFormOpen(
             (isEditProfileFormOpen) => !isEditProfileFormOpen
           )
@@ -34,7 +34,7 @@ const ButtonContainer = ({
 };
 
 ButtonContainer.propTypes = {
-  setIsAddBlogFormOpen: PropTypes.func,
+  setIsAddBlogFormOpen: PropTypes.func.isRequired,
 };
 
 export default ButtonContainer;

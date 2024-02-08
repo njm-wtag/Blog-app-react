@@ -1,17 +1,19 @@
-import { Field, Form } from "react-final-form";
-import "./EditProfileForm.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { updatedAuthUser } from "../../rtk/features/auth/authSlice";
 import { useEffect, useState } from "react";
+import { Field, Form } from "react-final-form";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import Button from "../Button/Button";
-import { convertToBase64 } from "../../utils/base64Image";
+import useAuth from "hooks/useAuth";
+import Button from "components/Button/Button";
+import { updatedAuthUser } from "features/auth/authSlice";
+import { convertToBase64 } from "utils/base64Image";
+import "./EditProfileForm.scss";
 
 const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
-  const { authUser, success } = useSelector((state) => state.auth);
+  const { authUser, success } = useAuth();
   const [imagePreview, setImagePreview] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const dispatch = useDispatch();
+
   const validate = (values) => {
     const errors = {};
     if (!values.firstname) {
@@ -112,7 +114,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
             </Button>
             <Button
               type={"button"}
-              onclickHandler={() => setIsEditProfileFormOpen(false)}
+              onClickHandler={() => setIsEditProfileFormOpen(false)}
               className="cancel-button"
             >
               Cancel
@@ -127,5 +129,5 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
 export default EditProfileForm;
 
 EditProfileForm.propTypes = {
-  setIsAddBlogFormOpen: PropTypes.func,
+  setIsEditProfileFormOpen: PropTypes.func.isRequired,
 };
