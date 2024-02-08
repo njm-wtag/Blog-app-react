@@ -18,8 +18,6 @@ const Profile = () => {
   const blogs = useBlogs();
   const dispatch = useDispatch();
 
-  // console.log({ blogs, authUser });
-
   const blogByAuthor = blogs?.filter((blog) => blog.authorId === authUser.id);
 
   const onSubmit = async (blog) => {

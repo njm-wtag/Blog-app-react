@@ -9,7 +9,6 @@ const BlogCard = ({ blog }) => {
   const { users } = useRegister();
   const author = users.find((user) => user.id === authorId);
 
-  // console.log("from blogCard:", users);
   return (
     <div className="blog-card">
       <Link to={`/blog/${blog.id}`}>
