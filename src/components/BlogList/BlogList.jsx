@@ -6,19 +6,18 @@ import useSearch from "hooks/useSearch";
 const BlogList = ({ blogs }) => {
   const { query } = useSearch();
 
-  const filterBlogs = (blogs, query) => {
-    return blogs.filter((blog) =>
-      blog.title.toLowerCase().includes(query.toLowerCase())
+  const searchedBlogs = (blogs, query) => {
+    return blogs?.filter((blog) =>
+      blog?.title.toLowerCase().includes(query.toLowerCase())
     );
   };
-
-  const filteredBlogs = filterBlogs(blogs, query);
+  const filteredBlogs = searchedBlogs(blogs, query);
 
   return (
     <div className="blog-list">
-      {filteredBlogs?.map((blog) => (
-        <BlogCard key={blog.id} blog={blog} />
-      ))}
+      {filteredBlogs.length
+        ? filteredBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
+        : "Not found"}
     </div>
   );
 };

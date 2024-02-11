@@ -11,7 +11,6 @@ import useSearch from "hooks/useSearch";
 const Header = () => {
   const { authUser } = useAuth();
   const { query } = useSearch();
-  console.log(query);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

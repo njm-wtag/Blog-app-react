@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   query: "",
-  blogs: [],
 };
 
 const searchSlice = createSlice({
@@ -10,7 +9,6 @@ const searchSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     updateQuery(state, action) {
-      console.log(state.query, action.payload);
       state.query = action.payload;
     },
   },
