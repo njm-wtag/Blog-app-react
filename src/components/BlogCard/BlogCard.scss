@@ -4,9 +4,11 @@
   margin-bottom: $sp-16;
   overflow: hidden;
   margin-bottom: $sp-16;
+
   & a {
     text-decoration: none;
   }
+
   &__banner {
     border-radius: calc($sp-4 * 2) calc($sp-4 * 2) 0 0;
     height: calc($sp-48 * 5 + $sp-2 * 5);
@@ -14,13 +16,18 @@
     width: 100%;
   }
 
-  &__category-badge {
-    background-color: $category-bg-color;
-    border-radius: calc($sp-4 + $sp-2);
-    color: $category-color;
+  &__category_container {
+    align-items: center;
+    display: flex;
+    gap: $sp-8;
     margin: $sp-16;
-    padding: $sp-4 calc($sp-8 + $sp-2);
-    width: calc($sp-48 * 3 + $sp-2);
+
+    &--category-badge {
+      background-color: $category-bg-color;
+      border-radius: calc($sp-4 + $sp-2);
+      color: $category-color;
+      padding: $sp-4 calc($sp-8 + $sp-2);
+    }
   }
 
   &__blog-title {
