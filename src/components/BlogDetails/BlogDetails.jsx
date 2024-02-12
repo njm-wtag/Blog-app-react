@@ -5,7 +5,7 @@ import "./BlogDetails.scss";
 
 const BlogDetails = ({ blogDetails }) => {
   const { users } = useRegister();
-  const author = users.find((user) => user.id === blogDetails.authorId);
+  const author = users?.find((user) => user.id === blogDetails.authorId);
   return (
     <div className="blog-details">
       <div className="blog-details__category-badge">
@@ -28,7 +28,7 @@ const BlogDetails = ({ blogDetails }) => {
       </div>
       <img
         src={blogDetails?.imagePreview}
-        alt=""
+        alt="Banner Image"
         className="blog-details__banner"
       />
       <p className="blog-details__blog-body">{blogDetails?.body}</p>

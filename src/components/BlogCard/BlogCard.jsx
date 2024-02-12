@@ -7,7 +7,7 @@ import "./BlogCard.scss";
 const BlogCard = ({ blog }) => {
   const { bannerImage, imagePreview, title, tags, createdAt, authorId } = blog;
   const { users } = useRegister();
-  const author = users.find((user) => user.id === authorId);
+  const author = users?.find((user) => user.id === authorId);
   return (
     <div className="blog-card">
       <Link to={`/blog/${blog.id}`}>
