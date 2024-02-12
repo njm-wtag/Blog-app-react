@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   loading: false,
-  users: JSON.parse(localStorage.getItem("users")),
+  users: JSON.parse(localStorage.getItem("users")) || [],
   error: "",
   success: false,
 };
@@ -10,7 +10,8 @@ const INITIAL_STATE = {
 export const registeredUser = createAsyncThunk(
   "register/registeredUser",
   async (user) => {
-    const existingUsers = await JSON.parse(localStorage.getItem("users"));
+    const existingUsers =
+      (await JSON.parse(localStorage.getItem("users"))) || [];
     const updatedUsers = [...existingUsers, user];
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     return updatedUsers;
