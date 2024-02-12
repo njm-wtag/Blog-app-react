@@ -27,15 +27,22 @@ const BlogCard = ({ blog }) => {
   );
 };
 
-BlogCard.defaultProps = { blog: null };
+BlogCard.defaultProps = {
+  blog: {
+    bannerImage: "",
+    categoryId: null,
+    createdAt: "",
+  },
+};
 
 BlogCard.propTypes = {
-  blog: PropTypes.object,
-  authorId: PropTypes.number,
-  bannerImage: PropTypes.string,
-  categoryId: PropTypes.number,
-  createdAt: PropTypes.string,
-  title: PropTypes.string,
+  blog: PropTypes.shape({
+    authorId: PropTypes.number.isRequired,
+    bannerImage: PropTypes.string,
+    categoryId: PropTypes.number,
+    createdAt: PropTypes.string,
+    title: PropTypes.string.isRequired,
+  }),
 };
 
 export default BlogCard;
