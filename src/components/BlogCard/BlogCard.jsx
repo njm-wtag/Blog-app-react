@@ -42,19 +42,17 @@ const BlogCard = ({ blog }) => {
 
 BlogCard.defaultProps = {
   blog: {
-    blog: {
-      bannerImage: [],
-      createdAt: "",
-      imagePreview: "",
-      tags: [],
-    },
+    bannerImage: "",
+    createdAt: "",
+    imagePreview: "",
+    tags: [],
   },
 };
 
 BlogCard.propTypes = {
   blog: PropTypes.shape({
     authorId: PropTypes.string.isRequired,
-    bannerImage: PropTypes.array,
+    bannerImage: PropTypes.string,
     createdAt: PropTypes.string,
     imagePreview: PropTypes.string,
     tags: PropTypes.array,
