@@ -6,13 +6,13 @@ import useAuth from "../../hook/useAuth";
 import "./AuthForm.scss";
 
 const AuthForm = ({ handleSubmit }) => {
-  const { error } = useAuth();
+  const { errorMessage } = useAuth();
   const location = useLocation();
   const pathname = location.pathname;
   const isRegisterForm = pathname === "/register";
   return (
     <div className="form-container">
-      {error && (
+      {errorMessage && (
         <div
           className={
             isRegisterForm
@@ -20,7 +20,7 @@ const AuthForm = ({ handleSubmit }) => {
               : "form-container__error-message"
           }
         >
-          {error}
+          {errorMessage}
         </div>
       )}
       <Form

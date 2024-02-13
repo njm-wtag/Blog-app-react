@@ -7,19 +7,12 @@ import Layout from "../components/Layout/Layout";
 import useAuth from "../hook/useAuth";
 
 const Login = () => {
-  const { success } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (values) => {
-    dispatch(loggedInUser(values));
+    dispatch(loggedInUser({ user: values, navigate: navigate }));
   };
-
-  useEffect(() => {
-    if (success) {
-      navigate("/");
-    }
-  }, [success, navigate]);
 
   return (
     <Layout>
