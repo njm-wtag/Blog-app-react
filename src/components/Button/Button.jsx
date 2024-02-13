@@ -15,7 +15,7 @@ const Button = ({ children, className, onClickHandler, type }) => {
 
 Button.defaultProps = {
   className: null,
-  onClickHandler: null,
+  onClickHandler: () => {},
   type: null,
 };
 
