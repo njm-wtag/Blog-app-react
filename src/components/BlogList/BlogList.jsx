@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import BlogCard from "components/BlogCard/BlogCard";
-import "./BlogList.scss";
 import useSearch from "hooks/useSearch";
+import BlogCard from "components/BlogCard/BlogCard";
+import "./blogList.scss";
 
 const BlogList = ({ blogs }) => {
   const { query } = useSearch();
@@ -17,7 +17,7 @@ const BlogList = ({ blogs }) => {
     <div className="blog-list">
       {filteredBlogs.length
         ? filteredBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
-        : "Not found"}
+        : "Blog Not found"}
     </div>
   );
 };

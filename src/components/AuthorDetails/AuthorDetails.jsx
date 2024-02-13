@@ -4,7 +4,7 @@ import useAuth from "hooks/useAuth";
 import twitter from "assets/images/twitter.png";
 import instagram from "assets/images/insta.png";
 import youtube from "assets/images/youtube.png";
-import "./AuthorDetails.scss";
+import "./authorDetails.scss";
 
 const AuthorDetails = () => {
   const { authUser } = useAuth();

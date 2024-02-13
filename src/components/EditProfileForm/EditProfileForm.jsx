@@ -7,7 +7,7 @@ import { convertToBase64 } from "utils/base64Image";
 import { updatedAuthUser } from "features/auth/authSlice";
 import { updateUsersById } from "features/register/registerSlice";
 import Button from "components/Button/Button";
-import "./EditProfileForm.scss";
+import "./editProfileForm.scss";
 
 const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
   const { authUser, success } = useAuth();

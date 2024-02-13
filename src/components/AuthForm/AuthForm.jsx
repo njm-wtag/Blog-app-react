@@ -3,7 +3,7 @@ import { Field, Form } from "react-final-form";
 import { Link, useLocation } from "react-router-dom";
 import authValidation from "utils/authValidation";
 import useAuth from "hooks/useAuth";
-import "./AuthForm.scss";
+import "./authForm.scss";
 
 const AuthForm = ({ handleSubmit }) => {
   const { errorMessage } = useAuth();

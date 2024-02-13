@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { convertToBase64 } from "utils/base64Image";
 import Button from "components/Button/Button";
 import SelectBox from "components/SelectBox/SelectBox";
-import "./BlogForm.scss";
+import "./blogForm.scss";
 
 const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
   const [imagePreview, setImagePreview] = useState(false);

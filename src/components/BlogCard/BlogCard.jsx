@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import useRegister from "hooks/useRegister";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
-import "./BlogCard.scss";
+import "./blogCard.scss";
 
 const BlogCard = ({ blog }) => {
   const { bannerImage, title, tags, createdAt, authorId } = blog;

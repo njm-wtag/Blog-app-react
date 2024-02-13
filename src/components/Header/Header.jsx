@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useAuth from "hooks/useAuth";
+import useSearch from "hooks/useSearch";
 import { loggedOutUser } from "features/auth/authSlice";
 import LogoutIcon from "components/icons/LogoutIcon";
 import SearchIcon from "components/icons/SearchIcon";
-import "./Header.scss";
 import { updateQuery } from "features/search/searchSlice";
-import useSearch from "hooks/useSearch";
+import "./header.scss";
 
 const Header = () => {
   const { authUser } = useAuth();
@@ -19,8 +19,8 @@ const Header = () => {
     navigate("/login");
   };
 
-  const handleSearch = (e) => {
-    dispatch(updateQuery(e.target.value));
+  const handleSearch = (event) => {
+    dispatch(updateQuery(event.target.value));
   };
 
   return (

@@ -4,7 +4,7 @@ import useAuth from "hooks/useAuth";
 import useRegister from "hooks/useRegister";
 import EditIcon from "components/icons/EditIcon";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
-import "./BlogDetails.scss";
+import "./blogDetails.scss";
 
 const BlogDetails = ({ blogDetails }) => {
   const { users } = useRegister();
