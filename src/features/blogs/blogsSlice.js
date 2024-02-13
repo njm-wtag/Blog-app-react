@@ -20,7 +20,7 @@ export const updateBlog = createAsyncThunk(
   "blog/updateBlog",
   async (updatedBlog) => {
     const existingBlogs = JSON.parse(localStorage.getItem("blogs"));
-    const matchedIndex = existingBlogs.findIndex(
+    const matchedIndex = existingBlogs?.findIndex(
       (blog) => blog.id === updatedBlog.id
     );
     existingBlogs[matchedIndex] = { ...updatedBlog };

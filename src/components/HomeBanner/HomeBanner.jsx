@@ -6,7 +6,7 @@ import useRegister from "hooks/useRegister";
 const HomeBanner = ({ blog }) => {
   const { authUser } = useAuth();
   const { users } = useRegister();
-  const authorDetails = users.find((user) => user.id === blog.authorId);
+  const authorDetails = users?.find((user) => user.id === blog.authorId);
 
   return (
     <div

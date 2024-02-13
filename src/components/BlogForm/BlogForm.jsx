@@ -18,7 +18,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
 
   return (
     <Form
-      initialValues={blogDetails ? blogDetails : null}
+      initialValues={blogDetails || null}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
@@ -63,9 +63,8 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
                 />
                 {(blogDetails || selectedImage) && (
                   <img
-                    className=""
                     src={
-                      selectedImage ? selectedImage : blogDetails.bannerImage
+                      selectedImage ? selectedImage : blogDetails?.bannerImage
                     }
                   />
                 )}
@@ -103,7 +102,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
 };
 
 BlogForm.defaultProps = {
-  setIsAddBlogFormOpen: null,
+  setIsAddBlogFormOpen: () => {},
   blogDetails: {},
 };
 

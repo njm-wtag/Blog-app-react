@@ -3,7 +3,7 @@ import { updatedAuthUser } from "features/auth/authSlice";
 
 const INITIAL_STATE = {
   loading: false,
-  users: JSON.parse(localStorage.getItem("users")),
+  users: JSON.parse(localStorage.getItem("users")) || [],
   error: "",
   success: false,
 };
@@ -11,7 +11,8 @@ const INITIAL_STATE = {
 export const registeredUser = createAsyncThunk(
   "register/registeredUser",
   async (user) => {
-    const existingUsers = await JSON.parse(localStorage.getItem("users"));
+    const existingUsers =
+      (await JSON.parse(localStorage.getItem("users"))) || [];
     const updatedUsers = [...existingUsers, user];
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     return updatedUsers;
@@ -30,7 +31,7 @@ const registerSlice = createSlice({
       const userInfo = action.payload;
 
       state.users = state.users.map((user) =>
-        user.id === userInfo.id ? userInfo : user
+        user.id === userInfo?.id ? userInfo : user
       );
 
       localStorage.setItem("users", JSON.stringify(state.users));

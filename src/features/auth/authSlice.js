@@ -7,20 +7,21 @@ const INITIAL_STATE = {
   loading: false,
   authUser: JSON.parse(localStorage.getItem("authUser")),
   error: "",
+  errorMessage: "",
   success: false,
 };
 
 export const loggedInUser = createAsyncThunk(
   "auth/loggedInUser",
-  async (user) => {
+  async ({ user, navigate }, { dispatch }) => {
     try {
       const authUser = await authenticateUser(user);
-
       if (authUser) {
+        navigate("/");
         localStorage.setItem("authUser", JSON.stringify(authUser));
         return authUser;
       } else {
-        throw new Error("Invalid username or password");
+        dispatch(setErrorMessage("Invalid username or password"));
       }
     } catch (error) {
       throw error.message;
@@ -43,6 +44,9 @@ const authSlice = createSlice({
     loggedOutUser: () => {
       localStorage.removeItem("authUser");
       return INITIAL_STATE;
+    },
+    setErrorMessage: (state, action) => {
+      state.errorMessage = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -81,4 +85,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { loggedOutUser } = authSlice.actions;
+export const { loggedOutUser, setErrorMessage } = authSlice.actions;
