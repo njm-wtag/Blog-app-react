@@ -23,7 +23,13 @@ const BlogList = ({ blogs }) => {
 };
 
 BlogList.defaultProps = {
-  blogs: [],
+  blogs: PropTypes.arrayOf(
+    PropTypes.shape({
+      bannerImage: "",
+      createdAt: "",
+      tags: [],
+    })
+  ),
 };
 
 BlogList.propTypes = {
