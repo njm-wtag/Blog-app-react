@@ -17,7 +17,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
   const validate = (values) => {
     const errors = {};
     if (!values.firstname) {
-      errors.firstname = "Required";
+      errors.firstname = "First name is required";
     }
 
     return errors;
@@ -102,6 +102,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
                   <img
                     className="author-about__details__image"
                     src={selectedImage ? selectedImage : authUser.profileImage}
+                    alt="Author Image"
                   />
                 }
                 {meta.error && <span>{meta.error}</span>}
