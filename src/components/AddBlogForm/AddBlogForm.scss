@@ -1,0 +1,48 @@
+form {
+  background-color: $background-gray;
+  border-radius: $sp-8;
+  display: flex;
+  flex-direction: column;
+  margin: calc($sp-24 + $sp-4) 0;
+  padding: $sp-16;
+
+  .title-tags-form-container {
+    display: grid;
+    gap: calc($sp-16 * 2);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  input,
+  textarea {
+    border-radius: $sp-4;
+    border: $sp-2 solid $button-border-color;
+    box-sizing: border-box;
+    padding: $sp-8;
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    font-weight: $font-bold;
+  }
+  .form__buttons {
+    text-align: center;
+
+    .submit-button {
+      background-color: $button-secondary-color;
+      border-radius: $sp-4;
+      border: $sp-2 solid $primary-gray;
+      color: $primary-white;
+      margin: 0 calc($sp-4 + $sp-1);
+      padding: $sp-4 $sp-12;
+    }
+
+    .cancel-button {
+      background-color: $background-gray;
+      border-radius: $sp-4;
+      border: $sp-2 solid $primary-gray;
+      margin: 0 calc($sp-4 + $sp-1);
+      padding: $sp-4 $sp-12;
+    }
+  }
+}

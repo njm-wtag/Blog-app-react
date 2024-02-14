@@ -1,7 +1,7 @@
-import AuthForm from "components/AuthForm/AuthForm";
 import { useDispatch } from "react-redux";
-import { loggedInUser } from "features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { loggedInUser } from "features/auth/authSlice";
+import AuthForm from "components/AuthForm/AuthForm";
 import Layout from "components/Layout/Layout";
 
 const Login = () => {

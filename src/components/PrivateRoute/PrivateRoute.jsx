@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import useLocalStorageAuth from "../../hooks/useLocalStorageAuth";
+import useLocalStorageAuth from "hooks/useLocalStorageAuth";
 
 const PrivateRoute = () => {
   const isUserloggedIn = useLocalStorageAuth();

@@ -1,27 +1,35 @@
 import PropTypes from "prop-types";
-import { getAuthorById, getCategoryById } from "utils/helpers";
+import useRegister from "hooks/useRegister";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
 import "./BlogCard.scss";
 
 const BlogCard = ({ blog }) => {
-  const { bannerImage, categoryId, title, authorId, createdAt } = blog;
-  const category = getCategoryById(categoryId);
-  const author = getAuthorById(authorId);
+  const { bannerImage, imagePreview, title, tags, createdAt, authorId } = blog;
+  const { users } = useRegister();
+  const author = users?.find((user) => user.id === authorId);
   return (
     <div className="blog-card">
-      <img src={bannerImage} alt={title} className="blog-card__banner" />
+      <img
+        src={imagePreview ? imagePreview : bannerImage}
+        alt={title}
+        className="blog-card__banner"
+      />
       <div className="blog-card__category-badge">
-        {category ? category.name : "Unknown Category"}
+        {tags ? tags[0].label : "Unknown Category"}
       </div>
       <h3 className="blog-card__blog-title">{title}</h3>
       <div className="blog-card__author-info">
         <img
-          src={author ? author.profileImage : defaultProfileIcon}
-          alt={author.name}
+          src={author?.profileImage ? author.profileImage : defaultProfileIcon}
+          alt={author?.username}
           className="blog-card__author-info--author-image"
         />
-        <p className="blog-card__author-info--author-name">{author?.name}</p>
-        <p className="blog-card__author-info--blog-createdAt">{createdAt}</p>
+        <p className="blog-card__author-info--author-name">
+          {author?.firstname} {author?.lastname}
+        </p>
+        <p className="blog-card__author-info--blog-createdAt">
+          {createdAt?.substring(0, 10)}
+        </p>
       </div>
     </div>
   );
@@ -30,18 +38,20 @@ const BlogCard = ({ blog }) => {
 BlogCard.defaultProps = {
   blog: {
     bannerImage: "",
-    categoryId: null,
+    imagePreview: "",
+    tags: [],
     createdAt: "",
   },
 };
 
 BlogCard.propTypes = {
   blog: PropTypes.shape({
-    authorId: PropTypes.number.isRequired,
     bannerImage: PropTypes.string,
-    categoryId: PropTypes.number,
+    imagePreview: PropTypes.string,
+    title: PropTypes.string,
+    tags: PropTypes.array,
     createdAt: PropTypes.string,
-    title: PropTypes.string.isRequired,
+    authorId: PropTypes.number.isRequired,
   }),
 };
 

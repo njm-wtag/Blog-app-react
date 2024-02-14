@@ -3,6 +3,7 @@
   border-radius: calc($sp-4 * 2);
   margin-bottom: $sp-16;
   overflow: hidden;
+
   &__banner {
     border-radius: calc($sp-4 * 2) calc($sp-4 * 2) 0 0;
     height: calc($sp-48 * 5 + $sp-2 * 5);
