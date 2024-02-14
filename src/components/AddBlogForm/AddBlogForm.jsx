@@ -9,6 +9,7 @@ import ImageDnD from "components/ImageDnD/ImageDnD";
 import Button from "components/Button/Button";
 import SelectBox from "components/SelectBox/SelectBox";
 import "./AddBlogForm.scss";
+import { convertToBase64 } from "utils/helpers";
 
 const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
   const [files, setFiles] = useState([]);
@@ -16,29 +17,17 @@ const AddBlogForm = ({ setIsAddBlogFormOpen }) => {
   const { authUser } = useAuth();
 
   const onSubmit = async (blog) => {
-    blog.id = uuidv4();
-    blog.authorId = authUser.id;
-    blog.createdAt = new Date().toISOString();
-    const imagePreview = await convertToBase64(files[0]);
-    blog.imagePreview = imagePreview;
-    dispatch(postBlog(blog));
-    setIsAddBlogFormOpen(false);
-  };
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-
-      reader.onerror = (error) => {
-        reject(error);
-      };
-
-      reader.readAsDataURL(file);
-    });
+    try {
+      blog.id = uuidv4();
+      blog.authorId = authUser.id;
+      blog.createdAt = new Date().toISOString();
+      const imagePreview = await convertToBase64(files[0]);
+      blog.imagePreview = imagePreview;
+      dispatch(postBlog(blog));
+      setIsAddBlogFormOpen(false);
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (
