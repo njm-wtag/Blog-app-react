@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import PropTypes from "prop-types";
-import { convertToBase64 } from "utils/base64Image";
 import Button from "components/Button/Button";
 import SelectBox from "components/SelectBox/SelectBox";
+import { convertToBase64 } from "utils/helpers";
 import "./BlogForm.scss";
 
 const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
   const [imagePreview, setImagePreview] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = async (e) => {
+    try {
+      const newSelectedImage = await convertToBase64(e.target.files[0]);
+      setSelectedImage(newSelectedImage);
+      input.onChange(newSelectedImage);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   useEffect(() => {
     setImagePreview(
@@ -51,16 +61,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
             {({ meta, input }) => (
               <div className="form-container__field">
                 <label>Banner Image</label>
-                <input
-                  type="file"
-                  onChange={async (e) => {
-                    const newSelectedImage = await convertToBase64(
-                      e.target.files[0]
-                    );
-                    setSelectedImage(newSelectedImage);
-                    input.onChange(newSelectedImage);
-                  }}
-                />
+                <input type="file" onChange={(e) => handleImageChange(e)} />
                 {(blogDetails || selectedImage) && (
                   <img
                     className="author-about__details__image"
