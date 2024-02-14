@@ -1,10 +1,8 @@
-import AuthForm from "../components/AuthForm/AuthForm";
-import { useEffect } from "react";
+import AuthForm from "components/AuthForm/AuthForm";
 import { useDispatch } from "react-redux";
-import { loggedInUser } from "../features/auth/authSlice";
+import { loggedInUser } from "features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout/Layout";
-import useAuth from "../hook/useAuth";
+import Layout from "components/Layout/Layout";
 
 const Login = () => {
   const dispatch = useDispatch();

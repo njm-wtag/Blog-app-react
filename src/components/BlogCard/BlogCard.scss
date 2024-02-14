@@ -1,0 +1,52 @@
+.blog-card {
+  border: $sp-2 solid $primary-gray;
+  border-radius: calc($sp-4 * 2);
+  margin-bottom: $sp-16;
+  overflow: hidden;
+  &__banner {
+    border-radius: calc($sp-4 * 2) calc($sp-4 * 2) 0 0;
+    height: calc($sp-48 * 5 + $sp-2 * 5);
+    object-fit: cover;
+    width: 100%;
+  }
+
+  &__category-badge {
+    background-color: $category-bg-color;
+    border-radius: calc($sp-4 + $sp-2);
+    color: $category-color;
+    margin: $sp-16;
+    padding: $sp-4 calc($sp-8 + $sp-2);
+    width: calc($sp-48 * 3 + $sp-2);
+  }
+
+  &__blog-title {
+    font-size: calc($sp-16 + $sp-2);
+    font-weight: $font-bold;
+    margin: $sp-16;
+  }
+
+  &__author-info {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $sp-16;
+    padding: 0 $sp-16 $sp-16;
+
+    &--author-image {
+      border-radius: 50%;
+      height: $sp-36;
+      object-fit: cover;
+      width: $sp-36;
+    }
+
+    &--author-name {
+      color: $secondary-gray;
+      font-weight: $font-bold;
+      margin-bottom: $sp-4;
+    }
+
+    &--blog-createdAt {
+      color: $secondary-gray;
+    }
+  }
+}

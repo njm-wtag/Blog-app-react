@@ -1,0 +1,44 @@
+form {
+  background-color: $background-gray;
+  box-shadow: 0 $sp-2 $sp-4 $primary-gray;
+  border-radius: calc($sp-4 * 2);
+  display: flex;
+  flex-direction: column;
+  margin: calc($sp-4 * 2) 0;
+  padding: $sp-16;
+
+  div {
+    margin-bottom: $sp-16;
+
+    label {
+      font-weight: $font-bold;
+      margin-bottom: $sp-4;
+    }
+
+    input,
+    textarea {
+      border: $sp-2 solid $button-border-color;
+      border-radius: $sp-4;
+      box-sizing: border-box;
+      padding: calc($sp-4 * 2);
+      width: 100%;
+    }
+
+    button {
+      border: none;
+      border-radius: $sp-4;
+      color: $primary-white;
+      cursor: pointer;
+      display: inline-block;
+      font-size: $sp-16;
+      padding: calc($sp-12 - $sp-2) $sp-16;
+      text-align: center;
+      text-decoration: none;
+
+      &:disabled {
+        background-color: $secondary-gray;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
