@@ -3,11 +3,10 @@ import { Field, Form } from "react-final-form";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import useAuth from "hooks/useAuth";
-import { convertToBase64 } from "utils/base64Image";
+import { convertToBase64 } from "utils/helpers";
 import { updatedAuthUser } from "features/auth/authSlice";
 import { updateUsersById } from "features/register/registerSlice";
 import Button from "components/Button/Button";
-import { convertToBase64 } from "utils/helpers";
 import "./EditProfileForm.scss";
 
 const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
