@@ -13,6 +13,16 @@ form {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .form-container__field {
+    img {
+      border-radius: 15%;
+      height: calc($sp-48 * 2);
+      margin-right: $sp-16;
+      object-fit: cover;
+      width: calc($sp-48 * 3);
+    }
+  }
+
   input,
   textarea {
     border-radius: $sp-4;

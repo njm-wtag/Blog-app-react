@@ -3,45 +3,91 @@
   margin-bottom: 4$sp-4;
   overflow: hidden;
   position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: $sp-4;
   width: 100%;
+  height: calc($sp-16 * 25);
+  margin-bottom: $sp-4;
 
-  &__blog-title {
+  &::before {
+    content: "";
     color: $primary-white;
     position: absolute;
-    font-size: $sp-36;
-    font-weight: $font-bold;
-    left: 50%;
-    text-align: center;
-    text-shadow: $sp-2 $sp-2 $sp-4 $text-shadow;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  &__background-image {
-    background-size: cover;
-    background-position: center;
-    background-image: url("assets/images/home-banner.png");
-    height: 100%;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background-color: $text-shadow;
+    border-radius: $sp-4;
   }
 
   &__card {
-    border-radius: calc($sp-4 * 2);
+    background-color: $primary-white;
+    border-radius: $sp-4;
     bottom: $sp-20;
-    box-shadow: 0 $sp-4 calc($sp-4 * 2) $primary-gray;
+    box-shadow: 0 $sp-12 $sp-24 calc($sp-2 + $sp-4) $box-shadow;
     left: $sp-20;
-    max-width: calc($sp-16 * 18 + $sp-12);
+    left: calc($sp-16 * 5);
+    min-width: calc($sp-48 * 6 + $sp-4);
     padding: $sp-20;
     position: absolute;
 
     &__blog-title {
-      font-size: 2$sp-4;
-      font-weight: $font-bold;
-      margin-bottom: calc($sp-12 - $sp-2);
+      font-size: $sp-24;
+      font-weight: bold;
+      margin-bottom: $sp-2;
     }
 
     &__category-name {
-      color: $secondary-gray;
       font-size: $sp-16;
+      background-color: $category-color;
+      border-radius: 0 $sp-4 0 0;
+      color: $primary-white;
+      padding: $sp-4;
+      width: calc($sp-48 * 3 + $sp-2);
+    }
+  }
+
+  &__auth-card {
+    position: absolute;
+    bottom: $sp-48;
+    left: calc($sp-16 * 5);
+    min-width: calc($sp-48 * 6 + $sp-4);
+
+    &__category-name {
+      font-size: $sp-16;
+      background-color: $category-color;
+      border-radius: 0 $sp-4 0 0;
+      color: $primary-white;
+      padding: $sp-4;
+      width: calc($sp-48 * 3 + $sp-2);
+    }
+
+    &__blog-title {
+      margin: 0;
+      font-size: $sp-36;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 1);
+      text-shadow: $sp-2 $sp-2 $sp-4 $text-shadow;
+      text-align: center;
+    }
+
+    &__author-info {
+      color: rgba(255, 255, 255, 1);
+      display: flex;
+      align-items: center;
+      gap: $sp-24;
+
+      &__author-image {
+        width: calc($sp-24 + $sp-8);
+        height: calc($sp-24 + $sp-8);
+        border-radius: 50%;
+      }
+      &__author-name {
+        font-weight: bold;
+        margin: 0;
+      }
     }
   }
 }

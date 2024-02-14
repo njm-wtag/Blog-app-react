@@ -1,10 +1,10 @@
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
 import facebook from "assets/images/fb.png";
+import useAuth from "hooks/useAuth";
 import twitter from "assets/images/twitter.png";
 import instagram from "assets/images/insta.png";
 import youtube from "assets/images/youtube.png";
 import "./AuthorDetails.scss";
-import useAuth from "hooks/useAuth";
 
 const AuthorDetails = () => {
   const { authUser } = useAuth();

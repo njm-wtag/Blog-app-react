@@ -64,7 +64,6 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
                 <input type="file" onChange={(e) => handleImageChange(e)} />
                 {(blogDetails || selectedImage) && (
                   <img
-                    className="author-about__details__image"
                     src={
                       selectedImage ? selectedImage : blogDetails?.bannerImage
                     }

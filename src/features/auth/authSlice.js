@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { updateUsersById } from "features/register/registerSlice";
+import { useDispatch } from "react-redux";
 import authenticateUser from "utils/authUtils";
 
 const INITIAL_STATE = {
@@ -31,13 +33,6 @@ export const updatedAuthUser = createAsyncThunk(
   "auth/updatedAuthUser",
   async (userInfo) => {
     localStorage.setItem("authUser", JSON.stringify(userInfo));
-    const users = JSON.parse(localStorage.getItem("users"));
-
-    const updatedUsers = users?.map((user) =>
-      user.id === userInfo.id ? userInfo : user
-    );
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-
     return userInfo;
   }
 );

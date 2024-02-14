@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import Layout from "components/Layout/Layout";
 import { v4 as uuidv4 } from "uuid";
 import AuthorDetails from "components/AuthorDetails/AuthorDetails";
-import { useState } from "react";
 import BlogList from "components/BlogList/BlogList";
 import EditProfileForm from "components/EditProfileForm/EditProfileForm";
 import { postBlog } from "features/blogs/blogsSlice";
@@ -18,9 +18,7 @@ const Profile = () => {
   const blogs = useBlogs();
   const dispatch = useDispatch();
 
-  const blogByAuthor = blogs?.filter(
-    ({ authorId }) => authorId === authUser.id
-  );
+  const blogByAuthor = blogs?.filter((blog) => blog.authorId === authUser.id);
 
   const onSubmit = async (blog) => {
     blog.id = uuidv4();
@@ -48,7 +46,11 @@ const Profile = () => {
         />
       )}
       <h3>My published posts</h3>
-      <BlogList blogs={blogByAuthor} />
+      {blogByAuthor.length ? (
+        <BlogList blogs={blogByAuthor} />
+      ) : (
+        "No blog published yet"
+      )}
     </Layout>
   );
 };
