@@ -1,29 +1,43 @@
-.tag-list {
-  display: flex;
-  align-items: center;
-  gap: $sp-16;
-  margin: calc($sp-24 + $sp-4) 0;
+.wrapper {
+  .tag-list {
+    display: flex;
+    align-items: center;
+    gap: $sp-16;
+    margin: calc($sp-24 + $sp-4) 0;
 
-  &--selected-tag {
-    background-color: $category-color;
-    border-radius: calc($sp-4 + $sp-2);
-    color: $primary-white;
-    padding: $sp-4 calc($sp-8 + $sp-2);
-    cursor: pointer;
+    &--selected-tag {
+      background-color: $category-color;
+      border-radius: calc($sp-4 + $sp-2);
+      color: $primary-white;
+      padding: $sp-4 calc($sp-8 + $sp-2);
+      cursor: pointer;
+    }
+
+    &--not-selected-tag {
+      background-color: $category-bg-color;
+      border-radius: calc($sp-4 + $sp-2);
+      color: $category-color;
+      padding: $sp-4 calc($sp-8 + $sp-2);
+      cursor: pointer;
+    }
   }
 
-  &--not-selected-tag {
-    background-color: $category-bg-color;
-    border-radius: calc($sp-4 + $sp-2);
-    color: $category-color;
-    padding: $sp-4 calc($sp-8 + $sp-2);
-    cursor: pointer;
+  .blog-list {
+    display: grid;
+    gap: $sp-16;
+    grid-template-columns: repeat(3, 1fr);
+    margin: calc($sp-24 + $sp-4) 0;
   }
-}
-
-.blog-list {
-  display: grid;
-  gap: $sp-16;
-  grid-template-columns: repeat(3, 1fr);
-  margin: calc($sp-24 + $sp-4) 0;
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+    .load-more-button {
+      color: $primary-black;
+      background-color: $background-gray;
+      border-radius: $sp-4;
+      border: $sp-2 solid $primary-gray;
+      margin: 0 calc($sp-4 + $sp-1);
+      padding: $sp-4 $sp-12;
+    }
+  }
 }

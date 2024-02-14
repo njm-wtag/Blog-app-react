@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import Button from "components/Button/Button";
 import SelectBox from "components/SelectBox/SelectBox";
 import { convertToBase64 } from "utils/helpers";
-import "./BlogForm.scss";
+import "./blogForm.scss";
 
 const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
   const [imagePreview, setImagePreview] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = async (e, input) => {
     try {
       const newSelectedImage = await convertToBase64(e.target.files[0]);
       setSelectedImage(newSelectedImage);
@@ -61,7 +61,10 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
             {({ meta, input }) => (
               <div className="form-container__field">
                 <label>Banner Image</label>
-                <input type="file" onChange={(e) => handleImageChange(e)} />
+                <input
+                  type="file"
+                  onChange={(e) => handleImageChange(e, input)}
+                />
                 {(blogDetails || selectedImage) && (
                   <img
                     src={
@@ -90,7 +93,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
             </Button>
             <Button
               type={"button"}
-              onclickHandler={() => setIsAddBlogFormOpen(false)}
+              onClickHandler={() => setIsAddBlogFormOpen(false)}
               className="cancel-button"
             >
               Cancel

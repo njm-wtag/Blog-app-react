@@ -2,15 +2,20 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import useSearch from "hooks/useSearch";
 import { tagRemoved, tagselected } from "features/search/searchSlice";
+import { incrementPage } from "features/pagination/paginationSlice";
 import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
-import "./blogList.scss";
 import { tags } from "components/SelectBox/SelectBox";
+import "./blogList.scss";
 
 const BlogList = ({ blogs }) => {
   const { query } = useSearch();
   const dispatch = useDispatch();
   const { filteredTags } = useSelector((state) => state.search);
+
+  const { currentPage, blogsPerPage } = useSelector(
+    (state) => state.pagination
+  );
 
   const handleSelect = (tag) => {
     const isSelected = filteredTags.includes(tag);
@@ -39,8 +44,15 @@ const BlogList = ({ blogs }) => {
     return tags.some(({ value }) => filteredTags.includes(value));
   });
 
+  const totalBlogs = filteredBlogsByTags.length;
+  const currentBlogs = filteredBlogsByTags.slice(0, blogsPerPage);
+
+  const handleLoadMore = () => {
+    dispatch(incrementPage());
+  };
+
   return (
-    <>
+    <div className="wrapper">
       <div className="tag-list">
         {tags?.map((tag) => (
           <Button
@@ -58,13 +70,22 @@ const BlogList = ({ blogs }) => {
         ))}
       </div>
       <div className="blog-list">
-        {filteredBlogsByTags.length
-          ? filteredBlogsByTags?.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
-            ))
+        {currentBlogs.length
+          ? currentBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
           : "Blog not found"}
       </div>
-    </>
+      {blogsPerPage < totalBlogs && (
+        <div className="button-wrapper">
+          <Button
+            type={"button"}
+            onClickHandler={() => handleLoadMore()}
+            className="load-more-button"
+          >
+            Load More
+          </Button>
+        </div>
+      )}
+    </div>
   );
 };
 
