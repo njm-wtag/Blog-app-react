@@ -38,12 +38,10 @@ const BlogDetails = ({ blogDetails }) => {
 
 BlogDetails.defaultProps = {
   blogDetails: {
-    blog: {
-      bannerImage: [],
-      createdAt: "",
-      imagePreview: "",
-      tags: [],
-    },
+    bannerImage: [],
+    createdAt: "",
+    imagePreview: "",
+    tags: [],
   },
 };
 
