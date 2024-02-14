@@ -105,7 +105,13 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
 
 BlogForm.defaultProps = {
   setIsAddBlogFormOpen: () => {},
-  blogDetails: {},
+  blogDetails: PropTypes.shape({
+    authorId: "",
+    bannerImage: "",
+    createdAt: "",
+    tags: [],
+    title: "",
+  }),
 };
 
 BlogForm.propTypes = {
