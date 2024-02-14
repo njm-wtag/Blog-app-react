@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
-
 import { useDispatch, useSelector } from "react-redux";
 import useSearch from "hooks/useSearch";
+import { tagRemoved, tagselected } from "features/search/searchSlice";
 import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
+import "./blogList.scss";
 import { tags } from "components/SelectBox/SelectBox";
-import { tagRemoved, tagselected } from "features/search/searchSlice";
-import "./BlogList.scss";
 
 const BlogList = ({ blogs }) => {
   const { query } = useSearch();
@@ -43,7 +42,7 @@ const BlogList = ({ blogs }) => {
   return (
     <>
       <div className="tag-list">
-        {tags.map((tag) => (
+        {tags?.map((tag) => (
           <Button
             type={"button"}
             key={tag.value}

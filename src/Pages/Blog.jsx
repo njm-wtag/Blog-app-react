@@ -8,6 +8,7 @@ const Blog = () => {
   const { blogId } = useParams();
   const blogs = useBlogs();
   const blogDetails = blogs?.find((blog) => blog.id == blogId);
+
   return (
     <Layout>
       <BlogDetails blogDetails={blogDetails} />
