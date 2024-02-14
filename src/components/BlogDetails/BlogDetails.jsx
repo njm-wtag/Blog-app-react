@@ -4,12 +4,12 @@ import useAuth from "hooks/useAuth";
 import useRegister from "hooks/useRegister";
 import EditIcon from "components/icons/EditIcon";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
-import "./BlogDetails.scss";
+import "./blogDetails.scss";
 
 const BlogDetails = ({ blogDetails }) => {
   const { users } = useRegister();
-  const author = users?.find((user) => user.id === blogDetails.authorId);
   const { authUser } = useAuth();
+  const author = users?.find((user) => user.id === blogDetails.authorId);
   const isEditable = blogDetails?.authorId === authUser?.id;
 
   return (
@@ -41,8 +41,8 @@ const BlogDetails = ({ blogDetails }) => {
       </div>
 
       <img
-        src={blogDetails?.bannerImage}
-        alt=""
+        src={blogDetails?.imagePreview}
+        alt="Banner Image"
         className="blog-details__banner"
       />
       <p className="blog-details__blog-body">{blogDetails?.body}</p>
@@ -52,7 +52,7 @@ const BlogDetails = ({ blogDetails }) => {
 
 BlogDetails.defaultProps = {
   blogDetails: {
-    bannerImage: [],
+    bannerImage: "",
     createdAt: "",
     tags: [],
   },

@@ -1,12 +1,12 @@
-import useAuth from "hooks/useAuth";
 import PropTypes from "prop-types";
-import "./HomeBanner.scss";
+import useAuth from "hooks/useAuth";
 import useRegister from "hooks/useRegister";
+import "./homeBanner.scss";
 
 const HomeBanner = ({ blog }) => {
   const { authUser } = useAuth();
   const { users } = useRegister();
-  const authorDetails = users.find((user) => user.id === blog.authorId);
+  const authorDetails = users?.find((user) => user.id === blog.authorId);
 
   return (
     <div
@@ -28,8 +28,8 @@ const HomeBanner = ({ blog }) => {
         <h2
           className={
             authUser
-              ? "home-banner__auth-card__blog-title"
-              : "home-banner__card__blog-title"
+              ? "home-banner__auth-card--blog-title"
+              : "home-banner__card--blog-title"
           }
         >
           {blog?.title}
@@ -38,8 +38,8 @@ const HomeBanner = ({ blog }) => {
         <div
           className={
             authUser
-              ? "home-banner__auth-card__author-info"
-              : "blog-details__author-info"
+              ? "home-banner__auth-card--author-info"
+              : "home-banner__card--author-info"
           }
         >
           <img
@@ -47,23 +47,25 @@ const HomeBanner = ({ blog }) => {
             alt={authorDetails?.username}
             className={
               authUser
-                ? "home-banner__auth-card__author-info__author-image"
-                : "blog-details__author-info__author-image"
+                ? "home-banner__auth-card--author-info---author-image"
+                : "home-banner__card--author-info---author-image"
             }
           />
 
           <p
             className={
               authUser
-                ? "home-banner__auth-card__author-info__author-name"
-                : "blog-details__author-info__author-name"
+                ? "home-banner__auth-card--author-info---author-name"
+                : "home-banner__card--author-info---author-name"
             }
           >
             {authorDetails?.firstname} {authorDetails?.lastname}
           </p>
           <p
             className={
-              authUser ? "" : "blog-details__author-info__blog-createdAt"
+              authUser
+                ? "home-banner__auth-card--author-info---blog-createdAt"
+                : "home-banner__card--author-info---blog-createdAt"
             }
           >
             {blog?.createdAt?.substring(0, 10)}

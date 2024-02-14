@@ -2,13 +2,12 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import useRegister from "hooks/useRegister";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
-import "./BlogCard.scss";
+import "./blogCard.scss";
 
 const BlogCard = ({ blog }) => {
   const { bannerImage, title, tags, createdAt, authorId } = blog;
   const { users } = useRegister();
-  const author = users.find((user) => user.id === authorId);
-
+  const author = users?.find((user) => user.id === authorId);
   return (
     <div className="blog-card">
       <Link to={`/blog/${blog.id}`}>

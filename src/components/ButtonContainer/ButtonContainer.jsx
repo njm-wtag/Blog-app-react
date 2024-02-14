@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import AddIcon from "components/icons/AddIcon";
 import Button from "components/Button/Button";
 import EditIcon from "components/icons/EditIcon";
-import "./ButtonContainer.scss";
+import "./buttonContainer.scss";
 
 const ButtonContainer = ({
   setIsAddBlogFormOpen,

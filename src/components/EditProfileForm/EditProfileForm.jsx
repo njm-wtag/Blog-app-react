@@ -7,7 +7,7 @@ import { convertToBase64 } from "utils/base64Image";
 import { updatedAuthUser } from "features/auth/authSlice";
 import { updateUsersById } from "features/register/registerSlice";
 import Button from "components/Button/Button";
-import "./EditProfileForm.scss";
+import "./editProfileForm.scss";
 
 const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
   const { authUser, success } = useAuth();
@@ -18,7 +18,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
   const validate = (values) => {
     const errors = {};
     if (!values.firstname) {
-      errors.firstname = "Required";
+      errors.firstname = "First name is required";
     }
 
     return errors;
@@ -102,7 +102,8 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
                 />
                 {
                   <img
-                    src={selectedImage ? selectedImage : authUser.profileImage}
+                    src={selectedImage ? selectedImage : authUser?.profileImage}
+                    alt="Author Image"
                   />
                 }
                 {meta.error && <span>{meta.error}</span>}

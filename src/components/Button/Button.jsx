@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "./Button.scss";
+import "./button.scss";
 
 const Button = ({ children, className, onClickHandler, type }) => {
   return (
@@ -15,7 +15,7 @@ const Button = ({ children, className, onClickHandler, type }) => {
 
 Button.defaultProps = {
   className: null,
-  onClickHandler: null,
+  onClickHandler: () => {},
   type: null,
 };
 

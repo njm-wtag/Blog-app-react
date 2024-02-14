@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
+
+import { useDispatch, useSelector } from "react-redux";
 import useSearch from "hooks/useSearch";
 import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
 import { tags } from "components/SelectBox/SelectBox";
-import "./BlogList.scss";
-import { useDispatch, useSelector } from "react-redux";
 import { tagRemoved, tagselected } from "features/search/searchSlice";
+import "./BlogList.scss";
 
 const BlogList = ({ blogs }) => {
   const { query } = useSearch();
@@ -69,7 +70,13 @@ const BlogList = ({ blogs }) => {
 };
 
 BlogList.defaultProps = {
-  blogs: [],
+  blogs: PropTypes.arrayOf(
+    PropTypes.shape({
+      bannerImage: "",
+      createdAt: "",
+      tags: [],
+    })
+  ),
 };
 
 BlogList.propTypes = {

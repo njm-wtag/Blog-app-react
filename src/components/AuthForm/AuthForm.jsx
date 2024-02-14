@@ -3,16 +3,16 @@ import { Field, Form } from "react-final-form";
 import { Link, useLocation } from "react-router-dom";
 import authValidation from "utils/authValidation";
 import useAuth from "hooks/useAuth";
-import "./AuthForm.scss";
+import "./authForm.scss";
 
 const AuthForm = ({ handleSubmit }) => {
-  const { error } = useAuth();
+  const { errorMessage } = useAuth();
   const location = useLocation();
   const pathname = location.pathname;
   const isRegisterForm = pathname === "/register";
   return (
     <div className="form-container">
-      {error && (
+      {errorMessage && (
         <div
           className={
             isRegisterForm
@@ -20,7 +20,7 @@ const AuthForm = ({ handleSubmit }) => {
               : "form-container__error-message"
           }
         >
-          {error}
+          {errorMessage}
         </div>
       )}
       <Form
