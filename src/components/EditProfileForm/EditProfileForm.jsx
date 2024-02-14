@@ -7,6 +7,7 @@ import { convertToBase64 } from "utils/base64Image";
 import { updatedAuthUser } from "features/auth/authSlice";
 import { updateUsersById } from "features/register/registerSlice";
 import Button from "components/Button/Button";
+import { convertToBase64 } from "utils/helpers";
 import "./EditProfileForm.scss";
 
 const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
@@ -22,6 +23,16 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
     }
 
     return errors;
+  };
+
+  const handleImageChange = async (e) => {
+    try {
+      const newSelectedImage = await convertToBase64(e.target.files[0]);
+      setSelectedImage(newSelectedImage);
+      input.onChange(newSelectedImage);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const onSubmit = (userInfo) => {
@@ -90,16 +101,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
             {({ input, meta }) => (
               <div className="form-container__field">
                 <label>Profile Image</label>
-                <input
-                  type="file"
-                  onChange={async (e) => {
-                    const newSelectedImage = await convertToBase64(
-                      e.target.files[0]
-                    );
-                    setSelectedImage(newSelectedImage);
-                    input.onChange(newSelectedImage);
-                  }}
-                />
+                <input type="file" onChange={handleImageChange} />
                 {
                   <img
                     src={selectedImage ? selectedImage : authUser?.profileImage}
