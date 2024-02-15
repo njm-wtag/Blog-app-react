@@ -7,12 +7,10 @@ import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
 import { tags } from "components/SelectBox/SelectBox";
 import "./blogList.scss";
-import { useLocation } from "react-router-dom";
 
 const BlogList = ({ blogs }) => {
-  const { query } = useSearch();
+  const { query, filteredTags } = useSearch();
   const dispatch = useDispatch();
-  const { filteredTags } = useSelector((state) => state.search);
 
   const { blogsPerPage } = useSelector((state) => state.pagination);
 
@@ -44,7 +42,7 @@ const BlogList = ({ blogs }) => {
   });
 
   const handleLoadMore = () => {
-    dispatch(incrementPage());
+    dispatch(incrementPage(location));
   };
   const totalBlogs = filteredBlogsByTags.length;
   const currentBlogs = filteredBlogsByTags.slice(0, blogsPerPage);
@@ -76,7 +74,7 @@ const BlogList = ({ blogs }) => {
         <div className="button-wrapper">
           <Button
             type={"button"}
-            onClickHandler={() => handleLoadMore()}
+            onClickHandler={handleLoadMore}
             className="load-more-button"
           >
             Load More

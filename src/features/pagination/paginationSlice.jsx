@@ -7,7 +7,7 @@ const paginationSlice = createSlice({
   },
   reducers: {
     incrementPage(state) {
-      state.blogsPerPage += 1;
+      state.blogsPerPage += 2;
     },
   },
 });
