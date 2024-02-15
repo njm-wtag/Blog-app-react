@@ -21,14 +21,6 @@ const Home = () => {
     randomBlog = blogsByOtherAuthor[randomIndex];
   }
 
-  // const searchedBlogs = (blogsByOtherAuthor, queryInHome) => {
-  //   return blogsByOtherAuthor?.filter((blog) =>
-  //     blogsByOtherAuthor?.title.toLowerCase().includes(queryInHome.toLowerCase())
-  //   );
-  // };
-
-  // const filteredBlogsBySearch = searchedBlogs(blogs, query);
-
   return (
     <Layout>
       <HomeBanner blog={randomBlog} />

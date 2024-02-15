@@ -21,8 +21,7 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const blogByAuthor = blogs?.filter((blog) => blog.authorId === authUser.id);
-  console.log(queryInProfile);
-  const onSubmit = async (blog) => {
+  const onSubmit = (blog) => {
     blog.id = uuidv4();
     blog.authorId = authUser.id;
     blog.createdAt = new Date().toISOString();
