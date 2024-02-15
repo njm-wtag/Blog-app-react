@@ -1,16 +1,15 @@
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useSearch from "hooks/useSearch";
 import { tagRemoved, tagSelected } from "features/search/searchSlice";
 import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
-import "./blogList.scss";
 import { tags } from "components/SelectBox/SelectBox";
+import "./blogList.scss";
 
 const BlogList = ({ blogs }) => {
-  const { query } = useSearch();
+  const { query, filteredTags } = useSearch();
   const dispatch = useDispatch();
-  const { filteredTags } = useSelector((state) => state.search);
 
   const handleSelect = (tag) => {
     const isSelected = filteredTags.includes(tag);
