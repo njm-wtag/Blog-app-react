@@ -4,16 +4,10 @@ import Button from "components/Button/Button";
 import { tags } from "components/SelectBox/SelectBox";
 import "./blogList.scss";
 
-const BlogList = ({
-  blogs,
-  query,
-  handleSelect,
-  toggleSelected,
-  filteredTags,
-}) => {
+const BlogList = ({ blogs, query }) => {
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
-      blog?.title.toLowerCase().includes(query.toLowerCase())
+      blog?.title?.toLowerCase().includes(query.toLowerCase())
     );
   };
 
