@@ -13,7 +13,7 @@ const BlogList = ({ blogs, query }) => {
 
   const filteredBlogsByTitle = searchedBlogs(blogs, query);
 
-  const filteredBlogsByTags = filteredBlogsByTitle.filter(({ tags }) => {
+  const filteredBlogsByTags = filteredBlogsByTitle?.filter(({ tags }) => {
     if (filteredTags.length === 0) {
       return true;
     }
