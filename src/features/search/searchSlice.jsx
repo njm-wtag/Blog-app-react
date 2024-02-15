@@ -13,7 +13,7 @@ const searchSlice = createSlice({
       state.query = action.payload;
     },
 
-    tagselected: (state, action) => {
+    tagSelected: (state, action) => {
       if (state.filteredTags.indexOf(action.payload) === -1) {
         state.filteredTags.push(action.payload);
       }
@@ -30,4 +30,4 @@ const searchSlice = createSlice({
 });
 
 export default searchSlice.reducer;
-export const { updateQuery, tagselected, tagRemoved } = searchSlice.actions;
+export const { updateQuery, tagSelected, tagRemoved } = searchSlice.actions;

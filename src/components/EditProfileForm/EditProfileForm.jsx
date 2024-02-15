@@ -104,12 +104,12 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
                   type="file"
                   onChange={(e) => handleImageChange(e, input)}
                 />
-                {
+                {imagePreview && (
                   <img
                     src={selectedImage ? selectedImage : authUser?.profileImage}
                     alt="Author Image"
                   />
-                }
+                )}
                 {meta.error && <span>{meta.error}</span>}
               </div>
             )}

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Button from "components/Button/Button";
 import SelectBox from "components/SelectBox/SelectBox";
 import { convertToBase64 } from "utils/helpers";
+import { blogFormValidation } from "utils/blogFormValidation";
 import "./blogForm.scss";
 
 const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
@@ -30,13 +31,14 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
     <Form
       initialValues={blogDetails || null}
       onSubmit={onSubmit}
+      validate={(values) => blogFormValidation(values)}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <div className="title-tags-form-container">
-            <div className="title-tags-form-container__field">
+          <div className="title-tags-form-wrapper">
+            <div>
               <Field name="title">
                 {({ input, meta }) => (
-                  <div>
+                  <div className="form-container__field">
                     <label>Title</label>
 
                     <input {...input} type="text" />
@@ -45,10 +47,10 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
                 )}
               </Field>
             </div>
-            <div className="title-tags-form-container__field">
+            <div>
               <Field name="tags" component={"select"} isMulti>
                 {({ input, meta }) => (
-                  <div>
+                  <div className="form-container__field">
                     <label>Tags</label>
                     <SelectBox input={input} />
                     {meta.error && <span>{meta.error}</span>}
@@ -65,14 +67,13 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
                   type="file"
                   onChange={(e) => handleImageChange(e, input)}
                 />
-                {(blogDetails || selectedImage) && (
+                {imagePreview && (blogDetails || selectedImage) && (
                   <img
                     src={
                       selectedImage ? selectedImage : blogDetails?.bannerImage
                     }
                   />
                 )}
-
                 {meta.error && <span>{meta.error}</span>}
               </div>
             )}
@@ -107,13 +108,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
 
 BlogForm.defaultProps = {
   setIsAddBlogFormOpen: () => {},
-  blogDetails: PropTypes.shape({
-    authorId: "",
-    bannerImage: "",
-    createdAt: "",
-    tags: [],
-    title: "",
-  }),
+  blogDetails: {},
 };
 
 BlogForm.propTypes = {

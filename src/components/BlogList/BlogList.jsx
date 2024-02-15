@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import useSearch from "hooks/useSearch";
-import { tagRemoved, tagselected } from "features/search/searchSlice";
+import { tagRemoved, tagSelected } from "features/search/searchSlice";
 import { incrementPage } from "features/pagination/paginationSlice";
 import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
@@ -22,7 +22,7 @@ const BlogList = ({ blogs }) => {
     if (isSelected) {
       dispatch(tagRemoved(tag));
     } else {
-      dispatch(tagselected(tag));
+      dispatch(tagSelected(tag));
     }
   };
 
@@ -41,7 +41,7 @@ const BlogList = ({ blogs }) => {
       return true;
     }
 
-    return tags.some(({ value }) => filteredTags.includes(value));
+    return tags?.some(({ value }) => filteredTags.includes(value));
   });
 
   const totalBlogs = filteredBlogsByTags.length;
