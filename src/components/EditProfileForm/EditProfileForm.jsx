@@ -24,7 +24,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
     return errors;
   };
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = async (e, input) => {
     try {
       const newSelectedImage = await convertToBase64(e.target.files[0]);
       setSelectedImage(newSelectedImage);
@@ -100,13 +100,16 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
             {({ input, meta }) => (
               <div className="form-container__field">
                 <label>Profile Image</label>
-                <input type="file" onChange={handleImageChange} />
-                {
+                <input
+                  type="file"
+                  onChange={(e) => handleImageChange(e, input)}
+                />
+                {imagePreview && (
                   <img
                     src={selectedImage ? selectedImage : authUser?.profileImage}
                     alt="Author Image"
                   />
-                }
+                )}
                 {meta.error && <span>{meta.error}</span>}
               </div>
             )}
