@@ -1,27 +1,16 @@
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import useSearch from "hooks/useSearch";
-import { tagRemoved, tagSelected } from "features/search/searchSlice";
 import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
 import { tags } from "components/SelectBox/SelectBox";
 import "./blogList.scss";
 
-const BlogList = ({ blogs, query }) => {
-  // const { query, filteredTags } = useSearch();
-  const dispatch = useDispatch();
-
-  const handleSelect = (tag) => {
-    const isSelected = filteredTags.includes(tag);
-    if (isSelected) {
-      dispatch(tagRemoved(tag));
-    } else {
-      dispatch(tagSelected(tag));
-    }
-  };
-
-  const toggleSelected = (tag) => filteredTags.includes(tag);
-
+const BlogList = ({
+  blogs,
+  query,
+  handleSelect,
+  toggleSelected,
+  filteredTags,
+}) => {
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
       blog?.title.toLowerCase().includes(query.toLowerCase())
@@ -76,6 +65,8 @@ BlogList.defaultProps = {
     })
   ),
   query: "",
+  handleSelect: () => {},
+  toggleSelected: () => {},
 };
 
 BlogList.propTypes = {
@@ -90,6 +81,8 @@ BlogList.propTypes = {
     })
   ),
   query: PropTypes.string,
+  handleSelect: PropTypes.func,
+  toggleSelected: PropTypes.func,
 };
 
 export default BlogList;
