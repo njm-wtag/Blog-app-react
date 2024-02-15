@@ -3,17 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const paginationSlice = createSlice({
   name: "pagination",
   initialState: {
-    currentPage: 1,
-    blogsPerPage: 9,
+    blogsPerPage: 3,
   },
   reducers: {
     incrementPage(state) {
-      state.currentPage += 1;
-      state.blogsPerPage += 6;
+      state.blogsPerPage += 1;
     },
   },
 });
 
-export const { incrementPageCount } = paginationSlice.actions;
+export const { incrementPage } = paginationSlice.actions;
 
 export default paginationSlice.reducer;

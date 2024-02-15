@@ -7,15 +7,14 @@ import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
 import { tags } from "components/SelectBox/SelectBox";
 import "./blogList.scss";
+import { useLocation } from "react-router-dom";
 
 const BlogList = ({ blogs }) => {
   const { query } = useSearch();
   const dispatch = useDispatch();
   const { filteredTags } = useSelector((state) => state.search);
 
-  const { currentPage, blogsPerPage } = useSelector(
-    (state) => state.pagination
-  );
+  const { blogsPerPage } = useSelector((state) => state.pagination);
 
   const handleSelect = (tag) => {
     const isSelected = filteredTags.includes(tag);
@@ -44,12 +43,11 @@ const BlogList = ({ blogs }) => {
     return tags?.some(({ value }) => filteredTags.includes(value));
   });
 
-  const totalBlogs = filteredBlogsByTags.length;
-  const currentBlogs = filteredBlogsByTags.slice(0, blogsPerPage);
-
   const handleLoadMore = () => {
     dispatch(incrementPage());
   };
+  const totalBlogs = filteredBlogsByTags.length;
+  const currentBlogs = filteredBlogsByTags.slice(0, blogsPerPage);
 
   return (
     <div className="wrapper">
