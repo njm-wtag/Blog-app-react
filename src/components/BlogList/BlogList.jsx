@@ -1,14 +1,11 @@
 import PropTypes from "prop-types";
-import useSearch from "hooks/useSearch";
 import BlogCard from "components/BlogCard/BlogCard";
 import "./blogList.scss";
 
 const BlogList = ({ blogs, query }) => {
-  // const { query } = useSearch();
-
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
-      blog?.title.toLowerCase().includes(query.toLowerCase())
+      blog?.title?.toLowerCase().includes(query.toLowerCase())
     );
   };
 
