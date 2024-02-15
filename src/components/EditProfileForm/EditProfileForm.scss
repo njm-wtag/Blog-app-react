@@ -8,11 +8,14 @@ form {
   padding: $sp-16;
 
   div {
-    margin-bottom: $sp-16;
-
     label {
       font-weight: $font-bold;
       margin-bottom: $sp-4;
+    }
+
+    input[type="file"] {
+      border: $sp-2 dashed #e8e8ea;
+      background-color: #fff;
     }
 
     input,

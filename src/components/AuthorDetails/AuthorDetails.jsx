@@ -13,7 +13,9 @@ const AuthorDetails = () => {
       <div className="author-about__details">
         <img
           className="author-about__details--image"
-          src={defaultProfileIcon}
+          src={
+            authUser.profileImage ? authUser.profileImage : defaultProfileIcon
+          }
           alt="Profile"
         />
         <div className="author-about__details--info">

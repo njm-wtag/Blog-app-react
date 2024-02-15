@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
-import "./ButtonContainer.scss";
 import AddIcon from "components/icons/AddIcon";
-import EditIcon from "components/icons/EditIcon";
 import Button from "components/Button/Button";
+import EditIcon from "components/icons/EditIcon";
+import "./ButtonContainer.scss";
 
-const ButtonContainer = ({ setIsAddBlogFormOpen }) => {
+const ButtonContainer = ({
+  setIsAddBlogFormOpen,
+  setIsEditProfileFormOpen,
+}) => {
   return (
     <div className="button-container">
       <Button
@@ -16,7 +19,14 @@ const ButtonContainer = ({ setIsAddBlogFormOpen }) => {
         <AddIcon />
       </Button>
 
-      <Button className="button-container_edit-profile">
+      <Button
+        className="button-container_edit-profile"
+        onClickHandler={() =>
+          setIsEditProfileFormOpen(
+            (isEditProfileFormOpen) => !isEditProfileFormOpen
+          )
+        }
+      >
         <EditIcon />
       </Button>
     </div>

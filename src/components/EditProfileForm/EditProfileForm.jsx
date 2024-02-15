@@ -1,0 +1,135 @@
+import { useEffect, useState } from "react";
+import { Field, Form } from "react-final-form";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import useAuth from "hooks/useAuth";
+import Button from "components/Button/Button";
+import { updatedAuthUser } from "features/auth/authSlice";
+import { convertToBase64 } from "utils/helpers";
+import "./EditProfileForm.scss";
+
+const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
+  const { authUser, success } = useAuth();
+  const [imagePreview, setImagePreview] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const dispatch = useDispatch();
+
+  const validate = (values) => {
+    const errors = {};
+    if (!values.firstname) {
+      errors.firstname = "First name is required";
+    }
+
+    return errors;
+  };
+
+  const handleImageChange = async (e) => {
+    try {
+      const newSelectedImage = await convertToBase64(e.target.files[0]);
+      setSelectedImage(newSelectedImage);
+      input.onChange(newSelectedImage);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const onSubmit = (userInfo) => {
+    dispatch(updatedAuthUser(userInfo));
+    setIsEditProfileFormOpen(false);
+  };
+
+  useEffect(() => {
+    setImagePreview(selectedImage !== null || Boolean(authUser.profileImage));
+  }, [success === true, selectedImage, authUser.profileImage]);
+
+  return (
+    <Form
+      onSubmit={onSubmit}
+      validate={validate}
+      initialValues={authUser}
+      render={({ handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <Field name="firstname">
+            {({ input, meta }) => (
+              <div className="form-container__field">
+                <label>First Name</label>
+                <input {...input} type="text" placeholder="First name" />
+                {meta.error && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <Field name="lastname">
+            {({ input, meta }) => (
+              <div className="form-container__field">
+                <label>Last Name</label>
+                <input {...input} type="text" placeholder="Last name" />
+                {meta.error && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <Field name="username">
+            {({ input, meta }) => (
+              <div className="form-container__field">
+                <label>Userame</label>
+                <input {...input} type="text" placeholder="Username" readOnly />
+                {meta.error && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <Field name="subtitle">
+            {({ input, meta }) => (
+              <div className="form-container__field">
+                <label>Subtitle</label>
+                <input {...input} type="text" placeholder="Subtitle" />
+                {meta.error && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <Field name="about">
+            {({ input, meta }) => (
+              <div className="form-container__field">
+                <label>About</label>
+                <textarea {...input} type="text" placeholder="About" />
+                {meta.error && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <Field name="profileImage">
+            {({ input, meta }) => (
+              <div className="form-container__field custom-file-input">
+                <label>Profile Image</label>
+                <input type="file" onChange={handleImageChange} />
+                {
+                  <img
+                    className="author-about__details__image"
+                    src={selectedImage ? selectedImage : authUser.profileImage}
+                    alt="Author Image"
+                  />
+                }
+                {meta.error && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <div className="form__buttons">
+            <Button type={"submit"} className="submit-button">
+              Submit
+            </Button>
+            <Button
+              type={"button"}
+              onClickHandler={() => setIsEditProfileFormOpen(false)}
+              className="cancel-button"
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      )}
+    />
+  );
+};
+
+export default EditProfileForm;
+
+EditProfileForm.propTypes = {
+  setIsEditProfileFormOpen: PropTypes.func.isRequired,
+};

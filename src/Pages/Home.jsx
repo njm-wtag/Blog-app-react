@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Layout from "components/Layout/Layout";
+import BlogList from "components/BlogList/BlogList";
+import useBlogs from "hooks/useBlogs";
 
 const Home = () => {
+  const { blogs } = useBlogs();
+
   return (
     <Layout>
-      <h1> Home </h1>
-      <Link to={`/me`}>Profile</Link>
+      <BlogList blogs={blogs} />
     </Layout>
   );
 };

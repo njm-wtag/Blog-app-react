@@ -1,14 +1,27 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import useAuth from "hooks/useAuth";
 import useRegister from "hooks/useRegister";
+import EditIcon from "components/icons/EditIcon";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
 import "./BlogDetails.scss";
 
 const BlogDetails = ({ blogDetails }) => {
   const { users } = useRegister();
+  const { authUser } = useAuth();
   const author = users?.find((user) => user.id === blogDetails.authorId);
+  const isEditable = blogDetails?.authorId === authUser?.id;
+
   return (
     <div className="blog-details">
-      <div className="blog-details__category-badge">
+      {isEditable && (
+        <div className="blog-details__edit button-container">
+          <Link to={`/edit/${blogDetails.id}`}>
+            <EditIcon />
+          </Link>
+        </div>
+      )}
+      <div className="blog-details__category-badge blog-card__category-badge">
         {blogDetails.tags ? blogDetails.tags[0].label : "Unknown Category"}
       </div>
       <h1 className="blog-details__blog-title">{blogDetails?.title}</h1>
@@ -26,6 +39,7 @@ const BlogDetails = ({ blogDetails }) => {
           {blogDetails?.createdAt?.substring(0, 10)}
         </p>
       </div>
+
       <img
         src={blogDetails?.imagePreview}
         alt="Banner Image"
@@ -38,9 +52,8 @@ const BlogDetails = ({ blogDetails }) => {
 
 BlogDetails.defaultProps = {
   blogDetails: {
-    bannerImage: [],
+    bannerImage: "",
     createdAt: "",
-    imagePreview: "",
     tags: [],
   },
 };
@@ -48,9 +61,8 @@ BlogDetails.defaultProps = {
 BlogDetails.propTypes = {
   blogDetails: PropTypes.shape({
     authorId: PropTypes.string.isRequired,
-    bannerImage: PropTypes.array,
+    bannerImage: PropTypes.string,
     createdAt: PropTypes.string,
-    imagePreview: PropTypes.string,
     tags: PropTypes.array,
     title: PropTypes.string.isRequired,
   }),
