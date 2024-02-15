@@ -8,23 +8,15 @@ import Button from "components/Button/Button";
 import { tags } from "components/SelectBox/SelectBox";
 import "./blogList.scss";
 
-const BlogList = ({ blogs }) => {
-  const { query, filteredTags } = useSearch();
-  const dispatch = useDispatch();
+const BlogList = ({
+  blogs,
+  query,
 
+  handleSelect,
+  toggleSelected,
+  filteredTags,
+}) => {
   const { blogsPerPage } = useSelector((state) => state.pagination);
-
-  const handleSelect = (tag) => {
-    const isSelected = filteredTags.includes(tag);
-    if (isSelected) {
-      dispatch(tagRemoved(tag));
-    } else {
-      dispatch(tagSelected(tag));
-    }
-  };
-
-  const toggleSelected = (tag) => filteredTags.includes(tag);
-
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
       blog?.title.toLowerCase().includes(query.toLowerCase())
@@ -93,6 +85,9 @@ BlogList.defaultProps = {
       tags: [],
     })
   ),
+  query: "",
+  handleSelect: () => {},
+  toggleSelected: () => {},
 };
 
 BlogList.propTypes = {
@@ -106,6 +101,9 @@ BlogList.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ),
+  query: PropTypes.string,
+  handleSelect: PropTypes.func,
+  toggleSelected: PropTypes.func,
 };
 
 export default BlogList;
