@@ -1,8 +1,4 @@
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import useSearch from "hooks/useSearch";
-import { tagRemoved, tagSelected } from "features/search/searchSlice";
-import { incrementPage } from "features/pagination/paginationSlice";
 import BlogCard from "components/BlogCard/BlogCard";
 import Button from "components/Button/Button";
 import { tags } from "components/SelectBox/SelectBox";
@@ -11,12 +7,12 @@ import "./blogList.scss";
 const BlogList = ({
   blogs,
   query,
-
   handleSelect,
   toggleSelected,
   filteredTags,
+  handleLoadMore,
+  blogsPerPage,
 }) => {
-  const { blogsPerPage } = useSelector((state) => state.pagination);
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
       blog?.title.toLowerCase().includes(query.toLowerCase())
@@ -33,9 +29,6 @@ const BlogList = ({
     return tags?.some(({ value }) => filteredTags.includes(value));
   });
 
-  const handleLoadMore = () => {
-    dispatch(incrementPage(location));
-  };
   const totalBlogs = filteredBlogsByTags.length;
   const currentBlogs = filteredBlogsByTags.slice(0, blogsPerPage);
 
