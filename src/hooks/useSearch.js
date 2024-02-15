@@ -1,9 +1,12 @@
 import { useSelector } from "react-redux";
 
 const useSearch = () => {
-  const { query, filteredTags } = useSelector((state) => state.search);
+  const { queryInHome, queryInProfile, filteredTags } = useSelector(
+    (state) => state.search
+  );
   return {
-    query,
+    queryInHome,
+    queryInProfile,
     filteredTags,
   };
 };

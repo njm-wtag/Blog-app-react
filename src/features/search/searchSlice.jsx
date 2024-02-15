@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  query: "",
+  queryInHome: "",
+  queryInProfile: "",
   filteredTags: [],
 };
 
@@ -9,8 +10,25 @@ const searchSlice = createSlice({
   name: "search",
   initialState: INITIAL_STATE,
   reducers: {
-    updateQuery(state, action) {
-      state.query = action.payload;
+    updateHomeQuery(state, action) {
+      state.queryInHome = action.payload;
+    },
+    updateProfileQuery(state, action) {
+      state.queryInProfile = action.payload;
+    },
+
+    tagSelected: (state, action) => {
+      if (state.filteredTags.indexOf(action.payload) === -1) {
+        state.filteredTags.push(action.payload);
+      }
+    },
+
+    tagRemoved: (state, action) => {
+      const indexToRemove = state.filteredTags.indexOf(action.payload);
+
+      if (indexToRemove !== -1) {
+        state.filteredTags.splice(indexToRemove, 1);
+      }
     },
 
     tagSelected: (state, action) => {
@@ -30,4 +48,5 @@ const searchSlice = createSlice({
 });
 
 export default searchSlice.reducer;
-export const { updateQuery, tagSelected, tagRemoved } = searchSlice.actions;
+export const { updateHomeQuery, updateProfileQuery, tagSelected, tagRemoved } =
+  searchSlice.actions;

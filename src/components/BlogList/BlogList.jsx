@@ -7,8 +7,8 @@ import Button from "components/Button/Button";
 import { tags } from "components/SelectBox/SelectBox";
 import "./blogList.scss";
 
-const BlogList = ({ blogs }) => {
-  const { query, filteredTags } = useSearch();
+const BlogList = ({ blogs, query }) => {
+  // const { query, filteredTags } = useSearch();
   const dispatch = useDispatch();
 
   const handleSelect = (tag) => {
@@ -75,6 +75,7 @@ BlogList.defaultProps = {
       tags: [],
     })
   ),
+  query: "",
 };
 
 BlogList.propTypes = {
@@ -88,6 +89,7 @@ BlogList.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ),
+  query: PropTypes.string,
 };
 
 export default BlogList;
