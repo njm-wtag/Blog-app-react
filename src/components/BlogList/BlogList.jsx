@@ -15,13 +15,13 @@ const BlogList = ({
 }) => {
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
-      blog?.title.toLowerCase().includes(query.toLowerCase())
+      blog?.title?.toLowerCase().includes(query.toLowerCase())
     );
   };
 
   const filteredBlogsByTitle = searchedBlogs(blogs, query);
 
-  const filteredBlogsByTags = filteredBlogsByTitle.filter(({ tags }) => {
+  const filteredBlogsByTags = filteredBlogsByTitle?.filter(({ tags }) => {
     if (filteredTags.length === 0) {
       return true;
     }
