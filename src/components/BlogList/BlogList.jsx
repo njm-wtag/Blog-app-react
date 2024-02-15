@@ -3,14 +3,15 @@ import useSearch from "hooks/useSearch";
 import BlogCard from "components/BlogCard/BlogCard";
 import "./blogList.scss";
 
-const BlogList = ({ blogs }) => {
-  const { query } = useSearch();
+const BlogList = ({ blogs, query }) => {
+  // const { query } = useSearch();
 
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
       blog?.title.toLowerCase().includes(query.toLowerCase())
     );
   };
+
   const filteredBlogs = searchedBlogs(blogs, query);
 
   return (
@@ -30,6 +31,7 @@ BlogList.defaultProps = {
       tags: [],
     })
   ),
+  query: "",
 };
 
 BlogList.propTypes = {
@@ -43,6 +45,7 @@ BlogList.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ),
+  query: PropTypes.string,
 };
 
 export default BlogList;

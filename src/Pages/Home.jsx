@@ -3,14 +3,17 @@ import useAuth from "hooks/useAuth";
 import BlogList from "components/BlogList/BlogList";
 import HomeBanner from "components/HomeBanner/HomeBanner";
 import Layout from "components/Layout/Layout";
+import useSearch from "hooks/useSearch";
 
 const Home = () => {
   const { authUser } = useAuth();
   const blogs = useBlogs();
+  const { queryInHome } = useSearch();
+  let randomBlog;
+
   const blogsByOtherAuthor = blogs?.filter(
     (blog) => blog.authorId != authUser?.id
   );
-  let randomBlog;
 
   if (blogsByOtherAuthor) {
     const numberOfBlogs = blogsByOtherAuthor.length;
@@ -18,10 +21,18 @@ const Home = () => {
     randomBlog = blogsByOtherAuthor[randomIndex];
   }
 
+  // const searchedBlogs = (blogsByOtherAuthor, queryInHome) => {
+  //   return blogsByOtherAuthor?.filter((blog) =>
+  //     blogsByOtherAuthor?.title.toLowerCase().includes(queryInHome.toLowerCase())
+  //   );
+  // };
+
+  // const filteredBlogsBySearch = searchedBlogs(blogs, query);
+
   return (
     <Layout>
       <HomeBanner blog={randomBlog} />
-      <BlogList blogs={blogsByOtherAuthor} />
+      <BlogList blogs={blogsByOtherAuthor} query={queryInHome} />
     </Layout>
   );
 };

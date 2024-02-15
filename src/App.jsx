@@ -12,9 +12,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/" element={<PrivateRoute />}>
-          <Route path="me" element={<Profile />} />
+        <Route exact path="/" element={<Home />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/me" element={<Profile />} />
           <Route path="/edit/:blogId" element={<EditBlog />} />
         </Route>
         <Route path="/blog/:blogId" element={<Blog />} />

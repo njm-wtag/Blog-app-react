@@ -1,18 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  query: "",
+  queryInHome: "",
+  queryInProfile: "",
 };
 
 const searchSlice = createSlice({
   name: "search",
   initialState: INITIAL_STATE,
   reducers: {
-    updateQuery(state, action) {
-      state.query = action.payload;
+    updateHomeQuery(state, action) {
+      state.queryInHome = action.payload;
+    },
+    updateProfileQuery(state, action) {
+      state.queryInProfile = action.payload;
     },
   },
 });
 
 export default searchSlice.reducer;
-export const { updateQuery } = searchSlice.actions;
+export const { updateHomeQuery, updateProfileQuery } = searchSlice.actions;

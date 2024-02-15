@@ -1,18 +1,23 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useAuth from "hooks/useAuth";
 import useSearch from "hooks/useSearch";
 import { loggedOutUser } from "features/auth/authSlice";
 import LogoutIcon from "components/icons/LogoutIcon";
 import SearchIcon from "components/icons/SearchIcon";
-import { updateQuery } from "features/search/searchSlice";
+import {
+  updateHomeQuery,
+  updateProfileQuery,
+} from "features/search/searchSlice";
 import "./header.scss";
 
 const Header = () => {
   const { authUser } = useAuth();
-  const { query } = useSearch();
+  const { queryInHome, queryInProfile } = useSearch();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const profile = location.pathname === "/me";
 
   const handleLogout = () => {
     dispatch(loggedOutUser());
@@ -20,7 +25,11 @@ const Header = () => {
   };
 
   const handleSearch = (event) => {
-    dispatch(updateQuery(event.target.value));
+    if (profile) {
+      dispatch(updateProfileQuery(event.target.value));
+      return;
+    }
+    dispatch(updateHomeQuery(event.target.value));
   };
 
   return (
@@ -32,7 +41,7 @@ const Header = () => {
         <input
           type="search"
           placeholder="Search"
-          value={query}
+          value={profile ? queryInProfile : queryInHome}
           onChange={handleSearch}
         />
         <SearchIcon />
