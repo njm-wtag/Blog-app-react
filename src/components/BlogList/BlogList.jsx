@@ -29,8 +29,8 @@ const BlogList = ({
     return tags?.some(({ value }) => filteredTags.includes(value));
   });
 
-  const totalBlogs = filteredBlogsByTags.length;
-  const currentBlogs = filteredBlogsByTags.slice(0, blogsPerPage);
+  const totalBlogs = filteredBlogsByTags?.length;
+  const currentBlogs = filteredBlogsByTags?.slice(0, blogsPerPage);
 
   return (
     <div className="wrapper">
@@ -51,7 +51,7 @@ const BlogList = ({
         ))}
       </div>
       <div className="blog-list">
-        {currentBlogs.length
+        {currentBlogs?.length
           ? currentBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
           : "Blog not found"}
       </div>
