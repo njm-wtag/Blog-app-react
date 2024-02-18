@@ -53,9 +53,12 @@ const BlogList = ({ blogs, query }) => {
 BlogList.defaultProps = {
   blogs: PropTypes.arrayOf(
     PropTypes.shape({
+      id: "",
+      authorId: "",
       bannerImage: "",
       createdAt: "",
       tags: [],
+      title: "",
     })
   ),
   query: "",

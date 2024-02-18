@@ -35,29 +35,26 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <div className="title-tags-form-wrapper">
-            <div>
-              <Field name="title">
-                {({ input, meta }) => (
-                  <div className="form-container__field">
-                    <label>Title</label>
+            <Field name="title">
+              {({ input, meta }) => (
+                <div className="form-container__field">
+                  <label>Title</label>
 
-                    <input {...input} type="text" />
-                    {meta.error && <span>{meta.error}</span>}
-                  </div>
-                )}
-              </Field>
-            </div>
-            <div>
-              <Field name="tags" component={"select"} isMulti>
-                {({ input, meta }) => (
-                  <div className="form-container__field">
-                    <label>Tags</label>
-                    <SelectBox input={input} />
-                    {meta.error && <span>{meta.error}</span>}
-                  </div>
-                )}
-              </Field>
-            </div>
+                  <input {...input} type="text" />
+                  {meta.error && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
+
+            <Field name="tags" component={"select"} isMulti>
+              {({ input, meta }) => (
+                <div className="form-container__field">
+                  <label>Tags</label>
+                  <SelectBox input={input} />
+                  {meta.error && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
           </div>
           <Field name="bannerImage">
             {({ meta, input }) => (
