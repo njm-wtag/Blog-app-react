@@ -73,9 +73,12 @@ const BlogList = ({
 BlogList.defaultProps = {
   blogs: PropTypes.arrayOf(
     PropTypes.shape({
+      id: "",
+      authorId: "",
       bannerImage: "",
       createdAt: "",
       tags: [],
+      title: "",
     })
   ),
   query: "",
@@ -86,12 +89,12 @@ BlogList.defaultProps = {
 BlogList.propTypes = {
   blogs: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      authorId: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      authorId: PropTypes.string,
       bannerImage: PropTypes.string,
       createdAt: PropTypes.string,
       tags: PropTypes.array,
-      title: PropTypes.string.isRequired,
+      title: PropTypes.string,
     })
   ),
   query: PropTypes.string,

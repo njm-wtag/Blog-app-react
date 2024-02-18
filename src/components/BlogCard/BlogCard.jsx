@@ -18,7 +18,7 @@ const BlogCard = ({ blog }) => {
           tags.map((tag) => (
             <li
               key={tag.value}
-              className="blog-card__category_container--category-badge"
+              className="blog-card__category_container--badge"
             >
               {tag.label}
             </li>
