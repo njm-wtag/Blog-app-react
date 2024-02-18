@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import useRegister from "hooks/useRegister";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
@@ -9,15 +10,19 @@ const BlogCard = ({ blog }) => {
   const author = users?.find((user) => user.id === authorId);
   return (
     <div className="blog-card">
-      <img
-        src={imagePreview ? imagePreview : bannerImage}
-        alt={title}
-        className="blog-card__banner"
-      />
+      <Link to={`/blog/${blog.id}`}>
+        <img
+          src={imagePreview ? imagePreview : bannerImage}
+          alt={title}
+          className="blog-card__banner"
+        />
+      </Link>
       <div className="blog-card__category-badge">
         {tags ? tags[0].label : "Unknown Category"}
       </div>
-      <h3 className="blog-card__blog-title">{title}</h3>
+      <Link to={`/blog/${blog.id}`}>
+        <h3 className="blog-card__blog-title">{title}</h3>
+      </Link>
       <div className="blog-card__author-info">
         <img
           src={author?.profileImage ? author.profileImage : defaultProfileIcon}
@@ -38,20 +43,20 @@ const BlogCard = ({ blog }) => {
 BlogCard.defaultProps = {
   blog: {
     bannerImage: "",
+    createdAt: "",
     imagePreview: "",
     tags: [],
-    createdAt: "",
   },
 };
 
 BlogCard.propTypes = {
   blog: PropTypes.shape({
+    authorId: PropTypes.string.isRequired,
     bannerImage: PropTypes.string,
-    imagePreview: PropTypes.string,
-    title: PropTypes.string,
-    tags: PropTypes.array,
     createdAt: PropTypes.string,
-    authorId: PropTypes.number.isRequired,
+    imagePreview: PropTypes.string,
+    tags: PropTypes.array,
+    title: PropTypes.string.isRequired,
   }),
 };
 

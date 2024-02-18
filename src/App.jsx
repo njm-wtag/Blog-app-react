@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Profile from "./Pages/Profile";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import { useSelector } from "react-redux";
+import Blog from "./Pages/Blog";
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
         <Route path="/" element={<PrivateRoute />}>
           <Route path="me" element={<Profile />} />
         </Route>
+        <Route path="/blog/:blogId" element={<Blog />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

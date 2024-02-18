@@ -3,7 +3,10 @@
   border-radius: calc($sp-4 * 2);
   margin-bottom: $sp-16;
   overflow: hidden;
-
+  margin-bottom: 1rem;
+  & a {
+    text-decoration: none;
+  }
   &__banner {
     border-radius: calc($sp-4 * 2) calc($sp-4 * 2) 0 0;
     height: calc($sp-48 * 5 + $sp-2 * 5);
@@ -21,6 +24,7 @@
   }
 
   &__blog-title {
+    color: $primary-black;
     font-size: calc($sp-16 + $sp-2);
     font-weight: $font-bold;
     margin: $sp-16;

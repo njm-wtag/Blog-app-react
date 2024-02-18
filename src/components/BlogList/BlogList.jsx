@@ -3,7 +3,7 @@ import BlogCard from "components/BlogCard/BlogCard";
 import "./BlogList.scss";
 
 const BlogList = () => {
-  const { blogs } = useBlogs();
+  const blogs = useBlogs();
 
   return (
     <div className="blog-list">

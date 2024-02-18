@@ -5,11 +5,15 @@ import { useState } from "react";
 import AddBlogForm from "components/AddBlogForm/AddBlogForm";
 import ButtonContainer from "components/ButtonContainer/ButtonContainer";
 import useAuth from "hooks/useAuth";
+import useBlogs from "hooks/useBlogs";
 
 const Profile = () => {
   const { authUser } = useAuth();
-
+  const blogs = useBlogs();
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
+  const blogByAuthor = [...blogs].filter(
+    ({ authorId }) => authorId === authUser.id
+  );
 
   return (
     <Layout className="profile-page">
@@ -22,7 +26,7 @@ const Profile = () => {
         <AddBlogForm setIsAddBlogFormOpen={setIsAddBlogFormOpen} />
       )}
       <h3>My published posts</h3>
-      <BlogList />
+      <BlogList blogs={blogByAuthor} />
     </Layout>
   );
 };
