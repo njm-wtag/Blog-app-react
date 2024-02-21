@@ -6,7 +6,7 @@ import useAuth from "hooks/useAuth";
 import { convertToBase64 } from "utils/helpers";
 import { updatedAuthUser } from "features/auth/authSlice";
 import { updateUsersById } from "features/register/registerSlice";
-import Button from "components/Button/Button";
+import Button from "components/Button";
 import "./editProfileForm.scss";
 
 const EditProfileForm = ({ setIsEditProfileFormOpen }) => {

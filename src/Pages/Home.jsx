@@ -3,9 +3,9 @@ import useAuth from "hooks/useAuth";
 import useBlogs from "hooks/useBlogs";
 import useFilter from "hooks/useFilter";
 import useSearch from "hooks/useSearch";
-import BlogList from "components/BlogList/BlogList";
-import HomeBanner from "components/HomeBanner/HomeBanner";
-import Layout from "components/Layout/Layout";
+import BlogList from "components/BlogList";
+import HomeBanner from "components/HomeBanner";
+import Layout from "components/Layout";
 import {
   tagRemovedInHome,
   tagSelectedInHome,

@@ -1,10 +1,16 @@
 import PropTypes from "prop-types";
-import BlogCard from "components/BlogCard/BlogCard";
-import Button from "components/Button/Button";
-import { tags } from "components/SelectBox/SelectBox";
+import BlogCard from "components/BlogCard";
+import Button from "components/Button";
+import { tags } from "components/SelectBox";
 import "./blogList.scss";
 
-const BlogList = ({ blogs, query }) => {
+const BlogList = ({
+  blogs,
+  query,
+  filteredTags,
+  toggleSelected,
+  handleSelect,
+}) => {
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
       blog?.title?.toLowerCase().includes(query.toLowerCase())
