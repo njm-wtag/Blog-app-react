@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Header from "components/Header/Header";
+import Header from "components/Header";
 import "./layout.scss";
 
 const Layout = ({ children }) => {

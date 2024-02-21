@@ -1,4 +1,5 @@
 import Select from "react-select";
+import PropTypes from "prop-types";
 
 const customStyles = {
   control: (styles) => ({
@@ -72,6 +73,14 @@ const SelectBox = ({ input }) => {
   return (
     <Select {...input} options={options} isMulti styles={customStyles}></Select>
   );
+};
+
+SelectBox.defaultProps = {
+  input: [],
+};
+
+SelectBox.propTypes = {
+  input: PropTypes.array,
 };
 
 export default SelectBox;

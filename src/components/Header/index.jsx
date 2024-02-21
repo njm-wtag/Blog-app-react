@@ -13,7 +13,7 @@ import "./header.scss";
 
 const Header = () => {
   const { authUser } = useAuth();
-  const { queryInHome, queryInProfile } = useSearch();
+  const { homeQUery, profileQuery } = useSearch();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -41,7 +41,7 @@ const Header = () => {
         <input
           type="search"
           placeholder="Search"
-          value={profile ? queryInProfile : queryInHome}
+          value={profile ? profileQuery : homeQUery}
           onChange={handleSearch}
         />
         <SearchIcon />

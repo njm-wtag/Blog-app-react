@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateBlog } from "features/blogs/blogsSlice";
-import BlogForm from "components/BlogForm/BlogForm";
+import BlogForm from "components/BlogForm";
 import useBlogs from "hooks/useBlogs";
-import Layout from "components/Layout/Layout";
+import Layout from "components/Layout";
 
 const EditBlog = () => {
   const { blogId } = useParams();

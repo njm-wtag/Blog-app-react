@@ -1,14 +1,14 @@
 import useBlogs from "hooks/useBlogs";
 import useAuth from "hooks/useAuth";
-import BlogList from "components/BlogList/BlogList";
-import HomeBanner from "components/HomeBanner/HomeBanner";
-import Layout from "components/Layout/Layout";
+import BlogList from "components/BlogList";
+import HomeBanner from "components/HomeBanner";
+import Layout from "components/Layout";
 import useSearch from "hooks/useSearch";
 
 const Home = () => {
   const { authUser } = useAuth();
   const blogs = useBlogs();
-  const { queryInHome } = useSearch();
+  const { homeQUery } = useSearch();
   let randomBlog;
 
   const blogsByOtherAuthor = blogs?.filter(
@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <Layout>
       <HomeBanner blog={randomBlog} />
-      <BlogList blogs={blogsByOtherAuthor} query={queryInHome} />
+      <BlogList blogs={blogsByOtherAuthor} query={homeQUery} />
     </Layout>
   );
 };

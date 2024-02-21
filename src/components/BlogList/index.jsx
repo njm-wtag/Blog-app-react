@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import BlogCard from "components/BlogCard/BlogCard";
+import BlogCard from "components/BlogCard";
 import "./blogList.scss";
 
 const BlogList = ({ blogs, query }) => {

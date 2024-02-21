@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import AddIcon from "components/icons/AddIcon";
-import Button from "components/Button/Button";
+import Button from "components/Button";
 import EditIcon from "components/icons/EditIcon";
 import "./buttonContainer.scss";
 
@@ -35,6 +35,7 @@ const ButtonContainer = ({
 
 ButtonContainer.propTypes = {
   setIsAddBlogFormOpen: PropTypes.func.isRequired,
+  setIsEditProfileFormOpen: PropTypes.func.isRequired,
 };
 
 export default ButtonContainer;

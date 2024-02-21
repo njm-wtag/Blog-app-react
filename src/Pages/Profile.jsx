@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import Layout from "components/Layout/Layout";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import AuthorDetails from "components/AuthorDetails/AuthorDetails";
-import BlogList from "components/BlogList/BlogList";
-import EditProfileForm from "components/EditProfileForm/EditProfileForm";
-import { postBlog } from "features/blogs/blogsSlice";
-import BlogForm from "components/BlogForm/BlogForm";
 import useAuth from "hooks/useAuth";
 import useBlogs from "hooks/useBlogs";
-import ButtonContainer from "components/ButtonContainer/ButtonContainer";
-import { useDispatch } from "react-redux";
 import useSearch from "hooks/useSearch";
+import AuthorDetails from "components/AuthorDetails";
+import BlogList from "components/BlogList";
+import EditProfileForm from "components/EditProfileForm";
+import BlogForm from "components/BlogForm";
+import ButtonContainer from "components/ButtonContainer";
+import Layout from "components/Layout";
+import { postBlog } from "features/blogs/blogsSlice";
 
 const Profile = () => {
   const [isEditProfileFormOpen, setIsEditProfileFormOpen] = useState(false);
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
   const { authUser } = useAuth();
   const blogs = useBlogs();
-  const { queryInProfile } = useSearch();
+  const { profileQuery } = useSearch();
   const dispatch = useDispatch();
 
   const blogByAuthor = blogs?.filter((blog) => blog.authorId === authUser.id);
@@ -48,7 +48,7 @@ const Profile = () => {
       )}
       <h3>My published posts</h3>
       {blogByAuthor.length ? (
-        <BlogList blogs={blogByAuthor} query={queryInProfile} />
+        <BlogList blogs={blogByAuthor} query={profileQuery} />
       ) : (
         "No blog published yet"
       )}
