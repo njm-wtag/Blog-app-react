@@ -12,13 +12,9 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = async (e, input) => {
-    try {
-      const newSelectedImage = await convertToBase64(e.target.files[0]);
-      setSelectedImage(newSelectedImage);
-      input.onChange(newSelectedImage);
-    } catch (error) {
-      throw error;
-    }
+    const newSelectedImage = await convertToBase64(e.target.files[0]);
+    setSelectedImage(newSelectedImage);
+    input.onChange(newSelectedImage);
   };
 
   useEffect(() => {
@@ -34,10 +30,10 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
       validate={(values) => blogFormValidation(values)}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <div className="title-tags-form-wrapper">
+          <div className="form-group-wrapper">
             <Field name="title">
               {({ input, meta }) => (
-                <div className="form-container__field">
+                <div className="form-group">
                   <label>Title</label>
 
                   <input {...input} type="text" />
@@ -46,9 +42,9 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
               )}
             </Field>
 
-            <Field name="tags" component={"select"} isMulti>
+            <Field name="tags" component="select" isMulti>
               {({ input, meta }) => (
-                <div className="form-container__field">
+                <div className="form-group">
                   <label>Tags</label>
                   <SelectBox input={input} />
                   {meta.error && <span>{meta.error}</span>}
@@ -58,7 +54,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
           </div>
           <Field name="bannerImage">
             {({ meta, input }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>Banner Image</label>
                 <input
                   type="file"
@@ -77,7 +73,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
           </Field>
           <Field name="body">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>Blog Body</label>
                 <textarea {...input} type="text" />
                 {meta.error && <span>{meta.error}</span>}

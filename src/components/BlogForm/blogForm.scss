@@ -6,20 +6,26 @@ form {
   margin: calc($sp-24 + $sp-4) 0;
   padding: $sp-16;
 
-  .title-tags-form-wrapper {
+  .form-group-wrapper {
     display: grid;
     align-items: center;
     gap: calc($sp-16 * 2);
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .form-container__field {
+  .form-group {
     img {
       border-radius: 15%;
       height: calc($sp-48 * 2);
       margin-right: $sp-16;
       object-fit: cover;
       width: calc($sp-48 * 3);
+    }
+    & span {
+      color: $error-color;
+      font-size: $sp-12;
+      margin-top: $sp-4;
+      display: block;
     }
   }
 

@@ -5,6 +5,13 @@ import useAuth from "hooks/useAuth";
 import useBlogs from "hooks/useBlogs";
 import useFilter from "hooks/useFilter";
 import useSearch from "hooks/useSearch";
+import AuthorDetails from "components/AuthorDetails";
+import BlogList from "components/BlogList";
+import EditProfileForm from "components/EditProfileForm";
+import BlogForm from "components/BlogForm";
+import ButtonContainer from "components/ButtonContainer";
+import Layout from "components/Layout";
+import { postBlog } from "features/blogs/blogsSlice";
 import Layout from "components/Layout";
 import AuthorDetails from "components/AuthorDetails";
 import BlogList from "components/BlogList";
@@ -22,7 +29,7 @@ const Profile = () => {
   const [isAddBlogFormOpen, setIsAddBlogFormOpen] = useState(false);
   const { authUser } = useAuth();
   const blogs = useBlogs();
-  const { queryInProfile } = useSearch();
+  const { profileQuery } = useSearch();
 
   const { filteredTagsInProfile } = useFilter();
   const dispatch = useDispatch();
@@ -69,7 +76,7 @@ const Profile = () => {
       {blogByAuthor.length ? (
         <BlogList
           blogs={blogByAuthor}
-          query={queryInProfile}
+          query={profileQuery}
           handleSelect={handleSelect}
           toggleSelected={toggleSelected}
           filteredTags={filteredTagsInProfile}

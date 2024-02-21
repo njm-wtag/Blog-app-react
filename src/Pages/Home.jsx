@@ -14,7 +14,7 @@ import {
 const Home = () => {
   const { authUser } = useAuth();
   const blogs = useBlogs();
-  const { queryInHome } = useSearch();
+  const { homeQUery } = useSearch();
   const { filteredTagsInHome } = useFilter();
   const dispatch = useDispatch();
   let randomBlog;
@@ -45,7 +45,7 @@ const Home = () => {
       <HomeBanner blog={randomBlog} />
       <BlogList
         blogs={blogsByOtherAuthor}
-        query={queryInHome}
+        query={homeQUery}
         handleSelect={handleSelect}
         toggleSelected={toggleSelected}
         filteredTags={filteredTagsInHome}

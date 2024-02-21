@@ -10,7 +10,7 @@ import Button from "components/Button";
 import "./editProfileForm.scss";
 
 const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
-  const { authUser, success } = useAuth();
+  const { authUser } = useAuth();
   const [imagePreview, setImagePreview] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const dispatch = useDispatch();
@@ -20,18 +20,17 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
     if (!values.firstname) {
       errors.firstname = "First name is required";
     }
+    if (!values.lastname) {
+      errors.lastname = "Last name is required";
+    }
 
     return errors;
   };
 
   const handleImageChange = async (e, input) => {
-    try {
-      const newSelectedImage = await convertToBase64(e.target.files[0]);
-      setSelectedImage(newSelectedImage);
-      input.onChange(newSelectedImage);
-    } catch (error) {
-      throw error;
-    }
+    const newSelectedImage = await convertToBase64(e.target.files[0]);
+    setSelectedImage(newSelectedImage);
+    input.onChange(newSelectedImage);
   };
 
   const onSubmit = (userInfo) => {
@@ -42,7 +41,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
 
   useEffect(() => {
     setImagePreview(selectedImage !== null || Boolean(authUser.profileImage));
-  }, [success === true, selectedImage, authUser.profileImage]);
+  }, [selectedImage, authUser.profileImage]);
 
   return (
     <Form
@@ -53,7 +52,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
         <form onSubmit={handleSubmit}>
           <Field name="firstname">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>First Name</label>
                 <input {...input} type="text" placeholder="First name" />
                 {meta.error && <span>{meta.error}</span>}
@@ -62,7 +61,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           </Field>
           <Field name="lastname">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>Last Name</label>
                 <input {...input} type="text" placeholder="Last name" />
                 {meta.error && <span>{meta.error}</span>}
@@ -71,7 +70,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           </Field>
           <Field name="username">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>Userame</label>
                 <input {...input} type="text" placeholder="Username" readOnly />
                 {meta.error && <span>{meta.error}</span>}
@@ -80,7 +79,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           </Field>
           <Field name="subtitle">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>Subtitle</label>
                 <input {...input} type="text" placeholder="Subtitle" />
                 {meta.error && <span>{meta.error}</span>}
@@ -89,7 +88,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           </Field>
           <Field name="about">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>About</label>
                 <textarea {...input} type="text" placeholder="About" />
                 {meta.error && <span>{meta.error}</span>}
@@ -98,7 +97,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           </Field>
           <Field name="profileImage">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>Profile Image</label>
                 <input
                   type="file"
