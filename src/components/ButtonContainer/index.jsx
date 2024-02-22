@@ -35,6 +35,7 @@ const ButtonContainer = ({
 
 ButtonContainer.propTypes = {
   setIsAddBlogFormOpen: PropTypes.func.isRequired,
+  setIsEditProfileFormOpen: PropTypes.func.isRequired,
 };
 
 export default ButtonContainer;

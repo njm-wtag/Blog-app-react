@@ -11,6 +11,7 @@ const BlogList = ({
   toggleSelected,
   filteredTags,
   handleLoadMore,
+  handleShowLess,
   blogsPerPage,
 }) => {
   const searchedBlogs = (blogs, query) => {
@@ -20,12 +21,10 @@ const BlogList = ({
   };
 
   const filteredBlogsByTitle = searchedBlogs(blogs, query);
-
-  const filteredBlogsByTags = filteredBlogsByTitle?.filter(({ tags }) => {
+  const filteredBlogsByTags = filteredBlogsByTitle.filter(({ tags }) => {
     if (filteredTags.length === 0) {
       return true;
     }
-
     return tags?.some(({ value }) => filteredTags.includes(value));
   });
 
@@ -37,7 +36,7 @@ const BlogList = ({
       <div className="tag-list">
         {tags?.map((tag) => (
           <Button
-            type={"button"}
+            type="button"
             key={tag.value}
             className={
               toggleSelected(tag.value)
@@ -55,14 +54,18 @@ const BlogList = ({
           ? currentBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
           : "Blog not found"}
       </div>
-      {blogsPerPage < totalBlogs && (
+      {(blogsPerPage < totalBlogs || blogsPerPage > totalBlogs) && (
         <div className="button-wrapper">
           <Button
             type={"button"}
-            onClickHandler={handleLoadMore}
+            onClickHandler={
+              (blogsPerPage < totalBlogs && handleLoadMore) ||
+              (blogsPerPage > totalBlogs && handleShowLess)
+            }
             className="load-more-button"
           >
-            Load More
+            {blogsPerPage < totalBlogs && "Load More"}
+            {blogsPerPage > totalBlogs && "Show Less"}
           </Button>
         </div>
       )}

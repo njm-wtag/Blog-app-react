@@ -53,7 +53,10 @@ const BlogDetails = ({ blogDetails }) => {
 BlogDetails.defaultProps = {
   blogDetails: {
     bannerImage: "",
+    body: "",
     createdAt: "",
+    id: "",
+    imagePreview: false,
     tags: [],
   },
 };
@@ -62,7 +65,10 @@ BlogDetails.propTypes = {
   blogDetails: PropTypes.shape({
     authorId: PropTypes.string.isRequired,
     bannerImage: PropTypes.string,
+    body: PropTypes.string,
     createdAt: PropTypes.string,
+    id: PropTypes.string,
+    imagePreview: PropTypes.bool,
     tags: PropTypes.array,
     title: PropTypes.string.isRequired,
   }),

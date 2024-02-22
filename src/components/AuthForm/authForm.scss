@@ -5,7 +5,7 @@
     box-shadow: 0 0 $sp-16 $primary-gray;
     padding: $sp-20;
   }
-  &__field {
+  .form-group {
     & input {
       width: 100%;
       padding: calc($sp-2 * 5);
