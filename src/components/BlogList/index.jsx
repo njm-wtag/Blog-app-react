@@ -18,12 +18,10 @@ const BlogList = ({
   };
 
   const filteredBlogsByTitle = searchedBlogs(blogs, query);
-
-  const filteredBlogsByTags = filteredBlogsByTitle?.filter(({ tags }) => {
+  const filteredBlogsByTags = filteredBlogsByTitle.filter(({ tags }) => {
     if (filteredTags.length === 0) {
       return true;
     }
-
     return tags?.some(({ value }) => filteredTags.includes(value));
   });
 
@@ -32,7 +30,7 @@ const BlogList = ({
       <div className="tag-list">
         {tags?.map((tag) => (
           <Button
-            type={"button"}
+            type="button"
             key={tag.value}
             className={
               toggleSelected(tag.value)

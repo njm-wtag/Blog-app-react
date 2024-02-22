@@ -12,13 +12,6 @@ import BlogForm from "components/BlogForm";
 import ButtonContainer from "components/ButtonContainer";
 import Layout from "components/Layout";
 import { postBlog } from "features/blogs/blogsSlice";
-import Layout from "components/Layout";
-import AuthorDetails from "components/AuthorDetails";
-import BlogList from "components/BlogList";
-import EditProfileForm from "components/EditProfileForm";
-import { postBlog } from "features/blogs/blogsSlice";
-import BlogForm from "components/BlogForm";
-import ButtonContainer from "components/ButtonContainer";
 import {
   tagRemovedInProfile,
   tagSelectedInProfile,
