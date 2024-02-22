@@ -1,3 +1,26 @@
+.tag-list {
+  display: flex;
+  align-items: center;
+  gap: $sp-16;
+  margin: calc($sp-24 + $sp-4) 0;
+
+  &--selected-tag {
+    background-color: $category-color;
+    border-radius: calc($sp-4 + $sp-2);
+    color: $primary-white;
+    padding: $sp-4 calc($sp-8 + $sp-2);
+    cursor: pointer;
+  }
+
+  &--not-selected-tag {
+    background-color: $category-bg-color;
+    border-radius: calc($sp-4 + $sp-2);
+    color: $category-color;
+    padding: $sp-4 calc($sp-8 + $sp-2);
+    cursor: pointer;
+  }
+}
+
 .blog-list {
   display: grid;
   gap: $sp-16;

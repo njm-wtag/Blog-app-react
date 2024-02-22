@@ -62,7 +62,7 @@ const customStyles = {
   }),
 };
 
-const options = [
+export const tags = [
   { value: "technology", label: "Technology" },
   { value: "poetry", label: "Poetry" },
   { value: "flims", label: "Flims" },
@@ -71,7 +71,7 @@ const options = [
 
 const SelectBox = ({ input }) => {
   return (
-    <Select {...input} options={options} isMulti styles={customStyles}></Select>
+    <Select {...input} options={tags} isMulti styles={customStyles}></Select>
   );
 };
 

@@ -13,8 +13,16 @@ const BlogCard = ({ blog }) => {
       <Link to={`/blog/${blog.id}`}>
         <img src={bannerImage} alt={title} className="blog-card__banner" />
       </Link>
-      <div className="blog-card__category-badge">
-        {tags ? tags[0].label : "Unknown Category"}
+      <div className="blog-card__category_container">
+        {tags &&
+          tags.map((tag) => (
+            <li
+              key={tag.value}
+              className="blog-card__category_container--badge"
+            >
+              {tag.label}
+            </li>
+          ))}
       </div>
       <Link to={`/blog/${blog.id}`}>
         <h3 className="blog-card__blog-title">{title}</h3>
