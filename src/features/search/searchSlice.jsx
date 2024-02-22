@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  homeQUery: "",
+  homeQuery: "",
   profileQuery: "",
 };
 
@@ -10,7 +10,7 @@ const searchSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     updateHomeQuery(state, action) {
-      state.homeQUery = action.payload;
+      state.homeQuery = action.payload;
     },
     updateProfileQuery(state, action) {
       state.profileQuery = action.payload;

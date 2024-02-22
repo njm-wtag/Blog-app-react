@@ -8,7 +8,7 @@ import useSearch from "hooks/useSearch";
 const Home = () => {
   const { authUser } = useAuth();
   const blogs = useBlogs();
-  const { homeQUery } = useSearch();
+  const { homeQuery } = useSearch();
   let randomBlog;
 
   const blogsByOtherAuthor = blogs?.filter(
@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <Layout>
       <HomeBanner blog={randomBlog} />
-      <BlogList blogs={blogsByOtherAuthor} query={homeQUery} />
+      <BlogList blogs={blogsByOtherAuthor} query={homeQuery} />
     </Layout>
   );
 };
