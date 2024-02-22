@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import BlogDetails from "components/BlogDetails/BlogDetails";
-import Layout from "components/Layout/Layout";
+import BlogDetails from "components/BlogDetails";
+import Layout from "components/Layout";
 import useBlogs from "hooks/useBlogs";
 
 const Blog = () => {

@@ -4,7 +4,7 @@ import useAuth from "hooks/useAuth";
 import useRegister from "hooks/useRegister";
 import EditIcon from "components/icons/EditIcon";
 import defaultProfileIcon from "assets/images/default-profile-icon.svg";
-import "./BlogDetails.scss";
+import "./blogDetails.scss";
 
 const BlogDetails = ({ blogDetails }) => {
   const { users } = useRegister();
@@ -53,7 +53,10 @@ const BlogDetails = ({ blogDetails }) => {
 BlogDetails.defaultProps = {
   blogDetails: {
     bannerImage: "",
+    body: "",
     createdAt: "",
+    id: "",
+    imagePreview: false,
     tags: [],
   },
 };
@@ -62,7 +65,10 @@ BlogDetails.propTypes = {
   blogDetails: PropTypes.shape({
     authorId: PropTypes.string.isRequired,
     bannerImage: PropTypes.string,
+    body: PropTypes.string,
     createdAt: PropTypes.string,
+    id: PropTypes.string,
+    imagePreview: PropTypes.bool,
     tags: PropTypes.array,
     title: PropTypes.string.isRequired,
   }),

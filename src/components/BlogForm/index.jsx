@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import PropTypes from "prop-types";
-import Button from "components/Button/Button";
-import SelectBox from "components/SelectBox/SelectBox";
+import Button from "components/Button";
+import SelectBox from "components/SelectBox";
 import { convertToBase64 } from "utils/helpers";
-import "./BlogForm.scss";
+import { blogFormValidation } from "utils/blogFormValidation";
+import "./blogForm.scss";
 
 const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
   const [imagePreview, setImagePreview] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleImageChange = async (e) => {
-    try {
-      const newSelectedImage = await convertToBase64(e.target.files[0]);
-      setSelectedImage(newSelectedImage);
-      input.onChange(newSelectedImage);
-    } catch (error) {
-      throw error;
-    }
+  const handleImageChange = async (e, input) => {
+    const newSelectedImage = await convertToBase64(e.target.files[0]);
+    setSelectedImage(newSelectedImage);
+    input.onChange(newSelectedImage);
   };
 
   useEffect(() => {
@@ -30,53 +27,53 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
     <Form
       initialValues={blogDetails || null}
       onSubmit={onSubmit}
+      validate={(values) => blogFormValidation(values)}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <div className="title-tags-form-container">
-            <div className="title-tags-form-container__field">
-              <Field name="title">
-                {({ input, meta }) => (
-                  <div>
-                    <label>Title</label>
+          <div className="form-group-wrapper">
+            <Field name="title">
+              {({ input, meta }) => (
+                <div className="form-group">
+                  <label>Title</label>
 
-                    <input {...input} type="text" />
-                    {meta.error && <span>{meta.error}</span>}
-                  </div>
-                )}
-              </Field>
-            </div>
-            <div className="title-tags-form-container__field">
-              <Field name="tags" component={"select"} isMulti>
-                {({ input, meta }) => (
-                  <div>
-                    <label>Tags</label>
-                    <SelectBox input={input} />
-                    {meta.error && <span>{meta.error}</span>}
-                  </div>
-                )}
-              </Field>
-            </div>
+                  <input {...input} type="text" />
+                  {meta.error && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
+
+            <Field name="tags" component="select" isMulti>
+              {({ input, meta }) => (
+                <div className="form-group">
+                  <label>Tags</label>
+                  <SelectBox input={input} />
+                  {meta.error && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
           </div>
           <Field name="bannerImage">
             {({ meta, input }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>Banner Image</label>
-                <input type="file" onChange={(e) => handleImageChange(e)} />
-                {(blogDetails || selectedImage) && (
+                <input
+                  type="file"
+                  onChange={(e) => handleImageChange(e, input)}
+                />
+                {imagePreview && (blogDetails || selectedImage) && (
                   <img
                     src={
                       selectedImage ? selectedImage : blogDetails?.bannerImage
                     }
                   />
                 )}
-
                 {meta.error && <span>{meta.error}</span>}
               </div>
             )}
           </Field>
           <Field name="body">
             {({ input, meta }) => (
-              <div className="form-container__field">
+              <div className="form-group">
                 <label>Blog Body</label>
                 <textarea {...input} type="text" />
                 {meta.error && <span>{meta.error}</span>}
@@ -104,13 +101,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
 
 BlogForm.defaultProps = {
   setIsAddBlogFormOpen: () => {},
-  blogDetails: PropTypes.shape({
-    authorId: "",
-    bannerImage: "",
-    createdAt: "",
-    tags: [],
-    title: "",
-  }),
+  blogDetails: {},
 };
 
 BlogForm.propTypes = {

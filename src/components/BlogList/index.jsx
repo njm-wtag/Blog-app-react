@@ -1,13 +1,21 @@
 import PropTypes from "prop-types";
-import BlogCard from "components/BlogCard/BlogCard";
-import "./BlogList.scss";
+import BlogCard from "components/BlogCard";
+import "./blogList.scss";
 
-const BlogList = ({ blogs }) => {
+const BlogList = ({ blogs, query }) => {
+  const searchedBlogs = (blogs, query) => {
+    return blogs?.filter((blog) =>
+      blog?.title?.toLowerCase().includes(query.toLowerCase())
+    );
+  };
+
+  const filteredBlogs = searchedBlogs(blogs, query);
+
   return (
     <div className="blog-list">
-      {blogs?.map((blog) => (
-        <BlogCard key={blog.id} blog={blog} />
-      ))}
+      {filteredBlogs.length
+        ? filteredBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
+        : "Blog Not found"}
     </div>
   );
 };
@@ -15,11 +23,15 @@ const BlogList = ({ blogs }) => {
 BlogList.defaultProps = {
   blogs: PropTypes.arrayOf(
     PropTypes.shape({
+      id: "",
+      authorId: "",
       bannerImage: "",
       createdAt: "",
       tags: [],
+      title: "",
     })
   ),
+  query: "",
 };
 
 BlogList.propTypes = {
@@ -33,6 +45,7 @@ BlogList.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ),
+  query: PropTypes.string,
 };
 
 export default BlogList;
