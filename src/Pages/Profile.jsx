@@ -16,7 +16,10 @@ import {
   tagRemovedInProfile,
   tagSelectedInProfile,
 } from "features/filter/filterSlice";
-import { incrementProfileBlogs } from "features/pagination/paginationSlice";
+import {
+  decrementProfileBlogs,
+  incrementProfileBlogs,
+} from "features/pagination/paginationSlice";
 import usePaginate from "hooks/usePaginate";
 
 const Profile = () => {
@@ -44,6 +47,10 @@ const Profile = () => {
 
   const handleLoadMore = () => {
     dispatch(incrementProfileBlogs());
+  };
+
+  const handleShowLess = () => {
+    dispatch(decrementProfileBlogs());
   };
 
   const onSubmit = (blog) => {
@@ -80,6 +87,7 @@ const Profile = () => {
           toggleSelected={toggleSelected}
           filteredTags={filteredTagsInProfile}
           handleLoadMore={handleLoadMore}
+          handleShowLess={handleShowLess}
           blogsPerPage={blogsPerPageInProfile}
         />
       ) : (

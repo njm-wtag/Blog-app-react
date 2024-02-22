@@ -11,7 +11,10 @@ import {
   tagSelectedInHome,
 } from "features/filter/filterSlice";
 import usePaginate from "hooks/usePaginate";
-import { incrementHomeBlogs } from "features/pagination/paginationSlice";
+import {
+  decrementHomeBlogs,
+  incrementHomeBlogs,
+} from "features/pagination/paginationSlice";
 
 const Home = () => {
   const { authUser } = useAuth();
@@ -47,6 +50,10 @@ const Home = () => {
     dispatch(incrementHomeBlogs());
   };
 
+  const handleShowLess = () => {
+    dispatch(decrementHomeBlogs());
+  };
+
   return (
     <Layout>
       <HomeBanner blog={randomBlog} />
@@ -57,6 +64,7 @@ const Home = () => {
         toggleSelected={toggleSelected}
         filteredTags={filteredTagsInHome}
         handleLoadMore={handleLoadMore}
+        handleShowLess={handleShowLess}
         blogsPerPage={blogsPerPageInHome}
       />
     </Layout>

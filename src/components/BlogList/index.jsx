@@ -2,9 +2,6 @@ import PropTypes from "prop-types";
 import BlogCard from "components/BlogCard";
 import Button from "components/Button";
 import { tags } from "components/SelectBox";
-import BlogCard from "components/BlogCard";
-import Button from "components/Button";
-import { tags } from "components/SelectBox";
 import "./blogList.scss";
 
 const BlogList = ({
@@ -14,6 +11,7 @@ const BlogList = ({
   toggleSelected,
   filteredTags,
   handleLoadMore,
+  handleShowLess,
   blogsPerPage,
 }) => {
   const searchedBlogs = (blogs, query) => {
@@ -56,14 +54,18 @@ const BlogList = ({
           ? currentBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
           : "Blog not found"}
       </div>
-      {blogsPerPage < totalBlogs && (
+      {(blogsPerPage < totalBlogs || blogsPerPage > totalBlogs) && (
         <div className="button-wrapper">
           <Button
             type={"button"}
-            onClickHandler={handleLoadMore}
+            onClickHandler={
+              (blogsPerPage < totalBlogs && handleLoadMore) ||
+              (blogsPerPage > totalBlogs && handleShowLess)
+            }
             className="load-more-button"
           >
-            Load More
+            {blogsPerPage < totalBlogs && "Load More"}
+            {blogsPerPage > totalBlogs && "Show Less"}
           </Button>
         </div>
       )}

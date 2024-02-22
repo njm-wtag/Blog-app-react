@@ -10,13 +10,23 @@ const paginationSlice = createSlice({
     incrementHomeBlogs(state) {
       state.blogsPerPageInHome += 6;
     },
+    decrementHomeBlogs(state) {
+      state.blogsPerPageInHome = 9;
+    },
     incrementProfileBlogs(state) {
       state.blogsPerPageInProfile += 2;
+    },
+    decrementProfileBlogs(state) {
+      state.blogsPerPageInProfile = 3;
     },
   },
 });
 
-export const { incrementHomeBlogs, incrementProfileBlogs } =
-  paginationSlice.actions;
+export const {
+  incrementHomeBlogs,
+  incrementProfileBlogs,
+  decrementHomeBlogs,
+  decrementProfileBlogs,
+} = paginationSlice.actions;
 
 export default paginationSlice.reducer;
