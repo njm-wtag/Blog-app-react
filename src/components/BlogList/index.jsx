@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import BlogCard from "components/BlogCard/BlogCard";
-import Button from "components/Button/Button";
-import { tags } from "components/SelectBox/SelectBox";
+import BlogCard from "components/BlogCard";
+import Button from "components/Button";
+import { tags } from "components/SelectBox";
 import "./blogList.scss";
 
 const BlogList = ({
