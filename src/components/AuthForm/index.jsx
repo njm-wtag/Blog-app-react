@@ -32,7 +32,7 @@ const AuthForm = ({ handleSubmit }) => {
               <>
                 <Field name="firstname">
                   {({ input, meta }) => (
-                    <div className="form-container__field">
+                    <div className="form-group">
                       <input {...input} type="text" placeholder="First name" />
                       {meta.error && <span>{meta.error}</span>}
                     </div>
@@ -40,7 +40,7 @@ const AuthForm = ({ handleSubmit }) => {
                 </Field>
                 <Field name="lastname">
                   {({ input, meta }) => (
-                    <div className="form-container__field">
+                    <div className="form-group">
                       <input {...input} type="text" placeholder="Last name" />
                       {meta.error && <span>{meta.error}</span>}
                     </div>
@@ -48,7 +48,7 @@ const AuthForm = ({ handleSubmit }) => {
                 </Field>
                 <Field name="email">
                   {({ input, meta }) => (
-                    <div className="form-container__field">
+                    <div className="form-group">
                       <input {...input} type="email" placeholder="Email" />
                       {meta.error && <span>{meta.error}</span>}
                     </div>
@@ -58,7 +58,7 @@ const AuthForm = ({ handleSubmit }) => {
             )}
             <Field name="username">
               {({ input, meta }) => (
-                <div className="form-container__field">
+                <div className="form-group">
                   <input {...input} type="text" placeholder="Username" />
                   {meta.error && <span>{meta.error}</span>}
                 </div>
@@ -66,7 +66,7 @@ const AuthForm = ({ handleSubmit }) => {
             </Field>
             <Field name="password">
               {({ input, meta }) => (
-                <div className="form-container__field">
+                <div className="form-group">
                   <input {...input} type="password" placeholder="Password" />
                   {meta.error && <span>{meta.error}</span>}
                 </div>

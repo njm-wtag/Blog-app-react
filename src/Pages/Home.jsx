@@ -16,7 +16,7 @@ import { incrementHomeBlogs } from "features/pagination/paginationSlice";
 const Home = () => {
   const { authUser } = useAuth();
   const blogs = useBlogs();
-  const { queryInHome } = useSearch();
+  const { homeQuery } = useSearch();
   const { filteredTagsInHome } = useFilter();
   const { blogsPerPageInHome } = usePaginate();
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const Home = () => {
       <HomeBanner blog={randomBlog} />
       <BlogList
         blogs={blogsByOtherAuthor}
-        query={queryInHome}
+        query={homeQuery}
         handleSelect={handleSelect}
         toggleSelected={toggleSelected}
         filteredTags={filteredTagsInHome}
