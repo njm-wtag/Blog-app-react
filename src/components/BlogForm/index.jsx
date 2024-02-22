@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import PropTypes from "prop-types";
-import Button from "components/Button/Button";
-import SelectBox from "components/SelectBox/SelectBox";
+import Button from "components/Button";
+import SelectBox from "components/SelectBox";
 import { convertToBase64 } from "utils/helpers";
 import { blogFormValidation } from "utils/blogFormValidation";
 import "./blogForm.scss";

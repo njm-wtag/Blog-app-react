@@ -5,13 +5,13 @@ import useAuth from "hooks/useAuth";
 import useBlogs from "hooks/useBlogs";
 import useFilter from "hooks/useFilter";
 import useSearch from "hooks/useSearch";
-import Layout from "components/Layout/Layout";
-import AuthorDetails from "components/AuthorDetails/AuthorDetails";
-import BlogList from "components/BlogList/BlogList";
-import EditProfileForm from "components/EditProfileForm/EditProfileForm";
+import Layout from "components/Layout";
+import AuthorDetails from "components/AuthorDetails";
+import BlogList from "components/BlogList";
+import EditProfileForm from "components/EditProfileForm";
 import { postBlog } from "features/blogs/blogsSlice";
-import BlogForm from "components/BlogForm/BlogForm";
-import ButtonContainer from "components/ButtonContainer/ButtonContainer";
+import BlogForm from "components/BlogForm";
+import ButtonContainer from "components/ButtonContainer";
 import {
   tagRemovedInProfile,
   tagSelectedInProfile,
