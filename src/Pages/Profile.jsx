@@ -23,7 +23,6 @@ const Profile = () => {
   const { authUser } = useAuth();
   const blogs = useBlogs();
   const { profileQuery } = useSearch();
-
   const { filteredTagsInProfile } = useFilter();
   const dispatch = useDispatch();
 

@@ -18,6 +18,7 @@ const filterSlice = createSlice({
 
       state.filteredTagsInHome.splice(indexToRemove, 1);
     },
+
     tagSelectedInProfile: (state, action) => {
       state.filteredTagsInProfile.push(action.payload);
     },
