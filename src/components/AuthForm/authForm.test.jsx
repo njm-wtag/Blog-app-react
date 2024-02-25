@@ -53,14 +53,17 @@ describe("AuthForm component", () => {
       name: /Log In/i,
     });
 
-    await user.type(usernameInput, "testuser");
+    await user.type(usernameInput, "johndoe");
 
-    await user.type(passwordInput, "testpassword");
+    await user.type(passwordInput, "password123");
 
     await user.click(loginButton);
 
     await waitFor(() => {
-      expect(handleSubmit).toHaveBeenCalled();
+      expect(handleSubmit).toHaveBeenCalled({
+        firstnameInput: "johndoe",
+        passwordInput: "password123",
+      });
     });
   });
 
@@ -117,6 +120,18 @@ describe("AuthForm component", () => {
     await user.type(passwordInput, "password123");
 
     await user.click(registerButton);
+
+    // await waitFor(() => {
+    //   expect(handleSubmit).toHaveBeenCalledWith([
+    //     {
+    //       firstname: "John",
+    //       lastname: "Doe",
+    //       email: "john.doe@example.com",
+    //       username: "johndoe",
+    //       password: "password123",
+    //     },
+    //   ]);
+    // });
 
     await waitFor(() => {
       expect(handleSubmit).toHaveBeenCalled();
