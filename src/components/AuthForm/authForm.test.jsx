@@ -6,6 +6,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "features/auth/authSlice";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import registerSlice from "features/register/registerSlice";
 
 describe("AuthForm component", () => {
   const initialState = { users: [] };
@@ -13,15 +14,12 @@ describe("AuthForm component", () => {
     configureStore({
       reducer: {
         auth: authSlice,
+        register: registerSlice,
       },
     });
   const store = mockStore(initialState);
   const handleSubmit = vi.fn();
   const user = userEvent.setup();
-
-  // const loginButton = screen.getByRole("button", {
-  //   name: /Login/i,
-  // });
 
   it("renders login form when location pathname is /login without errors", () => {
     render(
@@ -40,32 +38,31 @@ describe("AuthForm component", () => {
     expect(passwordInput).toHaveAttribute("type", "password");
   });
 
-  // it("submits the login form with valid input", async () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <MemoryRouter initialEntries={["/login"]}>
-  //         <AuthForm handleSubmit={handleSubmit} />
-  //       </MemoryRouter>
-  //     </Provider>
-  //   );
+  it("submits the login form with valid input", async () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={["/login"]}>
+          <AuthForm handleSubmit={handleSubmit} />
+        </MemoryRouter>
+      </Provider>
+    );
 
-  //   const usernameInput = screen.getByPlaceholderText("Username");
-  //   const passwordInput = screen.getByPlaceholderText("Password");
-  //   const loginButton = screen.getByRole("button", {
-  //     name: /Login/i,
-  //   });
+    const usernameInput = screen.getByPlaceholderText("Username");
+    const passwordInput = screen.getByPlaceholderText("Password");
+    const loginButton = screen.getByRole("button", {
+      name: /Log In/i,
+    });
 
-  //   await waitFor(() => {
-  //     userEvent.type(usernameInput, "testuser");
-  //     userEvent.type(passwordInput, "testpassword");
-  //     userEvent.click(loginButton);
-  //   });
+    await user.type(usernameInput, "testuser");
 
-  //   expect(handleSubmit).toHaveBeenCalledWith({
-  //     username: "testuser",
-  //     password: "testpassword",
-  //   });
-  // });
+    await user.type(passwordInput, "testpassword");
+
+    await user.click(loginButton);
+
+    await waitFor(() => {
+      expect(handleSubmit).toHaveBeenCalled();
+    });
+  });
 
   it("renders register form when location pathname is /register without errors", () => {
     render(
@@ -98,6 +95,7 @@ describe("AuthForm component", () => {
         </MemoryRouter>
       </Provider>
     );
+
     const firstnameInput = screen.getByPlaceholderText("First name");
     const lastnameInput = screen.getByPlaceholderText("Last name");
     const emailInput = screen.getByPlaceholderText("Email");
@@ -108,20 +106,20 @@ describe("AuthForm component", () => {
       name: /Register/i,
     });
 
+    await user.type(firstnameInput, "John");
+
+    await user.type(lastnameInput, "Doe");
+
+    await user.type(emailInput, "john.doe@example.com");
+
+    await user.type(usernameInput, "johndoe");
+
+    await user.type(passwordInput, "password123");
+
+    await user.click(registerButton);
+
     await waitFor(() => {
-      user.type(firstnameInput, "John");
-
-      user.type(lastnameInput, "Doe");
-
-      user.type(emailInput, "john.doe@example.com");
-
-      user.type(usernameInput, "johndoe");
-
-      user.type(passwordInput, "password123");
-
-      user.click(registerButton);
+      expect(handleSubmit).toHaveBeenCalled();
     });
-
-    // expect(handleSubmit).toBeCalled(1);
   });
 });
