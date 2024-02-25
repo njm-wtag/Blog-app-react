@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import Button from ".";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import Button from ".";
 
 describe("Button component", () => {
   it("should render children correctly", () => {
