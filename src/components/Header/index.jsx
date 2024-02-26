@@ -51,7 +51,8 @@ const Header = () => {
       {authUser ? (
         <div className="navbar__auth-access">
           <div>
-            Welcome <Link to={`/me`}>{authUser.username}!</Link>
+            <span data-testid="greet-element">Welcome </span>
+            <Link to={`/me`}>{authUser.username}!</Link>
           </div>
           <Link to="/login" onClick={handleLogout}>
             <LogoutIcon />

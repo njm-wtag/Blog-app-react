@@ -27,7 +27,7 @@ describe("Header", () => {
     });
   const store = mockStore(initialState);
 
-  it("Should render the Header component properly", () => {
+  it("Should render the title and search properly", () => {
     render(
       <Provider store={store}>
         <BrowserRouter>
@@ -35,10 +35,45 @@ describe("Header", () => {
         </BrowserRouter>
       </Provider>
     );
-    const linkElement = screen.getByRole("link", { name: /WellBlog/i });
+    const titleElement = screen.getByRole("link", { name: /WellBlog/i });
     const searchElement = screen.getByPlaceholderText("Search");
 
-    expect(linkElement).toBeInTheDocument();
+    expect(titleElement).toBeInTheDocument();
     expect(searchElement).toBeInTheDocument();
   });
+
+  it("should render login and signup links when user is not authenticated", () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const loginElement = screen.getByRole("link", { name: /Login/i });
+    const signupElement = screen.getByRole("link", { name: /Signup/i });
+
+    expect(loginElement).toBeInTheDocument();
+    expect(loginElement).toHaveAttribute("href", "/login");
+    expect(signupElement).toBeInTheDocument();
+    expect(signupElement).toHaveAttribute("href", "/register");
+  });
+
+  // it("should render user information and logout button when user is authenticated", () => {
+  //   render(
+  //     <Provider store={store}>
+  //       <BrowserRouter>
+  //         <Header />
+  //       </BrowserRouter>
+  //     </Provider>
+  //   );
+
+  //   const welcomeElement = screen.getByTestId("greet-element");
+  //   // const usernameElement = screen.getByRole("link", { name: /testuser/i });
+
+  //   expect(welcomeElement).toBeInTheDocument();
+  //   screen.debug();
+  //   // expect(usernameElement).toBeInTheDocument();
+  // });
 });
