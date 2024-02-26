@@ -121,20 +121,16 @@ describe("AuthForm component", () => {
 
     await user.click(registerButton);
 
-    // await waitFor(() => {
-    //   expect(handleSubmit).toHaveBeenCalledWith([
-    //     {
-    //       firstname: "John",
-    //       lastname: "Doe",
-    //       email: "john.doe@example.com",
-    //       username: "johndoe",
-    //       password: "password123",
-    //     },
-    //   ]);
-    // });
-
     await waitFor(() => {
-      expect(handleSubmit).toHaveBeenCalled();
+      expect(handleSubmit).toHaveBeenCalled([
+        {
+          firstname: "John",
+          lastname: "Doe",
+          email: "john.doe@example.com",
+          username: "johndoe",
+          password: "password123",
+        },
+      ]);
     });
   });
 });
