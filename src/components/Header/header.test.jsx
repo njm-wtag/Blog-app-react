@@ -25,6 +25,7 @@ describe("Header", () => {
         search: searchSlice,
       },
     });
+
   const store = mockStore(initialState);
 
   it("Should render the title and search properly", () => {
@@ -60,20 +61,20 @@ describe("Header", () => {
     expect(signupElement).toHaveAttribute("href", "/register");
   });
 
-  // it("should render user information and logout button when user is authenticated", () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <BrowserRouter>
-  //         <Header />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
+  it("should render user information and logout button when user is authenticated", () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      </Provider>
+    );
 
-  //   const welcomeElement = screen.getByTestId("greet-element");
-  //   // const usernameElement = screen.getByRole("link", { name: /testuser/i });
+    const welcomeElement = screen.getByTestId("greet-element");
+    // const usernameElement = screen.getByRole("link", { name: /testuser/i });
 
-  //   expect(welcomeElement).toBeInTheDocument();
-  //   screen.debug();
-  //   // expect(usernameElement).toBeInTheDocument();
-  // });
+    expect(welcomeElement).toBeInTheDocument();
+    screen.debug();
+    // expect(usernameElement).toBeInTheDocument();
+  });
 });

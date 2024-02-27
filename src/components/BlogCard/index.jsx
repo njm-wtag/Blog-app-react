@@ -5,12 +5,12 @@ import defaultProfileIcon from "assets/images/default-profile-icon.svg";
 import "./blogCard.scss";
 
 const BlogCard = ({ blog }) => {
-  const { bannerImage, title, tags, createdAt, authorId } = blog;
+  const { bannerImage, title, tags, createdAt, authorId, id } = blog;
   const { users } = useRegister();
   const author = users?.find((user) => user.id === authorId);
   return (
     <div className="blog-card">
-      <Link to={`/blog/${blog.id}`}>
+      <Link to={`/blog/${id}`}>
         <img src={bannerImage} alt={title} className="blog-card__banner" />
       </Link>
       <div className="blog-card__category_container">
@@ -24,7 +24,7 @@ const BlogCard = ({ blog }) => {
             </li>
           ))}
       </div>
-      <Link to={`/blog/${blog.id}`}>
+      <Link to={`/blog/${id}`}>
         <h3 className="blog-card__blog-title">{title}</h3>
       </Link>
       <div className="blog-card__author-info">
@@ -54,6 +54,7 @@ BlogCard.defaultProps = {
 
 BlogCard.propTypes = {
   blog: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     authorId: PropTypes.string.isRequired,
     bannerImage: PropTypes.string,
     createdAt: PropTypes.string,
