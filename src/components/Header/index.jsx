@@ -51,11 +51,11 @@ const Header = () => {
       {authUser ? (
         <div className="navbar__auth-access">
           <div>
-            <span data-testid="greet-element">Welcome </span>
+            <span>Welcome </span>
             <Link to={`/me`}>{authUser.username}!</Link>
           </div>
-          <Link to="/login" onClick={handleLogout}>
-            <LogoutIcon />
+          <Link aria-label="button-name" to="/login" onClick={handleLogout}>
+            <LogoutIcon title="logout" />
           </Link>
         </div>
       ) : (

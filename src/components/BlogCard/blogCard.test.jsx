@@ -1,16 +1,31 @@
 import { render, screen } from "@testing-library/react";
-import BlogCard from ".";
-import { describe, expect, it } from "vitest";
-import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { describe, expect, it, vi } from "vitest";
+import BlogCard from ".";
 import blogsSlice from "features/blogs/blogsSlice";
 import registerSlice from "features/register/registerSlice";
+import useRegister from "hooks/useRegister";
+
+vi.mock("hooks/useRegister");
 
 describe("BlogCard", () => {
+  const users = [
+    {
+      id: "author1",
+      firstname: "John",
+      lastname: "Doe",
+      profileImage: "profile.jpg",
+    },
+  ];
+
+  useRegister.mockReturnValue({ users });
+
   const initialState = {
     blogs: [],
   };
+
   const mockStore = () =>
     configureStore({
       reducer: {
@@ -29,7 +44,7 @@ describe("BlogCard", () => {
     title: "Test Blog Title",
   };
 
-  it("renders blog card with correct content", () => {
+  it("should render blog card with correctly", () => {
     render(
       <Provider store={store}>
         <BrowserRouter>
@@ -37,7 +52,26 @@ describe("BlogCard", () => {
         </BrowserRouter>
       </Provider>
     );
-    const titleElement = screen.getByText(/Test Blog Title/i);
+
+    const titleElements = screen.getAllByRole("link", {
+      name: /Test Blog Title/i,
+    });
+
+    expect(titleElements.length).toBe(2);
+    const titleElement = titleElements[0];
     expect(titleElement).toBeInTheDocument();
+    expect(titleElement.getAttribute("href")).toBe(`/blog/${blog.id}`);
+
+    const bannerImageElement = screen.getByAltText(/Test Blog Title/i);
+    expect(bannerImageElement).toBeInTheDocument();
+
+    const tagElement = screen.getByText(/Technology/i);
+    expect(tagElement).toBeInTheDocument();
+
+    const authorNameElement = screen.getByText(/John Doe/i);
+    expect(authorNameElement).toBeInTheDocument();
+
+    const createdAtElement = screen.getByText(/2024-02-26/i);
+    expect(createdAtElement).toBeInTheDocument();
   });
 });
