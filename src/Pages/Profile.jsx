@@ -29,7 +29,7 @@ const Profile = () => {
   const blogs = useBlogs();
   const { profileQuery } = useSearch();
   const { filteredTagsInProfile } = useFilter();
-  const { blogsPerPageInProfile } = usePaginate();
+  const { blogsPerPageInProfile, currentProfilePage } = usePaginate();
   const dispatch = useDispatch();
 
   const blogByAuthor = blogs?.filter((blog) => blog.authorId === authUser.id);
@@ -86,9 +86,10 @@ const Profile = () => {
           handleSelect={handleSelect}
           toggleSelected={toggleSelected}
           filteredTags={filteredTagsInProfile}
+          blogsPerPage={blogsPerPageInProfile}
           handleLoadMore={handleLoadMore}
           handleShowLess={handleShowLess}
-          blogsPerPage={blogsPerPageInProfile}
+          currentPage={currentProfilePage}
         />
       ) : (
         "No blog published yet"
