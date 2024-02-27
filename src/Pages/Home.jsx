@@ -21,7 +21,7 @@ const Home = () => {
   const blogs = useBlogs();
   const { homeQuery } = useSearch();
   const { filteredTagsInHome } = useFilter();
-  const { blogsPerPageInHome } = usePaginate();
+  const { blogsPerPageInHome, currentHomePage } = usePaginate();
   const dispatch = useDispatch();
   let randomBlog;
 
@@ -63,9 +63,10 @@ const Home = () => {
         handleSelect={handleSelect}
         toggleSelected={toggleSelected}
         filteredTags={filteredTagsInHome}
+        blogsPerPage={blogsPerPageInHome}
         handleLoadMore={handleLoadMore}
         handleShowLess={handleShowLess}
-        blogsPerPage={blogsPerPageInHome}
+        currentPage={currentHomePage}
       />
     </Layout>
   );

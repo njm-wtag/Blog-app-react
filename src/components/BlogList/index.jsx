@@ -10,9 +10,10 @@ const BlogList = ({
   handleSelect,
   toggleSelected,
   filteredTags,
+  blogsPerPage,
   handleLoadMore,
   handleShowLess,
-  blogsPerPage,
+  currentPage,
 }) => {
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
@@ -31,6 +32,7 @@ const BlogList = ({
   const totalBlogs = filteredBlogsByTags?.length;
   const currentBlogs = filteredBlogsByTags?.slice(0, blogsPerPage);
 
+  console.log(currentPage);
   return (
     <div className="wrapper">
       <div className="tag-list">
@@ -54,18 +56,26 @@ const BlogList = ({
           ? currentBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
           : "Blog not found"}
       </div>
-      {(blogsPerPage < totalBlogs || blogsPerPage > totalBlogs) && (
+
+      {currentBlogs.length < totalBlogs && (
         <div className="button-wrapper">
           <Button
-            type={"button"}
-            onClickHandler={
-              (blogsPerPage < totalBlogs && handleLoadMore) ||
-              (blogsPerPage > totalBlogs && handleShowLess)
-            }
+            type="button"
+            onClickHandler={handleLoadMore}
             className="load-more-button"
           >
-            {blogsPerPage < totalBlogs && "Load More"}
-            {blogsPerPage > totalBlogs && "Show Less"}
+            Load More
+          </Button>
+        </div>
+      )}
+      {currentBlogs.length >= totalBlogs && currentPage > 1 && (
+        <div className="button-wrapper">
+          <Button
+            type="button"
+            onClickHandler={handleShowLess}
+            className="load-more-button"
+          >
+            Show Less
           </Button>
         </div>
       )}
@@ -87,6 +97,11 @@ BlogList.defaultProps = {
   query: "",
   handleSelect: () => {},
   toggleSelected: () => {},
+  filteredTags: [],
+  handleLoadMore: () => {},
+  handleShowLess: () => {},
+  blogsPerPage: PropTypes.number,
+  currentPage: PropTypes.number,
 };
 
 BlogList.propTypes = {
@@ -103,6 +118,11 @@ BlogList.propTypes = {
   query: PropTypes.string,
   handleSelect: PropTypes.func,
   toggleSelected: PropTypes.func,
+  filteredTags: PropTypes.array,
+  handleLoadMore: PropTypes.func,
+  handleShowLess: PropTypes.func,
+  blogsPerPage: PropTypes.number,
+  currentPage: PropTypes.number,
 };
 
 export default BlogList;

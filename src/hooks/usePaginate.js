@@ -1,13 +1,18 @@
 import { useSelector } from "react-redux";
 
 const usePaginate = () => {
-  const { blogsPerPageInHome, blogsPerPageInProfile } = useSelector(
-    (state) => state.pagination
-  );
+  const {
+    blogsPerPageInHome,
+    blogsPerPageInProfile,
+    currentProfilePage,
+    currentHomePage,
+  } = useSelector((state) => state.pagination);
 
   return {
     blogsPerPageInHome,
     blogsPerPageInProfile,
+    currentProfilePage,
+    currentHomePage,
   };
 };
 
