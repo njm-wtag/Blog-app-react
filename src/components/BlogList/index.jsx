@@ -32,7 +32,6 @@ const BlogList = ({
   const totalBlogs = filteredBlogsByTags?.length;
   const currentBlogs = filteredBlogsByTags?.slice(0, blogsPerPage);
 
-  console.log(currentPage);
   return (
     <div className="wrapper">
       <div className="tag-list">
