@@ -29,7 +29,7 @@ const BlogList = ({
     return tags?.some(({ value }) => filteredTags.includes(value));
   });
 
-  const totalBlogs = filteredBlogsByTags?.length;
+  const totalBlogs = filteredBlogsByTags?.length ?? 0;
   const currentBlogs = filteredBlogsByTags?.slice(0, blogsPerPage);
 
   return (
