@@ -67,6 +67,23 @@ describe("Header", () => {
     expect(searchElement).toBeInTheDocument();
   });
 
+  it("Should update search on change", async () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const searchElement = screen.getByPlaceholderText("Search");
+    user.type(searchElement, "test");
+
+    await waitFor(() => {
+      expect(store.getState().search.homeQuery).toBe("test");
+    });
+  });
+
   it("should render user information and logout button when user is authenticated", () => {
     render(
       <Provider store={store}>
@@ -102,6 +119,11 @@ describe("Header", () => {
     // await waitFor(() => {
     //   expect(mockDispatch).toHaveBeenCalledWith(loggedOutUser());
     //   expect(mockedUseNavigate).toHaveBeenCalled(["/login"]);
+    // });
+
+    // await waitFor(() => {
+    //   expect(store.getState().auth.authUser).toBeUndefined();
+    //   expect(window.location.pathname).toBe("/login");
     // });
   });
 
