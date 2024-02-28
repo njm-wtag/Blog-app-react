@@ -15,7 +15,7 @@ describe("should render useAuth properly", () => {
   const useSelectorMock = useSelector.mockImplementation((selector) =>
     selector({
       auth: {
-        authUser: { username: "testuser" },
+        authUser: { username: "johndoe", password: "password123" },
         success: true,
         error: "",
         errorMessage: "",
@@ -24,7 +24,7 @@ describe("should render useAuth properly", () => {
   );
 
   it("returns correct authUser, success, error, and errorMessage", () => {
-    // const authUser = { username: "testuser" };
+    // const authUser = { username: "johndoe", password: "password123"};
     // const success = true;
     // const error = false;
     // const errorMessage = "";
