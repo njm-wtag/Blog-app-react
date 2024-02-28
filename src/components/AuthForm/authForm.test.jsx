@@ -61,8 +61,8 @@ describe("AuthForm component", () => {
 
     await waitFor(() => {
       expect(handleSubmit).toHaveBeenCalled({
-        firstnameInput: "johndoe",
-        passwordInput: "password123",
+        username: "johndoe",
+        password: "password123",
       });
     });
   });
