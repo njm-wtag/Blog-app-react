@@ -7,9 +7,13 @@ import "./blogList.scss";
 const BlogList = ({
   blogs,
   query,
-  filteredTags,
-  toggleSelected,
   handleSelect,
+  toggleSelected,
+  filteredTags,
+  blogsPerPage,
+  handleLoadMore,
+  handleShowLess,
+  currentPage,
 }) => {
   const searchedBlogs = (blogs, query) => {
     return blogs?.filter((blog) =>
@@ -25,8 +29,11 @@ const BlogList = ({
     return tags?.some(({ value }) => filteredTags.includes(value));
   });
 
+  const totalBlogs = filteredBlogsByTags?.length ?? 0;
+  const currentBlogs = filteredBlogsByTags?.slice(0, blogsPerPage);
+
   return (
-    <>
+    <div className="wrapper">
       <div className="tag-list">
         {tags?.map((tag) => (
           <Button
@@ -44,13 +51,34 @@ const BlogList = ({
         ))}
       </div>
       <div className="blog-list">
-        {filteredBlogsByTags.length
-          ? filteredBlogsByTags?.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
-            ))
+        {currentBlogs?.length
+          ? currentBlogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)
           : "Blog not found"}
       </div>
-    </>
+
+      {currentBlogs.length < totalBlogs && (
+        <div className="button-wrapper">
+          <Button
+            type="button"
+            onClickHandler={handleLoadMore}
+            className="load-more-button"
+          >
+            Load More
+          </Button>
+        </div>
+      )}
+      {currentBlogs.length >= totalBlogs && currentPage > 1 && (
+        <div className="button-wrapper">
+          <Button
+            type="button"
+            onClickHandler={handleShowLess}
+            className="load-more-button"
+          >
+            Show Less
+          </Button>
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -68,6 +96,11 @@ BlogList.defaultProps = {
   query: "",
   handleSelect: () => {},
   toggleSelected: () => {},
+  filteredTags: [],
+  handleLoadMore: () => {},
+  handleShowLess: () => {},
+  blogsPerPage: PropTypes.number,
+  currentPage: PropTypes.number,
 };
 
 BlogList.propTypes = {
@@ -84,6 +117,11 @@ BlogList.propTypes = {
   query: PropTypes.string,
   handleSelect: PropTypes.func,
   toggleSelected: PropTypes.func,
+  filteredTags: PropTypes.array,
+  handleLoadMore: PropTypes.func,
+  handleShowLess: PropTypes.func,
+  blogsPerPage: PropTypes.number,
+  currentPage: PropTypes.number,
 };
 
 export default BlogList;

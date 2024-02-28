@@ -16,6 +16,11 @@ import {
   tagRemovedInProfile,
   tagSelectedInProfile,
 } from "features/filter/filterSlice";
+import {
+  decrementProfileBlogs,
+  incrementProfileBlogs,
+} from "features/pagination/paginationSlice";
+import usePaginate from "hooks/usePaginate";
 
 const Profile = () => {
   const [isEditProfileFormOpen, setIsEditProfileFormOpen] = useState(false);
@@ -24,6 +29,7 @@ const Profile = () => {
   const blogs = useBlogs();
   const { profileQuery } = useSearch();
   const { filteredTagsInProfile } = useFilter();
+  const { blogsPerPageInProfile, currentProfilePage } = usePaginate();
   const dispatch = useDispatch();
 
   const blogByAuthor = blogs?.filter((blog) => blog.authorId === authUser.id);
@@ -38,6 +44,14 @@ const Profile = () => {
   };
 
   const toggleSelected = (tag) => filteredTagsInProfile.includes(tag);
+
+  const handleLoadMore = () => {
+    dispatch(incrementProfileBlogs());
+  };
+
+  const handleShowLess = () => {
+    dispatch(decrementProfileBlogs());
+  };
 
   const onSubmit = (blog) => {
     blog.id = uuidv4();
@@ -72,6 +86,10 @@ const Profile = () => {
           handleSelect={handleSelect}
           toggleSelected={toggleSelected}
           filteredTags={filteredTagsInProfile}
+          blogsPerPage={blogsPerPageInProfile}
+          handleLoadMore={handleLoadMore}
+          handleShowLess={handleShowLess}
+          currentPage={currentProfilePage}
         />
       ) : (
         "No blog published yet"

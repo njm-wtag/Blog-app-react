@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { updatedAuthUser } from "features/auth/authSlice";
 
 const INITIAL_STATE = {
   loading: false,

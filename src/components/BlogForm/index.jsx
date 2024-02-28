@@ -87,7 +87,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
             </Button>
             <Button
               type={"button"}
-              onclickHandler={() => setIsAddBlogFormOpen(false)}
+              onClickHandler={() => setIsAddBlogFormOpen(false)}
               className="cancel-button"
             >
               Cancel
