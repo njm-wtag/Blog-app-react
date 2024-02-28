@@ -152,6 +152,6 @@ describe("Header", () => {
     expect(loginElement).toHaveAttribute("href", "/login");
     expect(signupElement).toBeInTheDocument();
     expect(signupElement).toHaveAttribute("href", "/register");
-    screen.debug();
+    // screen.debug();
   });
 });
