@@ -71,7 +71,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           <Field name="username">
             {({ input, meta }) => (
               <div className="form-group">
-                <label>Userame</label>
+                <label>Username</label>
                 <input {...input} type="text" placeholder="Username" readOnly />
                 {meta.error && <span>{meta.error}</span>}
               </div>
