@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PrivateRoute Component > navigates to private route when the user is logged in 1`] = `null`;
