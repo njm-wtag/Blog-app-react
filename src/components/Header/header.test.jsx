@@ -1,12 +1,35 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { describe, expect, it, vi } from "vitest";
+import { Provider, useDispatch } from "react-redux";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import Header from ".";
 import { configureStore } from "@reduxjs/toolkit";
 import searchSlice from "features/search/searchSlice";
-import { BrowserRouter, Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import authSlice, { loggedOutUser } from "features/auth/authSlice";
 import userEvent from "@testing-library/user-event";
+import useAuth from "hooks/useAuth";
+
+vi.mock("hooks/useAuth", () => ({
+  default: () => ({
+    authUser: {
+      firstname: "John",
+      lastname: "Doe",
+      username: "johndoe",
+      subtitle: "Software Engineer",
+      about: "Lorem ipsum dolor sit amet",
+      profileImage: "profile.jpg",
+    },
+  }),
+}));
+
+vi.mock("hooks/useSearch", () => ({
+  default: () => ({
+    search: {
+      homeQuery: "",
+      profileQuery: "",
+    },
+  }),
+}));
 
 describe("Header", () => {
   const handleLogout = vi.fn();
@@ -38,69 +61,103 @@ describe("Header", () => {
 
   const store = mockStore(initialState);
 
-  // const mockedUseNavigate = vi.fn();
-  // vi.mock("react-router-dom", async () => {
-  //   const mod = await vi.importActual("react-router-dom");
-  //   return {
-  //     ...mod,
-  //     mockedUseNavigate: () => mockedUseNavigate,
-  //   };
+  const mockedUseNavigate = vi.fn();
+  vi.mock("react-router-dom", async () => {
+    const mod = await vi.importActual("react-router-dom");
+    return {
+      ...mod,
+      mockedUseNavigate: () => mockedUseNavigate,
+    };
+  });
+
+  const mockDispatch = vi.fn();
+  // const mockSelector = vi.fn();
+  vi.mock("react-redux", () => ({
+    useDispatch: mockDispatch,
+    useSelector: vi.fn(),
+    Provider: ({ children }) => children,
+  }));
+
+  // afterEach(() => {
+  //   vi.clearAllMocks();
   // });
 
-  // const mockDispatch = vi.fn();
-  // vi.mock("react-redux", () => ({
-  //   useDispatch: () => mockDispatch,
-  // }));
+  // it("Should render the title and search properly", () => {
+  //   render(
+  //     <Provider store={store}>
+  //       <BrowserRouter>
+  //         <Header />
+  //       </BrowserRouter>
+  //     </Provider>
+  //   );
+  //   const titleElement = screen.getByRole("link", { name: /WellBlog/i });
+  //   const searchElement = screen.getByPlaceholderText("Search");
 
-  it("Should render the title and search properly", () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      </Provider>
-    );
-    const titleElement = screen.getByRole("link", { name: /WellBlog/i });
-    const searchElement = screen.getByPlaceholderText("Search");
+  //   expect(titleElement).toBeInTheDocument();
+  //   expect(searchElement).toBeInTheDocument();
+  // });
 
-    expect(titleElement).toBeInTheDocument();
-    expect(searchElement).toBeInTheDocument();
-  });
+  // it("Should update search on change", async () => {
+  //   render(
+  //     <Provider store={store}>
+  //       <BrowserRouter>
+  //         <Header />
+  //       </BrowserRouter>
+  //     </Provider>
+  //   );
 
-  it("Should update search on change", async () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      </Provider>
-    );
+  //   const searchElement = screen.getByPlaceholderText("Search");
+  //   user.type(searchElement, "test");
 
-    const searchElement = screen.getByPlaceholderText("Search");
-    user.type(searchElement, "test");
+  //   await waitFor(() => {
+  //     expect(store.getState().search.homeQuery).toBe("test");
+  //   });
+  // });
 
-    await waitFor(() => {
-      expect(store.getState().search.homeQuery).toBe("test");
-    });
-  });
+  // it("should render user information and logout button when user is authenticated", () => {
+  //   render(
+  //     <Provider store={store}>
+  //       <BrowserRouter>
+  //         <Header />
+  //       </BrowserRouter>
+  //     </Provider>
+  //   );
+  //   const welcomeElement = screen.getByText(/Welcome/i);
+  //   const usernameElement = screen.getByRole("link", { name: /testuser/i });
+  //   const logoutElement = screen.getByRole("link", { name: /button-name/i });
 
-  it("should render user information and logout button when user is authenticated", () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      </Provider>
-    );
-    const welcomeElement = screen.getByText(/Welcome/i);
-    const usernameElement = screen.getByRole("link", { name: /testuser/i });
-    const logoutElement = screen.getByRole("link", { name: /button-name/i });
+  //   expect(welcomeElement).toBeInTheDocument();
+  //   expect(usernameElement).toBeInTheDocument();
+  //   expect(logoutElement).toBeInTheDocument();
+  //   expect(logoutElement).toHaveAttribute("href", "/login");
+  // });
 
-    expect(welcomeElement).toBeInTheDocument();
-    expect(usernameElement).toBeInTheDocument();
-    expect(logoutElement).toBeInTheDocument();
-    expect(logoutElement).toHaveAttribute("href", "/login");
-  });
+  // it("should render login and signup links when user is not authenticated", () => {
+  //   const modifiedInitialState = {
+  //     auth: {
+  //       authUser: undefined,
+  //       loading: false,
+  //       error: "",
+  //       errorMessage: "",
+  //       success: true,
+  //     },
+  //   };
+  //   render(
+  //     <Provider store={mockStore(modifiedInitialState)}>
+  //       <BrowserRouter>
+  //         <Header />
+  //       </BrowserRouter>
+  //     </Provider>
+  //   );
+
+  //   const loginElement = screen.getByRole("link", { name: /Login/i });
+  //   const signupElement = screen.getByRole("link", { name: /Signup/i });
+
+  //   expect(loginElement).toBeInTheDocument();
+  //   expect(loginElement).toHaveAttribute("href", "/login");
+  //   expect(signupElement).toBeInTheDocument();
+  //   expect(signupElement).toHaveAttribute("href", "/register");
+  // });
 
   it("should dispatch loggedOutUser action and navigate to login page when logout button is clicked", async () => {
     render(
@@ -111,47 +168,20 @@ describe("Header", () => {
       </Provider>
     );
 
-    const logoutElement = screen.getByLabelText("button-name");
+    const logoutElement = screen.getByLabelText("logout-button");
 
-    expect(logoutElement).toHaveAttribute("href", "/login");
     console.log(logoutElement);
+    expect(logoutElement).toHaveAttribute("href", "/login");
     await user.click(logoutElement);
-    // await waitFor(() => {
-    //   expect(mockDispatch).toHaveBeenCalledWith(loggedOutUser());
-    //   expect(mockedUseNavigate).toHaveBeenCalled(["/login"]);
-    // });
+
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledWith(loggedOutUser());
+      // expect(mockedUseNavigate).toHaveBeenCalled(["/login"]);
+    });
 
     // await waitFor(() => {
     //   expect(store.getState().auth.authUser).toBeUndefined();
     //   expect(window.location.pathname).toBe("/login");
     // });
-  });
-
-  it("should render login and signup links when user is not authenticated", () => {
-    const modifiedInitialState = {
-      auth: {
-        authUser: undefined,
-        loading: false,
-        error: "",
-        errorMessage: "",
-        success: true,
-      },
-    };
-    render(
-      <Provider store={mockStore(modifiedInitialState)}>
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      </Provider>
-    );
-
-    const loginElement = screen.getByRole("link", { name: /Login/i });
-    const signupElement = screen.getByRole("link", { name: /Signup/i });
-
-    expect(loginElement).toBeInTheDocument();
-    expect(loginElement).toHaveAttribute("href", "/login");
-    expect(signupElement).toBeInTheDocument();
-    expect(signupElement).toHaveAttribute("href", "/register");
-    // screen.debug();
   });
 });

@@ -54,8 +54,8 @@ const Header = () => {
             <span>Welcome </span>
             <Link to={`/me`}>{authUser.username}!</Link>
           </div>
-          <Link aria-label="button-name" to="/login" onClick={handleLogout}>
-            <LogoutIcon title="logout" />
+          <Link aria-label="logout-button" to="/login" onClick={handleLogout}>
+            <LogoutIcon />
           </Link>
         </div>
       ) : (
