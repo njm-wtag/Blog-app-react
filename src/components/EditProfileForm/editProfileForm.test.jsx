@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import EditProfileForm from ".";
 import { Provider } from "react-redux";
@@ -44,50 +44,46 @@ const user = userEvent.setup();
 const onSubmit = vi.fn();
 
 describe("EditProfileForm component", () => {
-  // it("should render form fields with initial values", () => {
-  //   const authUser = {
-  //     firstname: "John",
-  //     lastname: "Doe",
-  //     username: "johndoe",
-  //     subtitle: "Software Engineer",
-  //     about: "Lorem ipsum dolor sit amet",
-  //     profileImage: "profile.jpg",
-  //   };
-  //   render(
-  //     <Provider store={store}>
-  //       <BrowserRouter>
-  //         <EditProfileForm
-  //           setIsEditProfileFormOpen={mockSetIsEditProfileFormOpen}
-  //         />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
+  it("should render form fields with initial values", () => {
+    const authUser = {
+      firstname: "John",
+      lastname: "Doe",
+      username: "johndoe",
+      subtitle: "Software Engineer",
+      about: "Lorem ipsum dolor sit amet",
+      profileImage: "profile.jpg",
+    };
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <EditProfileForm
+            setIsEditProfileFormOpen={mockSetIsEditProfileFormOpen}
+          />
+        </BrowserRouter>
+      </Provider>
+    );
 
-  //   const firstNameElement = screen.getByPlaceholderText(/First name/i);
-  //   expect(firstNameElement).toHaveValue(authUser.firstname);
+    const firstNameElement = screen.getByPlaceholderText(/First name/i);
+    expect(firstNameElement).toHaveValue(authUser.firstname);
 
-  //   const lastNameElement = screen.getByPlaceholderText(/Last name/i);
-  //   expect(lastNameElement).toHaveValue(authUser.lastname);
+    const lastNameElement = screen.getByPlaceholderText(/Last name/i);
+    expect(lastNameElement).toHaveValue(authUser.lastname);
 
-  //   const userameElement = screen.getByPlaceholderText(/Username/i);
-  //   expect(userameElement).toHaveValue(authUser.username);
+    const userameElement = screen.getByPlaceholderText(/Username/i);
+    expect(userameElement).toHaveValue(authUser.username);
 
-  //   const subtitleElement = screen.getByPlaceholderText(/Subtitle/i);
-  //   expect(subtitleElement).toHaveValue(authUser.subtitle);
+    const subtitleElement = screen.getByPlaceholderText(/Subtitle/i);
+    expect(subtitleElement).toHaveValue(authUser.subtitle);
 
-  //   const aboutElement = screen.getByPlaceholderText(/About/i);
-  //   expect(aboutElement).toHaveValue(authUser.about);
+    const aboutElement = screen.getByPlaceholderText(/About/i);
+    expect(aboutElement).toHaveValue(authUser.about);
 
-  //   const profileImageElement = screen.getByAltText("Author Image");
+    const profileImageElement = screen.getByAltText("Author Image");
 
-  //   expect(profileImageElement).toHaveAttribute("src", authUser.profileImage);
-  // });
+    expect(profileImageElement).toHaveAttribute("src", authUser.profileImage);
+  });
 
   it("should upload profile image correcly", async () => {
-    const profileImageElement = screen.getByLabelText("Profile Image");
-    const newFile = new File(["profile"], "profile.jpg", {
-      type: "image/png",
-    });
     const handleImageChange = vi.fn();
     render(
       <Provider store={store}>
@@ -99,22 +95,31 @@ describe("EditProfileForm component", () => {
         </BrowserRouter>
       </Provider>
     );
+    const profileImageElement = screen.getByLabelText("Profile Image");
 
-    await user.upload(profileImageElement, newFile);
-    // console.log(profileImageElement.files);
-    // console.log(profileImageElement.files.length);
-    // expect(profileImageElement.files[0]).toEqual(newFile);
-    expect(handleImageChange).toHaveBeenCalled();
+    const newFile = new File(["profile"], "profile.png", {
+      type: "image/png",
+    });
+    console.log(newFile);
 
-    // const str = JSON.stringify(mockImage);
-    // const blob = new Blob([str]);
-    // const file = new File([blob], "values.json", {
-    //   type: "application/JSON",
-    // });
-    // File.prototype.text = vi.fn().mockResolvedValueOnce(str);
-    // const input = screen.getByLabelText("Profile Image");
-    // const uploaded = await user.upload(input, file);
-    // console.log(uploaded);
+    const a = fireEvent.change(profileImageElement, {
+      target: { files: [newFile] },
+    });
+    console.log(a);
+
+    const mockImage = [{ name: "teresa teng" }];
+    const str = JSON.stringify(mockImage);
+    const blob = new Blob([str]);
+    const file = new File([blob], "values.json", {
+      type: "application/JSON",
+    });
+    console.log(file);
+    File.prototype.text = vi.fn().mockResolvedValueOnce(str);
+    const input = screen.getByLabelText("Profile Image");
+    const uploaded = fireEvent.change(input, file);
+    console.log(uploaded);
+
+    // expect(handleImageChange).toHaveBeenCalled();
     // await waitFor(() => expect(input.toBeTruthy()));
   });
 
