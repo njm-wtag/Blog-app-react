@@ -1,13 +1,12 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Header from ".";
 import { configureStore } from "@reduxjs/toolkit";
-import searchSlice from "features/search/searchSlice";
+import searchSlice, { updateHomeQuery } from "features/search/searchSlice";
 import { BrowserRouter } from "react-router-dom";
 import authSlice, { loggedOutUser } from "features/auth/authSlice";
 import userEvent from "@testing-library/user-event";
-import useAuth from "hooks/useAuth";
 
 vi.mock("hooks/useAuth", () => ({
   default: () => ({
@@ -31,10 +30,25 @@ vi.mock("hooks/useSearch", () => ({
   }),
 }));
 
-describe("Header", () => {
-  const handleLogout = vi.fn();
+const mockDispatch = vi.fn();
+vi.mock("react-redux", () => ({
+  useDispatch: () => mockDispatch,
+  useSelector: vi.fn(),
+  Provider: ({ children }) => children,
+}));
 
+const mockedUseNavigate = vi.fn();
+vi.mock("react-router-dom", async () => {
+  const mod = await vi.importActual("react-router-dom");
+  return {
+    ...mod,
+    mockedUseNavigate: () => mockedUseNavigate,
+  };
+});
+
+describe("Header", () => {
   const user = userEvent.setup();
+
   const initialState = {
     auth: {
       authUser: { username: "testuser" },
@@ -61,103 +75,62 @@ describe("Header", () => {
 
   const store = mockStore(initialState);
 
-  const mockedUseNavigate = vi.fn();
-  vi.mock("react-router-dom", async () => {
-    const mod = await vi.importActual("react-router-dom");
-    return {
-      ...mod,
-      mockedUseNavigate: () => mockedUseNavigate,
-    };
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
-  const mockDispatch = vi.fn();
-  // const mockSelector = vi.fn();
-  vi.mock("react-redux", () => ({
-    useDispatch: mockDispatch,
-    useSelector: vi.fn(),
-    Provider: ({ children }) => children,
-  }));
+  it("Should render the title and search properly", () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      </Provider>
+    );
+    const titleElement = screen.getByRole("link", { name: /WellBlog/i });
+    const searchElement = screen.getByPlaceholderText("Search");
 
-  // afterEach(() => {
-  //   vi.clearAllMocks();
-  // });
+    expect(titleElement).toBeInTheDocument();
+    expect(searchElement).toBeInTheDocument();
+  });
 
-  // it("Should render the title and search properly", () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <BrowserRouter>
-  //         <Header />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
-  //   const titleElement = screen.getByRole("link", { name: /WellBlog/i });
-  //   const searchElement = screen.getByPlaceholderText("Search");
+  it("Should update search on change", async () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      </Provider>
+    );
 
-  //   expect(titleElement).toBeInTheDocument();
-  //   expect(searchElement).toBeInTheDocument();
-  // });
+    const searchElement = screen.getByPlaceholderText("Search");
+    user.type(searchElement, "test");
+    store.dispatch(updateHomeQuery("test"));
 
-  // it("Should update search on change", async () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <BrowserRouter>
-  //         <Header />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
+    await waitFor(() => {
+      expect(searchElement).toHaveValue("test");
+      expect(store.getState().search.homeQuery).toEqual("test");
+    });
+  });
 
-  //   const searchElement = screen.getByPlaceholderText("Search");
-  //   user.type(searchElement, "test");
+  it("should render user information and logout button when user is authenticated", () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      </Provider>
+    );
 
-  //   await waitFor(() => {
-  //     expect(store.getState().search.homeQuery).toBe("test");
-  //   });
-  // });
+    const welcomeElement = screen.getByText(/Welcome/i);
+    const usernameElement = screen.getByRole("link", { name: "johndoe!" });
+    const logoutElement = screen.getByRole("link", { name: /logout-button/i });
 
-  // it("should render user information and logout button when user is authenticated", () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <BrowserRouter>
-  //         <Header />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
-  //   const welcomeElement = screen.getByText(/Welcome/i);
-  //   const usernameElement = screen.getByRole("link", { name: /testuser/i });
-  //   const logoutElement = screen.getByRole("link", { name: /button-name/i });
-
-  //   expect(welcomeElement).toBeInTheDocument();
-  //   expect(usernameElement).toBeInTheDocument();
-  //   expect(logoutElement).toBeInTheDocument();
-  //   expect(logoutElement).toHaveAttribute("href", "/login");
-  // });
-
-  // it("should render login and signup links when user is not authenticated", () => {
-  //   const modifiedInitialState = {
-  //     auth: {
-  //       authUser: undefined,
-  //       loading: false,
-  //       error: "",
-  //       errorMessage: "",
-  //       success: true,
-  //     },
-  //   };
-  //   render(
-  //     <Provider store={mockStore(modifiedInitialState)}>
-  //       <BrowserRouter>
-  //         <Header />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
-
-  //   const loginElement = screen.getByRole("link", { name: /Login/i });
-  //   const signupElement = screen.getByRole("link", { name: /Signup/i });
-
-  //   expect(loginElement).toBeInTheDocument();
-  //   expect(loginElement).toHaveAttribute("href", "/login");
-  //   expect(signupElement).toBeInTheDocument();
-  //   expect(signupElement).toHaveAttribute("href", "/register");
-  // });
+    expect(welcomeElement).toBeInTheDocument();
+    expect(usernameElement).toBeInTheDocument();
+    expect(logoutElement).toBeInTheDocument();
+    expect(logoutElement).toHaveAttribute("href", "/login");
+  });
 
   it("should dispatch loggedOutUser action and navigate to login page when logout button is clicked", async () => {
     render(
@@ -170,18 +143,39 @@ describe("Header", () => {
 
     const logoutElement = screen.getByLabelText("logout-button");
 
-    console.log(logoutElement);
-    expect(logoutElement).toHaveAttribute("href", "/login");
     await user.click(logoutElement);
 
     await waitFor(() => {
+      expect(logoutElement).toHaveAttribute("href", "/login");
       expect(mockDispatch).toHaveBeenCalledWith(loggedOutUser());
-      // expect(mockedUseNavigate).toHaveBeenCalled(["/login"]);
+      // expect(mockedUseNavigate).toHaveBeenCalledWith(["/login"]);
     });
+  });
 
-    // await waitFor(() => {
-    //   expect(store.getState().auth.authUser).toBeUndefined();
-    //   expect(window.location.pathname).toBe("/login");
-    // });
+  it("should render login and signup links when user is not authenticated", () => {
+    const modifiedInitialState = {
+      auth: {
+        authUser: undefined,
+        loading: false,
+        error: "",
+        errorMessage: "",
+        success: true,
+      },
+    };
+    render(
+      <Provider store={mockStore(modifiedInitialState)}>
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const loginElement = screen.getByRole("link", { name: /Login/i });
+    const signupElement = screen.getByRole("link", { name: /Signup/i });
+
+    expect(loginElement).toBeInTheDocument();
+    expect(loginElement).toHaveAttribute("href", "/login");
+    expect(signupElement).toBeInTheDocument();
+    expect(signupElement).toHaveAttribute("href", "/register");
   });
 });
