@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import BlogList from ".";
 import { Provider } from "react-redux";
@@ -249,7 +249,7 @@ describe("BlogList Component", () => {
     expect(screen.queryByText("Sample Blog 2")).toBeNull();
   });
 
-  it("should call handleSelect with the correct tag value when a tag button is clicked", () => {
+  it("should call handleSelect with the correct tag value when a tag is clicked", async () => {
     const blogs = [
       {
         id: "1",
@@ -269,8 +269,14 @@ describe("BlogList Component", () => {
       },
     ];
 
+    const mockTags = [
+      { value: "technology", label: "Technology" },
+      { value: "poetry", label: "Poetry" },
+      { value: "flims", label: "Flims" },
+      { value: "world politics", label: "World Politics" },
+    ];
+
     const handleSelect = vi.fn();
-    const toggleSelected = vi.fn((tagValue) => tagValue === "technology");
 
     render(
       <BlogList
@@ -279,16 +285,18 @@ describe("BlogList Component", () => {
         handleSelect={handleSelect}
         blogsPerPage={2}
         currentPage={1}
-        toggleSelected={toggleSelected}
+        toggleSelected={() => {}}
         filteredTags={["technology"]}
       />
     );
 
     const techTagButton = screen.getByRole("button", { name: "Technology" });
-    expect(techTagButton).toBeInTheDocument();
 
     user.click(techTagButton);
 
-    expect(handleSelect).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(techTagButton).toBeInTheDocument();
+      expect(handleSelect).toHaveBeenCalledWith(mockTags[0].value);
+    });
   });
 });
