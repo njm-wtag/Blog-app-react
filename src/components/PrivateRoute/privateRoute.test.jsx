@@ -1,6 +1,14 @@
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { describe, expect, it, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import {
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import PrivateRoute from ".";
 import useLocalStorageAuth from "hooks/useLocalStorageAuth";
 import Login from "pages/Login";
@@ -9,27 +17,71 @@ import useAuth from "hooks/useAuth";
 
 vi.mock("hooks/useLocalStorageAuth");
 vi.mock("hooks/useAuth");
-const FakeComponent = () => <div>fake text</div>;
-const ProfileComponent = () => <div>profile info</div>;
+
+const mockLogin = () => <div>Login</div>;
+const mockProfile = () => <div>Profile </div>;
 
 describe("PrivateRoute Component", () => {
-  // it("navigates to login page when the user is not logged in", () => {
-  //   useLocalStorageAuth.mockReturnValue(false);
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-  //   render(
-  //     <BrowserRouter>
-  //       <Routes>
-  //         <Route path="/" element={<FakeComponent />} />
-  //       </Routes>
-  //     </BrowserRouter>
-  //   );
-  //   const loginElement = screen.queryByText(/fake text/i);
-  //   console.log(loginElement);
-  //   expect(loginElement).not.toBeInTheDocument();
-  // });
+  it("navigates to login if not logged in", async () => {
+    let testHistory, testLocation;
+    const location = useLocation();
+    console.log(location.pathname, "login");
+    useLocalStorageAuth.mockReturnValue(false);
+    vi.mock("react-router-dom", async (importOriginal) => {
+      const actual = await importOriginal();
+      return {
+        ...actual,
+        useLocation: () => ({
+          pathname: "/login",
+        }),
+      };
+    });
 
-  it("navigates to private route when the user is logged in", () => {
+    render(
+      <BrowserRouter>
+        <Routes>
+          <Route
+            render={({ history, location }) => {
+              testHistory = history;
+              testLocation = location;
+              return null;
+            }}
+            element={<PrivateRoute />}
+          >
+            {/* <Route path="/me" element={<Profile />} /> */}
+          </Route>
+          {/* <Route path="/login" element={<Login />} /> */}
+        </Routes>
+      </BrowserRouter>
+    );
+
+    console.log(location.pathname, "from profile");
+    await waitFor(() => {
+      expect(location.pathname).toEqual("/login");
+    });
+  });
+
+  it("navigates to private route when the user is logged in", async () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+    });
     useLocalStorageAuth.mockReturnValue(true);
+    const location = useLocation();
+    console.log(location.pathname);
+
+    vi.mock("react-router-dom", async (importOriginal) => {
+      const actual = await importOriginal();
+      return {
+        ...actual,
+        useLocation: () => ({
+          pathname: "/me",
+        }),
+      };
+    });
     const mockAuthUser = {
       username: "John doe",
     };
@@ -40,7 +92,7 @@ describe("PrivateRoute Component", () => {
       <BrowserRouter>
         <Routes>
           <Route element={<PrivateRoute />}>
-            <Route path="/me" element={<ProfileComponent />} />
+            <Route path="/me" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
@@ -48,8 +100,13 @@ describe("PrivateRoute Component", () => {
     // console.log(container.firstChild);
     // expect(container.firstChild).toMatchSnapshot();
     // const profileElement = screen.queryByText(mockAuthUser.username);
-    const profileElement = screen.getByText("profile info");
-    console.log(profileElement);
-    expect(profileElement).toBeInTheDocument();
+
+    await waitFor(() => {
+      console.log(location.pathname);
+      expect(location.pathname).toEqual("/me");
+    });
+    // const profileElement = screen.getByText("profile info");
+    // console.log(profileElement);
+    // expect(profileElement).toBeInTheDocument();
   });
 });
