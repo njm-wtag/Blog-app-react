@@ -21,8 +21,6 @@ describe("useBlogs", () => {
 
     const { result } = renderHook(() => useBlogs());
 
-    console.log("Result:", result.current);
-
     expect(result.current).toEqual(mockBlogs);
   });
 });

@@ -51,10 +51,6 @@ describe("BlogForm component", () => {
     const titleElement = screen.getByLabelText("Title");
     expect(titleElement).toHaveValue("Test Blog");
 
-    // const tagsElement = screen.getByLabelText("Tags");
-    // console.log(tagsElement);
-    // expect(tagsElement).toBeInTheDocument();
-
     const bannerImageElement = screen.getByLabelText("Banner Image");
     expect(bannerImageElement).toBeInTheDocument();
 

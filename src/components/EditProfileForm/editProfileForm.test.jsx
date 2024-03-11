@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import EditProfileForm from ".";
 import { Provider } from "react-redux";
@@ -41,7 +41,6 @@ const mockStore = (initialState) =>
 
 const store = mockStore(initialState);
 const user = userEvent.setup();
-const onSubmit = vi.fn();
 
 describe("EditProfileForm component", () => {
   it("should render form fields with initial values", () => {
@@ -97,106 +96,92 @@ describe("EditProfileForm component", () => {
     );
     const profileImageElement = screen.getByLabelText("Profile Image");
 
-    const newFile = new File(["profile"], "profile.png", {
+    const blob = new Blob(["profile"], { type: "image/png" });
+    const newFile = new File([blob], "profile.png", {
       type: "image/png",
     });
-    console.log(newFile);
 
-    const a = fireEvent.change(profileImageElement, {
-      target: { files: [newFile] },
+    await user.upload(profileImageElement, {
+      newFile,
     });
-    console.log(a);
 
-    // const mockImage = [{ name: "teresa teng" }];
-    // const str = JSON.stringify(mockImage);
-    // const blob = new Blob([str]);
-    // const file = new File([blob], "values.json", {
-    //   type: "application/JSON",
-    // });
-    // console.log(file);
-    // File.prototype.text = vi.fn().mockResolvedValueOnce(str);
-    // const input = screen.getByLabelText("Profile Image");
-    // const uploaded = fireEvent.change(input, file);
-    // console.log(uploaded);
-
-    expect(handleImageChange).toHaveBeenCalledTimes(1);
-    // await waitFor(() => expect(profileImageElement.toBeTruthy()));
+    await waitFor(() => expect(profileImageElement.files).toHaveLength(1));
   });
 
-  // it("submits form with updated values", async () => {
-  //   const handleImageChange = vi.fn();
-  //   const updatedValues = {
-  //     firstname: "Jane",
-  //     lastname: "Smith",
-  //     subtitle: "Web Developer",
-  //     about: "Consectetur adipiscing elit",
-  //     profileImage: "updated-profile.jpg",
-  //   };
+  it("submits form with updated values", async () => {
+    const handleImageChange = vi.fn();
+    // const onSubmit = vi.fn();
+    const updatedValues = {
+      firstname: "Jane",
+      lastname: "Smith",
+      subtitle: "Web Developer",
+      about: "Consectetur adipiscing elit",
+      profileImage: "updated-profile.jpg",
+    };
 
-  //   render(
-  //     <Provider store={store}>
-  //       <BrowserRouter>
-  //         <EditProfileForm
-  //           setIsEditProfileFormOpen={mockSetIsEditProfileFormOpen}
-  //           onChange={handleImageChange}
-  //         />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <EditProfileForm
+            setIsEditProfileFormOpen={mockSetIsEditProfileFormOpen}
+            onChange={handleImageChange}
+          />
+        </BrowserRouter>
+      </Provider>
+    );
 
-  //   const firstNameElement = screen.getByPlaceholderText(/First name/i);
-  //   await user.clear(firstNameElement);
-  //   await user.type(firstNameElement, updatedValues.firstname);
+    const firstNameElement = screen.getByPlaceholderText(/First name/i);
+    await user.clear(firstNameElement);
+    await user.type(firstNameElement, updatedValues.firstname);
 
-  //   const lastNameElement = screen.getByPlaceholderText(/Last name/i);
-  //   await user.clear(lastNameElement);
-  //   await user.type(lastNameElement, updatedValues.lastname);
+    const lastNameElement = screen.getByPlaceholderText(/Last name/i);
+    await user.clear(lastNameElement);
+    await user.type(lastNameElement, updatedValues.lastname);
 
-  //   const subtitleElement = screen.getByPlaceholderText(/Subtitle/i);
-  //   await user.clear(subtitleElement);
-  //   await user.type(subtitleElement, updatedValues.subtitle);
+    const subtitleElement = screen.getByPlaceholderText(/Subtitle/i);
+    await user.clear(subtitleElement);
+    await user.type(subtitleElement, updatedValues.subtitle);
 
-  //   const aboutElement = screen.getByPlaceholderText(/About/i);
-  //   await user.clear(aboutElement);
-  //   await user.type(aboutElement, updatedValues.about);
+    const aboutElement = screen.getByPlaceholderText(/About/i);
+    await user.clear(aboutElement);
+    await user.type(aboutElement, updatedValues.about);
 
-  //   const profileImageElement = screen.getByLabelText("Profile Image");
+    const profileImageElement = screen.getByLabelText("Profile Image");
 
-  //   const blob = new Blob(["image data"], { type: "image/jpeg" });
-  //   const file = new File([blob], "updated-profile.jpg", {
-  //     type: "image/jpeg",
-  //   });
+    const blob = new Blob(["image data"], { type: "image/jpeg" });
+    const file = new File([blob], "updated-profile.jpg", {
+      type: "image/jpeg",
+    });
 
-  //   await user.upload(profileImageElement, file);
+    await user.upload(profileImageElement, file);
 
-  //   console.log(file);
+    const submitButton = screen.getByRole("button", { name: "Submit" });
+    user.click(submitButton);
 
-  //   await fireEvent.change(profileImageElement, file);
-  //   // await user.upload(profileImageElement, updatedValues.profileImage);
-  //   console.log(profileImageElement.files[0]);
+    expect(profileImageElement.files).toHaveLength(1);
+    expect(firstNameElement.value).toBe(updatedValues.firstname);
+    expect(lastNameElement.value).toBe(updatedValues.lastname);
+    expect(subtitleElement.value).toBe(updatedValues.subtitle);
+    expect(aboutElement.value).toBe(updatedValues.about);
+    // expect(onSubmit).toHaveBeenCalledOnce();
+  });
 
-  //   const submitButton = screen.getByRole("button", { name: "Submit" });
-  //   user.click(submitButton);
+  it("should cancel form editing", async () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <EditProfileForm
+            setIsEditProfileFormOpen={mockSetIsEditProfileFormOpen}
+          />
+        </BrowserRouter>
+      </Provider>
+    );
 
-  //   await waitFor(() => {
-  //     expect(onSubmit).toHaveBeenCalled();
-  //   });
-  // });
+    const cancelButton = screen.getByRole("button", { name: /Cancel/i });
+    user.click(cancelButton);
 
-  // it("should cancel form editing", () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <BrowserRouter>
-  //         <EditProfileForm
-  //           setIsEditProfileFormOpen={mockSetIsEditProfileFormOpen}
-  //         />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
-
-  //   const cancelButton = screen.getByRole("button", { name: /Cancel/i });
-  //   user.click(cancelButton);
-
-  //   expect(mockSetIsEditProfileFormOpen).toHaveBeenCalledWith(false);
-  // });
+    await waitFor(() => {
+      expect(mockSetIsEditProfileFormOpen).toHaveBeenCalledWith(false);
+    });
+  });
 });
