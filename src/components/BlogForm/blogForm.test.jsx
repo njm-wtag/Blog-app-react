@@ -107,7 +107,7 @@ describe("BlogForm component", () => {
     const titleElement = screen.getByLabelText(/Title/i);
     await user.clear(titleElement);
     await user.type(titleElement, "Test Blog");
-    const bodyElement = screen.getByLabelText(/Title/i);
+    const bodyElement = screen.getByLabelText(/Body/i);
     await user.clear(bodyElement);
     await user.type(bodyElement, "Lorem ipsum");
 
