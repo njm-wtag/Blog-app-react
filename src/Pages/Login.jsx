@@ -13,7 +13,7 @@ const Login = () => {
   };
 
   return (
-    <Layout>
+    <Layout data-testid="login-component">
       <h1>Login</h1>
 
       <AuthForm handleSubmit={handleSubmit} />

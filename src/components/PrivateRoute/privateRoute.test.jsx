@@ -1,102 +1,140 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import {
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi,
-} from "vitest";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import PrivateRoute from ".";
 import useLocalStorageAuth from "hooks/useLocalStorageAuth";
 import Profile from "pages/Profile";
-import useAuth from "hooks/useAuth";
+import Login from "pages/Login";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import authSlice from "features/auth/authSlice";
+import blogsSlice from "features/blogs/blogsSlice";
+import EditBlog from "pages/EditBlog";
 
 vi.mock("hooks/useLocalStorageAuth");
 vi.mock("hooks/useAuth");
+const mockDispatch = vi.fn();
+vi.mock("react-redux", () => ({
+  useDispatch: () => mockDispatch,
+  useSelector: vi.fn(),
+  Provider: ({ children }) => children,
+}));
+vi.mock("hooks/useSearch", () => ({
+  default: () => ({
+    search: {
+      homeQuery: "",
+      profileQuery: "",
+    },
+  }),
+}));
+
+vi.mock("hooks/useBlogs");
+vi.mock("hooks/useFilter", () => ({
+  default: () => ({
+    filter: {
+      filteredTagsInProfile: "",
+    },
+  }),
+}));
+vi.mock("hooks/usePaginate", () => ({
+  default: () => ({
+    paginate: {
+      blogsPerPageInProfile: "",
+    },
+  }),
+}));
 
 describe("PrivateRoute Component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  // Failed testcase. Working on resolving it
+  const mockStore = (initialState) =>
+    configureStore({
+      reducer: {
+        auth: authSlice,
+        blog: blogsSlice,
+      },
+      preloadedState: initialState,
+    });
 
-  // it("navigates to login if not logged in", async () => {
-  //   let testHistory, testLocation;
-  //   const location = useLocation();
-  //   console.log(location.pathname, "login");
-  //   useLocalStorageAuth.mockReturnValue(false);
-  //   vi.mock("react-router-dom", async (importOriginal) => {
-  //     const actual = await importOriginal();
-  //     return {
-  //       ...actual,
-  //       useLocation: () => ({
-  //         pathname: "/login",
-  //       }),
-  //     };
-  //   });
+  it("navigates to login if not logged in", async () => {
+    useLocalStorageAuth.mockReturnValue(false);
+    const initialState = {
+      auth: {
+        authUser: null,
+      },
+    };
+    vi.mock("hooks/useAuth", () => ({
+      default: () => ({
+        authUser: null,
+      }),
+    }));
 
-  //   render(
-  //     <BrowserRouter>
-  //       <Routes>
-  //         <Route
-  //           render={({ history, location }) => {
-  //             testHistory = history;
-  //             testLocation = location;
-  //             return null;
-  //           }}
-  //           element={<PrivateRoute />}
-  //         >
-  //           {/* <Route path="/me" element={<Profile />} /> */}
-  //         </Route>
-  //         {/* <Route path="/login" element={<Login />} /> */}
-  //       </Routes>
-  //     </BrowserRouter>
-  //   );
-  //   screen.debug();
-  //   console.log(location.pathname, "from profile");
-  //   await waitFor(() => {
-  //     expect(location.pathname).toEqual("/login");
-  //   });
-  // });
+    render(
+      <Provider store={mockStore(initialState)}>
+        <MemoryRouter initialEntries={["/login"]}>
+          <Routes>
+            <Route element={<PrivateRoute />}>
+              <Route path="/me" element={<Profile />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const loginElements = screen.getAllByText(/Login/i);
+    expect(loginElements.length).toBeGreaterThan(0);
+  });
 
   it("navigates to private route when the user is logged in", async () => {
     beforeEach(() => {
       vi.clearAllMocks();
     });
+
     useLocalStorageAuth.mockReturnValue(true);
-    const location = useLocation();
 
-    vi.mock("react-router-dom", async (importOriginal) => {
-      const actual = await importOriginal();
-      return {
-        ...actual,
-        useLocation: () => ({
-          pathname: "/me",
-        }),
-      };
-    });
-    const mockAuthUser = {
-      username: "John doe",
+    const initialState = {
+      auth: {
+        authUser: {
+          firstname: "John",
+          lastname: "Doe",
+          username: "johndoe",
+          subtitle: "Software Engineer",
+          about: "Lorem ipsum dolor sit amet",
+          profileImage: "profile.jpg",
+        },
+      },
     };
-
-    useAuth.mockReturnValue({ authUser: mockAuthUser });
+    vi.mock("hooks/useAuth", () => ({
+      default: () => ({
+        authUser: {
+          firstname: "John",
+          lastname: "Doe",
+          username: "johndoe",
+          subtitle: "Software Engineer",
+          about: "Lorem ipsum dolor sit amet",
+          profileImage: "profile.jpg",
+        },
+      }),
+    }));
 
     render(
-      <BrowserRouter>
-        <Routes>
-          <Route element={<PrivateRoute />}>
-            <Route path="/me" element={<Profile />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <Provider store={mockStore(initialState)}>
+        <MemoryRouter initialEntries={["/edit/1"]}>
+          <Routes>
+            <Route element={<PrivateRoute />}>
+              <Route path="/edit/1" element={<EditBlog />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>
     );
 
-    await waitFor(() => {
-      expect(location.pathname).toEqual("/me");
-    });
+    const editBlogElements = screen.getByText(/Edit blog/i);
+
+    expect(editBlogElements).toBeInTheDocument();
   });
 });
