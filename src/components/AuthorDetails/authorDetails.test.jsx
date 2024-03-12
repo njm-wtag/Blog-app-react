@@ -5,6 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { BrowserRouter } from "react-router-dom";
 import useAuth from "hooks/useAuth";
 import authSlice from "features/auth/authSlice";
+import { mockAuthUser } from "utils/testHelper";
 import AuthorDetails from ".";
 
 vi.mock("hooks/useAuth");
@@ -27,14 +28,6 @@ describe("AuthorDetails component", () => {
   const store = mockStore(initialState);
 
   it("should render author details properly", () => {
-    const mockAuthUser = {
-      firstname: "John",
-      lastname: "Doe",
-      profileImage: null,
-      subtitle: "Subtitle",
-      about: "About me",
-    };
-
     useAuth.mockReturnValue({ authUser: mockAuthUser });
     render(
       <Provider store={store}>
@@ -57,14 +50,6 @@ describe("AuthorDetails component", () => {
   });
 
   it("should render author social links properly", () => {
-    const mockAuthUser = {
-      firstname: "John",
-      lastname: "Doe",
-      profileImage: null,
-      subtitle: "Subtitle",
-      about: "About me",
-    };
-
     useAuth.mockReturnValue({ authUser: mockAuthUser });
     render(
       <Provider store={store}>

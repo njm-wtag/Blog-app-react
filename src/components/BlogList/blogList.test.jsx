@@ -8,6 +8,7 @@ import useRegister from "hooks/useRegister";
 import blogsSlice from "features/blogs/blogsSlice";
 import registerSlice from "features/register/registerSlice";
 import BlogList from ".";
+import { mockBlogs, mockTags, mockUsers } from "utils/testHelper";
 
 vi.mock("hooks/useRegister");
 vi.mock("components/BlogCard", () => {
@@ -20,25 +21,6 @@ describe("BlogList Component", () => {
   const user = userEvent.setup();
 
   it("should render blog list correctly", () => {
-    const blogs = [
-      {
-        id: "1",
-        authorId: "author1",
-        bannerImage: "banner1.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "technology", label: "Technology" }],
-        title: "Sample Blog 1",
-      },
-      {
-        id: "2",
-        authorId: "author2",
-        bannerImage: "banner2.jpg",
-        createdAt: "2024-03-01T12:00:00.000Z",
-        tags: [{ value: "flim", label: "Flim" }],
-        title: "Sample Blog 2",
-      },
-    ];
-
     const handleSelect = vi.fn();
     const handleLoadMore = vi.fn();
     const handleShowLess = vi.fn();
@@ -57,23 +39,14 @@ describe("BlogList Component", () => {
     const store = mockStore(initialState);
 
     useRegister.mockReturnValue({
-      users: [
-        {
-          id: "author1",
-          username: "John doe",
-        },
-        {
-          id: "author2",
-          username: "Jame smith",
-        },
-      ],
+      users: mockUsers,
     });
 
     render(
       <Provider store={store}>
         <BrowserRouter>
           <BlogList
-            blogs={blogs}
+            blogs={mockBlogs}
             query=""
             handleSelect={handleSelect}
             handleLoadMore={handleLoadMore}
@@ -93,36 +66,10 @@ describe("BlogList Component", () => {
 
   it("should invoke handleLoadMore when Load More button is clicked", async () => {
     const handleLoadMore = vi.fn();
-    const blogs = [
-      {
-        id: "1",
-        authorId: "author1",
-        bannerImage: "banner1.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "tech", label: "Tech" }],
-        title: "Sample Blog 1",
-      },
-      {
-        id: "2",
-        authorId: "author2",
-        bannerImage: "banner2.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "flim", label: "Flim" }],
-        title: "Sample Blog 2",
-      },
-      {
-        id: "3",
-        authorId: "author1",
-        bannerImage: "banner.jpg",
-        createdAt: "2024-03-05T12:00:00.000Z",
-        tags: [{ value: "technology", label: "Technology" }],
-        title: "Sample Blog 3",
-      },
-    ];
 
     render(
       <BlogList
-        blogs={blogs}
+        blogs={mockBlogs}
         query=""
         handleLoadMore={handleLoadMore}
         handleShowLess={() => {}}
@@ -138,36 +85,10 @@ describe("BlogList Component", () => {
 
   it("should invoke handleShowLess when show less button is clicked", async () => {
     const handleShowLess = vi.fn();
-    const blogs = [
-      {
-        id: "1",
-        authorId: "author1",
-        bannerImage: "banner1.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "technology", label: "Technology" }],
-        title: "Sample Blog 1",
-      },
-      {
-        id: "2",
-        authorId: "author2",
-        bannerImage: "banner2.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "flim", label: "Flim" }],
-        title: "Sample Blog 2",
-      },
-      {
-        id: "3",
-        authorId: "author1",
-        bannerImage: "banner3.jpg",
-        createdAt: "2024-03-05T12:00:00.000Z",
-        tags: [{ value: "technology", label: "Technology" }],
-        title: "Sample Blog 3",
-      },
-    ];
 
     render(
       <BlogList
-        blogs={blogs}
+        blogs={mockBlogs}
         query=""
         handleShowLess={handleShowLess}
         blogsPerPage={2}
@@ -184,24 +105,6 @@ describe("BlogList Component", () => {
     const handleSelect = vi.fn();
     const handleLoadMore = vi.fn();
     const handleShowLess = vi.fn();
-    const blogs = [
-      {
-        id: "1",
-        authorId: "author1",
-        bannerImage: "banner1.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "technology", label: "Technology" }],
-        title: "Sample Blog 1",
-      },
-      {
-        id: "2",
-        authorId: "author2",
-        bannerImage: "banner2.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "flim", label: "Flim" }],
-        title: "Sample Blog 2",
-      },
-    ];
 
     const initialState = {};
 
@@ -217,23 +120,14 @@ describe("BlogList Component", () => {
     const store = mockStore(initialState);
 
     useRegister.mockReturnValue({
-      users: [
-        {
-          id: "author1",
-          username: "John Doe",
-        },
-        {
-          id: "author2",
-          username: "James Smith",
-        },
-      ],
+      users: mockUsers,
     });
 
     render(
       <Provider store={store}>
         <BrowserRouter>
           <BlogList
-            blogs={blogs}
+            blogs={mockBlogs}
             query="Sample Blog 1"
             handleSelect={handleSelect}
             handleLoadMore={handleLoadMore}
@@ -250,37 +144,11 @@ describe("BlogList Component", () => {
   });
 
   it("should call handleSelect with the correct tag value when a tag is clicked", async () => {
-    const blogs = [
-      {
-        id: "1",
-        authorId: "author1",
-        bannerImage: "banner1.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "technology", label: "Technology" }],
-        title: "Sample Blog 1",
-      },
-      {
-        id: "2",
-        authorId: "author2",
-        bannerImage: "banner2.jpg",
-        createdAt: "2024-02-28T12:00:00.000Z",
-        tags: [{ value: "flim", label: "Flim" }],
-        title: "Sample Blog 2",
-      },
-    ];
-
-    const mockTags = [
-      { value: "technology", label: "Technology" },
-      { value: "poetry", label: "Poetry" },
-      { value: "flims", label: "Flims" },
-      { value: "world politics", label: "World Politics" },
-    ];
-
     const handleSelect = vi.fn();
 
     render(
       <BlogList
-        blogs={blogs}
+        blogs={mockBlogs}
         query=""
         handleSelect={handleSelect}
         blogsPerPage={2}

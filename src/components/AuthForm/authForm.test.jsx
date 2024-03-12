@@ -6,6 +6,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { MemoryRouter } from "react-router-dom";
 import authSlice from "features/auth/authSlice";
 import registerSlice from "features/register/registerSlice";
+import { BUTTON, EMAIL, PASSWORD, TYPE } from "utils/const";
 import AuthForm from ".";
 
 describe("AuthForm component", () => {
@@ -35,7 +36,7 @@ describe("AuthForm component", () => {
 
     expect(usernameInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
-    expect(passwordInput).toHaveAttribute("type", "password");
+    expect(passwordInput).toHaveAttribute(TYPE, PASSWORD);
   });
 
   it("submits the login form with valid input", async () => {
@@ -49,7 +50,7 @@ describe("AuthForm component", () => {
 
     const usernameInput = screen.getByPlaceholderText("Username");
     const passwordInput = screen.getByPlaceholderText("Password");
-    const loginButton = screen.getByRole("button", {
+    const loginButton = screen.getByRole(BUTTON, {
       name: /Log In/i,
     });
 
@@ -83,9 +84,9 @@ describe("AuthForm component", () => {
 
     expect(usernameInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
-    expect(passwordInput).toHaveAttribute("type", "password");
+    expect(passwordInput).toHaveAttribute(TYPE, PASSWORD);
     expect(emailInput).toBeInTheDocument();
-    expect(emailInput).toHaveAttribute("type", "email");
+    expect(emailInput).toHaveAttribute(TYPE, EMAIL);
     expect(firstnameInput).toBeInTheDocument();
     expect(lastnameInput).toBeInTheDocument();
   });
