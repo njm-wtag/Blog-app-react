@@ -1,5 +1,5 @@
-import authValidation from "./authValidation";
 import { describe, expect, it } from "vitest";
+import authValidation from "./authValidation";
 
 describe("authValidation", () => {
   it("should validate input values for login form", () => {

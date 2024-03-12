@@ -1,13 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import authSlice from "features/auth/authSlice";
-import registerSlice from "features/register/registerSlice";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import { BrowserRouter } from "react-router-dom";
 import useAuth from "hooks/useAuth";
 import useRegister from "hooks/useRegister";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { describe, expect, it, vi } from "vitest";
-
+import authSlice from "features/auth/authSlice";
+import registerSlice from "features/register/registerSlice";
 import HomeBanner from ".";
 
 vi.mock("hooks/useAuth");

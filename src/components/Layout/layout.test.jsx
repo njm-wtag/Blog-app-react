@@ -1,11 +1,11 @@
-import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import Layout from ".";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
+import { BrowserRouter } from "react-router-dom";
 import authSlice from "features/auth/authSlice";
 import searchSlice from "features/search/searchSlice";
+import Layout from ".";
 
 const initialState = {
   auth: {

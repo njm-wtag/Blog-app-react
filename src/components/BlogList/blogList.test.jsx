@@ -1,13 +1,13 @@
-import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import BlogList from ".";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
+import { BrowserRouter } from "react-router-dom";
+import useRegister from "hooks/useRegister";
 import blogsSlice from "features/blogs/blogsSlice";
 import registerSlice from "features/register/registerSlice";
-import useRegister from "hooks/useRegister";
-import userEvent from "@testing-library/user-event";
+import BlogList from ".";
 
 vi.mock("hooks/useRegister");
 vi.mock("components/BlogCard", () => {

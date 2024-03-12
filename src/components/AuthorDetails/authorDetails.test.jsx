@@ -1,11 +1,11 @@
-import { render, screen } from "@testing-library/react";
-import useAuth from "hooks/useAuth";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import AuthorDetails from ".";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "features/auth/authSlice";
 import { BrowserRouter } from "react-router-dom";
+import useAuth from "hooks/useAuth";
+import authSlice from "features/auth/authSlice";
+import AuthorDetails from ".";
 
 vi.mock("hooks/useAuth");
 

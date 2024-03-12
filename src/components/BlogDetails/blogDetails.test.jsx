@@ -1,10 +1,10 @@
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { BrowserRouter } from "react-router-dom";
 import useAuth from "hooks/useAuth";
 import useRegister from "hooks/useRegister";
-import { describe, expect, it, vi } from "vitest";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "features/auth/authSlice";
 import registerSlice from "features/register/registerSlice";
 import BlogDetails from ".";

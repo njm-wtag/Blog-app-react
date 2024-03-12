@@ -1,11 +1,11 @@
-import { render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
+import { BrowserRouter } from "react-router-dom";
 import authSlice from "features/auth/authSlice";
 import BlogForm from ".";
-import userEvent from "@testing-library/user-event";
 
 describe("BlogForm component", () => {
   const mockSetIsAddBlogFormOpen = vi.fn();

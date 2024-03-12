@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, waitFor, screen } from "@testing-library/react";
-import AuthForm from ".";
+import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "features/auth/authSlice";
 import { MemoryRouter } from "react-router-dom";
-import userEvent from "@testing-library/user-event";
+import authSlice from "features/auth/authSlice";
 import registerSlice from "features/register/registerSlice";
+import AuthForm from ".";
 
 describe("AuthForm component", () => {
   const initialState = { users: [] };

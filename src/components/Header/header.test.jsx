@@ -1,12 +1,12 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { Provider } from "react-redux";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import Header from ".";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import searchSlice, { updateHomeQuery } from "features/search/searchSlice";
 import { BrowserRouter } from "react-router-dom";
 import authSlice, { loggedOutUser } from "features/auth/authSlice";
-import userEvent from "@testing-library/user-event";
+import searchSlice, { updateHomeQuery } from "features/search/searchSlice";
+import Header from ".";
 
 vi.mock("hooks/useSearch", () => ({
   default: () => ({
@@ -34,22 +34,11 @@ vi.mock("react-router-dom", async () => {
 });
 
 describe("Header", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   const user = userEvent.setup();
-
-  const initialState = {
-    auth: {
-      authUser: { username: "testuser" },
-      loading: false,
-      error: "",
-      errorMessage: "",
-      success: true,
-    },
-
-    search: {
-      homeQuery: "",
-      profileQuery: "",
-    },
-  };
 
   const mockStore = (initialState) =>
     configureStore({
@@ -60,15 +49,28 @@ describe("Header", () => {
       preloadedState: initialState,
     });
 
-  const store = mockStore(initialState);
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
+  // const store = mockStore(initialState);
 
   it("Should render the title and search properly", () => {
+    const initialState = {
+      auth: {
+        authUser: {
+          firstname: "John",
+          lastname: "Doe",
+          username: "johndoe",
+          subtitle: "Software Engineer",
+          about: "Lorem ipsum dolor sit amet",
+          profileImage: "profile.jpg",
+        },
+      },
+
+      search: {
+        homeQuery: "",
+        profileQuery: "",
+      },
+    };
     render(
-      <Provider store={store}>
+      <Provider store={mockStore(initialState)}>
         <BrowserRouter>
           <Header />
         </BrowserRouter>
@@ -82,6 +84,24 @@ describe("Header", () => {
   });
 
   it("Should update search on change", async () => {
+    const initialState = {
+      auth: {
+        authUser: {
+          firstname: "John",
+          lastname: "Doe",
+          username: "johndoe",
+          subtitle: "Software Engineer",
+          about: "Lorem ipsum dolor sit amet",
+          profileImage: "profile.jpg",
+        },
+      },
+
+      search: {
+        homeQuery: "",
+        profileQuery: "",
+      },
+    };
+    const store = mockStore(initialState);
     render(
       <Provider store={store}>
         <BrowserRouter>
@@ -104,7 +124,7 @@ describe("Header", () => {
 
   // it("should render login and signup links when user is not authenticated", () => {
   //   vi.mock("hooks/useAuth", () => ({
-  //     namedExport: () => ({
+  //     default: () => ({
   //       authUser: null,
   //     }),
   //   }));
@@ -140,10 +160,27 @@ describe("Header", () => {
   //   expect(loginElement).toHaveAttribute("href", "/login");
   //   expect(signupElement).toBeInTheDocument();
   //   expect(signupElement).toHaveAttribute("href", "/register");
-  //   screen.debug();
   // });
 
   it("should render user information and logout button when user is authenticated", () => {
+    const initialState = {
+      auth: {
+        authUser: {
+          firstname: "John",
+          lastname: "Doe",
+          username: "johndoe",
+          subtitle: "Software Engineer",
+          about: "Lorem ipsum dolor sit amet",
+          profileImage: "profile.jpg",
+        },
+      },
+
+      search: {
+        homeQuery: "",
+        profileQuery: "",
+      },
+    };
+
     vi.mock("hooks/useAuth", () => ({
       default: () => ({
         authUser: {
@@ -158,7 +195,7 @@ describe("Header", () => {
     }));
 
     render(
-      <Provider store={store}>
+      <Provider store={mockStore(initialState)}>
         <BrowserRouter>
           <Header />
         </BrowserRouter>
@@ -176,8 +213,25 @@ describe("Header", () => {
   });
 
   it("should dispatch loggedOutUser action and navigate to login page when logout button is clicked", async () => {
+    const initialState = {
+      auth: {
+        authUser: {
+          firstname: "John",
+          lastname: "Doe",
+          username: "johndoe",
+          subtitle: "Software Engineer",
+          about: "Lorem ipsum dolor sit amet",
+          profileImage: "profile.jpg",
+        },
+      },
+
+      search: {
+        homeQuery: "",
+        profileQuery: "",
+      },
+    };
     render(
-      <Provider store={store}>
+      <Provider store={mockStore(initialState)}>
         <BrowserRouter>
           <Header />
         </BrowserRouter>

@@ -1,11 +1,11 @@
-import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import EditProfileForm from ".";
+import { render, screen, waitFor } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { BrowserRouter } from "react-router-dom";
 import authSlice from "features/auth/authSlice";
-import { configureStore } from "@reduxjs/toolkit";
-import { userEvent } from "@testing-library/user-event";
+import EditProfileForm from ".";
 
 vi.mock("hooks/useAuth", () => ({
   default: () => ({

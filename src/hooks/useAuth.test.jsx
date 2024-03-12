@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
-import useAuth from "./useAuth";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { renderHook } from "@testing-library/react";
+import { useSelector } from "react-redux";
+import useAuth from "./useAuth";
 
 vi.mock("react-redux", () => ({
   useSelector: vi.fn(),

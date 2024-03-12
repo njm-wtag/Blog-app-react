@@ -1,15 +1,15 @@
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import PrivateRoute from ".";
-import useLocalStorageAuth from "hooks/useLocalStorageAuth";
-import Profile from "pages/Profile";
-import Login from "pages/Login";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import useLocalStorageAuth from "hooks/useLocalStorageAuth";
 import authSlice from "features/auth/authSlice";
 import blogsSlice from "features/blogs/blogsSlice";
 import EditBlog from "pages/EditBlog";
+import Profile from "pages/Profile";
+import Login from "pages/Login";
+import PrivateRoute from ".";
 
 vi.mock("hooks/useLocalStorageAuth");
 vi.mock("hooks/useAuth");

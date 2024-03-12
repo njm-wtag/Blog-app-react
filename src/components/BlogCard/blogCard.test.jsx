@@ -1,12 +1,12 @@
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { describe, expect, it, vi } from "vitest";
-import BlogCard from ".";
+import { BrowserRouter } from "react-router-dom";
+import useRegister from "hooks/useRegister";
 import blogsSlice from "features/blogs/blogsSlice";
 import registerSlice from "features/register/registerSlice";
-import useRegister from "hooks/useRegister";
+import BlogCard from ".";
 
 vi.mock("hooks/useRegister");
 
