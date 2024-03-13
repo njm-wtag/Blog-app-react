@@ -55,7 +55,7 @@ describe("Header", () => {
   it("Should render the title and search properly", () => {
     const initialState = {
       auth: {
-        authUser: 
+        authUser: mockAuthUserWithProfileImage,
       },
 
       search: {
@@ -80,7 +80,7 @@ describe("Header", () => {
   it("Should update search on change", async () => {
     const initialState = {
       auth: {
-        authUser: mockAuthUserWithProfileImage
+        authUser: mockAuthUserWithProfileImage,
       },
 
       search: {
@@ -152,7 +152,7 @@ describe("Header", () => {
   it("should render user information and logout button when user is authenticated", () => {
     const initialState = {
       auth: {
-        authUser: mockAuthUserWithProfileImage
+        authUser: mockAuthUserWithProfileImage,
       },
 
       search: {
@@ -163,7 +163,7 @@ describe("Header", () => {
 
     vi.mock("hooks/useAuth", () => ({
       default: () => ({
-        authUser: mockAuthUserWithProfileImage
+        authUser: mockAuthUserWithProfileImage,
       }),
     }));
 
@@ -188,7 +188,7 @@ describe("Header", () => {
   it("should dispatch loggedOutUser action and navigate to login page when logout button is clicked", async () => {
     const initialState = {
       auth: {
-        authUser: mockAuthUserWithProfileImage
+        authUser: mockAuthUserWithProfileImage,
       },
 
       search: {
