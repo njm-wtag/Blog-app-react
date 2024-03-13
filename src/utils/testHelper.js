@@ -6,6 +6,15 @@ export const mockAuthUser = {
   about: "About me",
 };
 
+export const mockAuthUserWithProfileImage = {
+  firstname: "John",
+  lastname: "Doe",
+  username: "johndoe",
+  subtitle: "Software Engineer",
+  about: "Lorem ipsum dolor sit amet",
+  profileImage: "profile.jpg",
+};
+
 export const mockBlogs = [
   {
     id: "1",

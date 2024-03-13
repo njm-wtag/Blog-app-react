@@ -9,6 +9,7 @@ import blogsSlice from "features/blogs/blogsSlice";
 import registerSlice from "features/register/registerSlice";
 import BlogList from ".";
 import { mockBlogs, mockTags, mockUsers } from "utils/testHelper";
+import { BUTTON } from "utils/const";
 
 vi.mock("hooks/useRegister");
 vi.mock("components/BlogCard", () => {
@@ -77,7 +78,7 @@ describe("BlogList Component", () => {
         currentPage={1}
       />
     );
-    const loaadMoreButton = screen.getByRole("button", { name: /Load More/i });
+    const loaadMoreButton = screen.getByRole(BUTTON, { name: /Load More/i });
     expect(loaadMoreButton).toBeInTheDocument;
     await user.click(loaadMoreButton);
     expect(handleLoadMore).toHaveBeenCalled();
@@ -95,7 +96,7 @@ describe("BlogList Component", () => {
         currentPage={2}
       />
     );
-    const showLessButton = screen.getByRole("button", { name: /Show Less/i });
+    const showLessButton = screen.getByRole(BUTTON, { name: /Show Less/i });
     expect(showLessButton).toBeInTheDocument;
     await user.click(showLessButton);
     expect(handleShowLess).toHaveBeenCalled();
@@ -158,7 +159,7 @@ describe("BlogList Component", () => {
       />
     );
 
-    const techTagButton = screen.getByRole("button", { name: "Technology" });
+    const techTagButton = screen.getByRole(BUTTON, { name: "Technology" });
 
     user.click(techTagButton);
 

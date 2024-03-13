@@ -10,6 +10,7 @@ import EditBlog from "pages/EditBlog";
 import Profile from "pages/Profile";
 import Login from "pages/Login";
 import PrivateRoute from ".";
+import { mockAuthUserWithProfileImage } from "utils/testHelper";
 
 vi.mock("hooks/useLocalStorageAuth");
 vi.mock("hooks/useAuth");
@@ -97,26 +98,12 @@ describe("PrivateRoute Component", () => {
 
     const initialState = {
       auth: {
-        authUser: {
-          firstname: "John",
-          lastname: "Doe",
-          username: "johndoe",
-          subtitle: "Software Engineer",
-          about: "Lorem ipsum dolor sit amet",
-          profileImage: "profile.jpg",
-        },
+        authUser: mockAuthUserWithProfileImage,
       },
     };
     vi.mock("hooks/useAuth", () => ({
       default: () => ({
-        authUser: {
-          firstname: "John",
-          lastname: "Doe",
-          username: "johndoe",
-          subtitle: "Software Engineer",
-          about: "Lorem ipsum dolor sit amet",
-          profileImage: "profile.jpg",
-        },
+        authUser: mockAuthUserWithProfileImage,
       }),
     }));
 

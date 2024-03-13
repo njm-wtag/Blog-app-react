@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import authSlice, { loggedOutUser } from "features/auth/authSlice";
 import searchSlice, { updateHomeQuery } from "features/search/searchSlice";
 import Header from ".";
+import { mockAuthUserWithProfileImage } from "utils/testHelper";
 
 vi.mock("hooks/useSearch", () => ({
   default: () => ({
@@ -54,14 +55,7 @@ describe("Header", () => {
   it("Should render the title and search properly", () => {
     const initialState = {
       auth: {
-        authUser: {
-          firstname: "John",
-          lastname: "Doe",
-          username: "johndoe",
-          subtitle: "Software Engineer",
-          about: "Lorem ipsum dolor sit amet",
-          profileImage: "profile.jpg",
-        },
+        authUser: 
       },
 
       search: {
@@ -86,14 +80,7 @@ describe("Header", () => {
   it("Should update search on change", async () => {
     const initialState = {
       auth: {
-        authUser: {
-          firstname: "John",
-          lastname: "Doe",
-          username: "johndoe",
-          subtitle: "Software Engineer",
-          about: "Lorem ipsum dolor sit amet",
-          profileImage: "profile.jpg",
-        },
+        authUser: mockAuthUserWithProfileImage
       },
 
       search: {
@@ -165,14 +152,7 @@ describe("Header", () => {
   it("should render user information and logout button when user is authenticated", () => {
     const initialState = {
       auth: {
-        authUser: {
-          firstname: "John",
-          lastname: "Doe",
-          username: "johndoe",
-          subtitle: "Software Engineer",
-          about: "Lorem ipsum dolor sit amet",
-          profileImage: "profile.jpg",
-        },
+        authUser: mockAuthUserWithProfileImage
       },
 
       search: {
@@ -183,14 +163,7 @@ describe("Header", () => {
 
     vi.mock("hooks/useAuth", () => ({
       default: () => ({
-        authUser: {
-          firstname: "John",
-          lastname: "Doe",
-          username: "johndoe",
-          subtitle: "Software Engineer",
-          about: "Lorem ipsum dolor sit amet",
-          profileImage: "profile.jpg",
-        },
+        authUser: mockAuthUserWithProfileImage
       }),
     }));
 
@@ -215,14 +188,7 @@ describe("Header", () => {
   it("should dispatch loggedOutUser action and navigate to login page when logout button is clicked", async () => {
     const initialState = {
       auth: {
-        authUser: {
-          firstname: "John",
-          lastname: "Doe",
-          username: "johndoe",
-          subtitle: "Software Engineer",
-          about: "Lorem ipsum dolor sit amet",
-          profileImage: "profile.jpg",
-        },
+        authUser: mockAuthUserWithProfileImage
       },
 
       search: {

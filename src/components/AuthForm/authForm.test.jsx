@@ -6,7 +6,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import { MemoryRouter } from "react-router-dom";
 import authSlice from "features/auth/authSlice";
 import registerSlice from "features/register/registerSlice";
-import { BUTTON, EMAIL, PASSWORD, TYPE } from "utils/const";
+import {
+  BUTTON,
+  EMAIL,
+  EMAIL_LABEL,
+  FIRST_NAME,
+  LAST_NAME,
+  PASSWORD,
+  PASSWORD_LABEL,
+  TYPE,
+  USERNAME,
+} from "utils/const";
 import AuthForm from ".";
 
 describe("AuthForm component", () => {
@@ -31,8 +41,8 @@ describe("AuthForm component", () => {
       </Provider>
     );
 
-    const usernameInput = screen.getByPlaceholderText("Username");
-    const passwordInput = screen.getByPlaceholderText("Password");
+    const usernameInput = screen.getByPlaceholderText(USERNAME);
+    const passwordInput = screen.getByPlaceholderText(PASSWORD_LABEL);
 
     expect(usernameInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
@@ -48,8 +58,8 @@ describe("AuthForm component", () => {
       </Provider>
     );
 
-    const usernameInput = screen.getByPlaceholderText("Username");
-    const passwordInput = screen.getByPlaceholderText("Password");
+    const usernameInput = screen.getByPlaceholderText(USERNAME);
+    const passwordInput = screen.getByPlaceholderText(PASSWORD_LABEL);
     const loginButton = screen.getByRole(BUTTON, {
       name: /Log In/i,
     });
@@ -76,11 +86,11 @@ describe("AuthForm component", () => {
         </MemoryRouter>
       </Provider>
     );
-    const firstnameInput = screen.getByPlaceholderText("First name");
-    const lastnameInput = screen.getByPlaceholderText("Last name");
-    const emailInput = screen.getByPlaceholderText("Email");
-    const usernameInput = screen.getByPlaceholderText("Username");
-    const passwordInput = screen.getByPlaceholderText("Password");
+    const firstnameInput = screen.getByPlaceholderText(FIRST_NAME);
+    const lastnameInput = screen.getByPlaceholderText(LAST_NAME);
+    const emailInput = screen.getByPlaceholderText(EMAIL_LABEL);
+    const usernameInput = screen.getByPlaceholderText(USERNAME);
+    const passwordInput = screen.getByPlaceholderText(PASSWORD_LABEL);
 
     expect(usernameInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
@@ -100,13 +110,13 @@ describe("AuthForm component", () => {
       </Provider>
     );
 
-    const firstnameInput = screen.getByPlaceholderText("First name");
-    const lastnameInput = screen.getByPlaceholderText("Last name");
-    const emailInput = screen.getByPlaceholderText("Email");
-    const usernameInput = screen.getByPlaceholderText("Username");
-    const passwordInput = screen.getByPlaceholderText("Password");
+    const firstnameInput = screen.getByPlaceholderText(FIRST_NAME);
+    const lastnameInput = screen.getByPlaceholderText(LAST_NAME);
+    const emailInput = screen.getByPlaceholderText(EMAIL_LABEL);
+    const usernameInput = screen.getByPlaceholderText(USERNAME);
+    const passwordInput = screen.getByPlaceholderText(PASSWORD_LABEL);
 
-    const registerButton = screen.getByRole("button", {
+    const registerButton = screen.getByRole(BUTTON, {
       name: /Register/i,
     });
 
