@@ -24,13 +24,6 @@ describe("should render useAuth properly", () => {
   );
 
   it("returns correct authUser, success, error, and errorMessage", () => {
-    // const authUser = { username: "johndoe", password: "password123"};
-    // const success = true;
-    // const error = false;
-    // const errorMessage = "";
-
-    // useSelector.mockReturnValue({ authUser, success, error, errorMessage });
-
     const { result } = renderHook(() => useAuth());
 
     const mockData = useSelectorMock.mock.results[0].value;

@@ -54,9 +54,9 @@ const Header = () => {
             <span>Welcome </span>
             <Link to={`/me`}>{authUser.username}!</Link>
           </div>
-          <Link aria-label="logout-button" to="/login" onClick={handleLogout}>
+          <button aria-label="logout" type="button" onClick={handleLogout}>
             <LogoutIcon />
-          </Link>
+          </button>
         </div>
       ) : (
         <div className="navbar__auth-access">

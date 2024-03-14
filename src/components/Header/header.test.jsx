@@ -3,11 +3,12 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import authSlice, { loggedOutUser } from "features/auth/authSlice";
 import searchSlice, { updateHomeQuery } from "features/search/searchSlice";
 import Header from ".";
 import { mockAuthUserWithProfileImage } from "utils/testHelper";
+import Login from "pages/Login";
 
 vi.mock("hooks/useSearch", () => ({
   default: () => ({
@@ -49,8 +50,6 @@ describe("Header", () => {
       },
       preloadedState: initialState,
     });
-
-  // const store = mockStore(initialState);
 
   it("Should render the title and search properly", () => {
     const initialState = {
@@ -107,65 +106,18 @@ describe("Header", () => {
     });
   });
 
-  //Failed testcase. Working on resolving it
-
-  // it("should render login and signup links when user is not authenticated", () => {
-  //   vi.mock("hooks/useAuth", () => ({
-  //     default: () => ({
-  //       authUser: null,
-  //     }),
-  //   }));
-  //   // vi.mock("hooks/useAuth", async (importOriginal) => {
-  //   //   const actual = await importOriginal();
-  //   //   return {
-  //   //     ...actual,
-  //   //     namedExport: () => ({
-  //   //       authUser: null,
-  //   //     }),
-  //   //   };
-  //   // });
-
-  //   const modifiedInitialState = {
-  //     auth: {
-  //       authUser: null,
-  //     },
-  //   };
-  //   const a = mockStore(modifiedInitialState);
-  //   console.log(a.getState(), "non auth");
-  //   render(
-  //     <Provider store={mockStore(modifiedInitialState)}>
-  //       <BrowserRouter>
-  //         <Header />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
-
-  //   const loginElement = screen.getByRole("link", { name: /Login/i });
-  //   const signupElement = screen.getByRole("link", { name: /Signup/i });
-
-  //   expect(loginElement).toBeInTheDocument();
-  //   expect(loginElement).toHaveAttribute("href", "/login");
-  //   expect(signupElement).toBeInTheDocument();
-  //   expect(signupElement).toHaveAttribute("href", "/register");
-  // });
-
   it("should render user information and logout button when user is authenticated", () => {
-    const initialState = {
-      auth: {
-        authUser: mockAuthUserWithProfileImage,
-      },
-
-      search: {
-        homeQuery: "",
-        profileQuery: "",
-      },
-    };
-
     vi.mock("hooks/useAuth", () => ({
       default: () => ({
         authUser: mockAuthUserWithProfileImage,
       }),
     }));
+
+    const initialState = {
+      auth: {
+        authUser: mockAuthUserWithProfileImage,
+      },
+    };
 
     render(
       <Provider store={mockStore(initialState)}>
@@ -177,40 +129,55 @@ describe("Header", () => {
 
     const welcomeElement = screen.getByText(/Welcome/i);
     const usernameElement = screen.getByRole("link", { name: "johndoe!" });
-    const logoutElement = screen.getByRole("link", { name: /logout-button/i });
+    const logoutElement = screen.getByRole("button", {
+      name: /logout/i,
+    });
 
     expect(welcomeElement).toBeInTheDocument();
     expect(usernameElement).toBeInTheDocument();
     expect(logoutElement).toBeInTheDocument();
-    expect(logoutElement).toHaveAttribute("href", "/login");
   });
 
   it("should dispatch loggedOutUser action and navigate to login page when logout button is clicked", async () => {
+    vi.mock("hooks/useAuth", () => ({
+      default: () => ({
+        authUser: mockAuthUserWithProfileImage,
+      }),
+    }));
+
     const initialState = {
       auth: {
         authUser: mockAuthUserWithProfileImage,
       },
-
-      search: {
-        homeQuery: "",
-        profileQuery: "",
-      },
     };
+
     render(
       <Provider store={mockStore(initialState)}>
         <BrowserRouter>
-          <Header />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Header />} />
+          </Routes>
         </BrowserRouter>
       </Provider>
     );
 
-    const logoutElement = screen.getByLabelText("logout-button");
+    const logoutElement = screen.getByRole("button", {
+      name: /logout/i,
+    });
 
     await user.click(logoutElement);
 
     await waitFor(() => {
-      expect(logoutElement).toHaveAttribute("href", "/login");
       expect(mockDispatch).toHaveBeenCalledWith(loggedOutUser());
+
+      const loginElement = screen.getByText(/Login/i);
+
+      expect(loginElement).toBeInTheDocument();
+      const regElement = screen.getByText(/Login/i);
+
+      expect(regElement).toBeInTheDocument();
     });
+    screen.debug();
   });
 });

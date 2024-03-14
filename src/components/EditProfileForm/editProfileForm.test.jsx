@@ -84,31 +84,31 @@ describe("EditProfileForm component", () => {
 
   //Resolving error
 
-  // it("should upload profile image correcly", async () => {
-  //   const handleImageChange = vi.fn();
-  //   render(
-  //     <Provider store={store}>
-  //       <BrowserRouter>
-  //         <EditProfileForm
-  //           setIsEditProfileFormOpen={mockSetIsEditProfileFormOpen}
-  //           onChange={handleImageChange}
-  //         />
-  //       </BrowserRouter>
-  //     </Provider>
-  //   );
-  //   const profileImageElement = screen.getByLabelText("Profile Image");
+  it("should upload profile image correcly", async () => {
+    const handleImageChange = vi.fn();
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <EditProfileForm
+            setIsEditProfileFormOpen={mockSetIsEditProfileFormOpen}
+            onChange={handleImageChange}
+          />
+        </BrowserRouter>
+      </Provider>
+    );
+    const profileImageElement = screen.getByLabelText("Profile Image");
 
-  //   const blob = new Blob(["profile"], { type: "image/png" });
-  //   const newFile = new File([blob], "profile.png", {
-  //     type: "image/png",
-  //   });
+    const blob = new Blob(["profile"], { type: "image/png" });
+    const newFile = new File([blob], "profile.png", {
+      type: "image/png",
+    });
 
-  //   await user.upload(profileImageElement, {
-  //     newFile,
-  //   });
+    await user.upload(profileImageElement, {
+      newFile,
+    });
 
-  //   await waitFor(() => expect(profileImageElement.files).toHaveLength(1));
-  // });
+    await waitFor(() => expect(profileImageElement.files).toHaveLength(1));
+  });
 
   it("submits form with updated values", async () => {
     const handleImageChange = vi.fn();
