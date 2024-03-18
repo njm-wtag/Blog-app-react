@@ -6,6 +6,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { BrowserRouter } from "react-router-dom";
 import authSlice from "features/auth/authSlice";
 import BlogForm from ".";
+import { BUTTON } from "utils/const";
 
 describe("BlogForm component", () => {
   const mockSetIsAddBlogFormOpen = vi.fn();
@@ -49,18 +50,18 @@ describe("BlogForm component", () => {
     );
 
     const titleElement = screen.getByLabelText("Title");
-    expect(titleElement).toHaveValue("Test Blog");
+    expect(titleElement).toHaveValue(initialBlogDetails.title);
 
     const bannerImageElement = screen.getByLabelText("Banner Image");
     expect(bannerImageElement).toBeInTheDocument();
 
     const bannerImage = screen.getByAltText("banner-image");
-    expect(bannerImage).toHaveAttribute("src", "test-image.jpg");
+    expect(bannerImage).toHaveAttribute("src", initialBlogDetails.bannerImage);
 
     const bodyElement = screen.getByLabelText("Blog Body");
     expect(bodyElement).toBeInTheDocument();
 
-    expect(bodyElement).toHaveValue("Lorem ipsum dolor sit amet");
+    expect(bodyElement).toHaveValue(initialBlogDetails.body);
   });
 
   it("validates form fields", async () => {
@@ -82,7 +83,7 @@ describe("BlogForm component", () => {
       </Provider>
     );
 
-    const submitButton = screen.getByRole("button", { name: /submit/i });
+    const submitButton = screen.getByRole(BUTTON, { name: /submit/i });
     await user.click(submitButton);
 
     await waitFor(() => {
@@ -111,10 +112,10 @@ describe("BlogForm component", () => {
     await user.clear(bodyElement);
     await user.type(bodyElement, "Lorem ipsum");
 
-    const submitButton = screen.getByRole("button", { name: /submit/i });
+    const submitButton = screen.getByRole(BUTTON, { name: /submit/i });
     await user.click(submitButton);
     await waitFor(() => {
-      expect(mockOnSubmit).toHaveBeenCalled({});
+      expect(mockOnSubmit).toHaveBeenCalled();
     });
   });
 });
