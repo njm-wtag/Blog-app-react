@@ -1,6 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { updateUsersById } from "features/register/registerSlice";
-import { useDispatch } from "react-redux";
 import authenticateUser from "utils/authUtils";
 
 const INITIAL_STATE = {

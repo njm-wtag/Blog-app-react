@@ -67,7 +67,7 @@ const BlogList = ({
           </Button>
         </div>
       )}
-      {currentBlogs.length >= totalBlogs && currentPage > 1 && (
+      {currentBlogs.length <= totalBlogs && currentPage > 1 && (
         <div className="button-wrapper">
           <Button
             type="button"

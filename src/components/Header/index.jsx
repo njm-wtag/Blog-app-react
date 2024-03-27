@@ -1,28 +1,31 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useAuth from "hooks/useAuth";
-import useSearch from "hooks/useSearch";
 import { loggedOutUser } from "features/auth/authSlice";
 import LogoutIcon from "components/icons/LogoutIcon";
-import SearchIcon from "components/icons/SearchIcon";
+
 import {
   updateHomeQuery,
   updateProfileQuery,
 } from "features/search/searchSlice";
+import useSearch from "hooks/useSearch";
+import { useLocation } from "react-router-dom";
 import "./header.scss";
+import SearchIcon from "components/icons/SearchIcon";
 
 const Header = () => {
   const { authUser } = useAuth();
-  const { homeQuery, profileQuery } = useSearch();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
-  const profile = location.pathname === "/me";
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(loggedOutUser());
     navigate("/login");
   };
+
+  const { homeQuery, profileQuery } = useSearch();
+  const location = useLocation();
+  const profile = location.pathname === "/me";
 
   const handleSearch = (event) => {
     if (profile) {
@@ -31,7 +34,6 @@ const Header = () => {
     }
     dispatch(updateHomeQuery(event.target.value));
   };
-
   return (
     <nav className="navbar">
       <Link to="/" className="navbar__title">
@@ -49,11 +51,12 @@ const Header = () => {
       {authUser ? (
         <div className="navbar__auth-access">
           <div>
-            Welcome <Link to={`/me`}>{authUser.username}!</Link>
+            <span>Welcome </span>
+            <Link to={`/me`}>{authUser.username}!</Link>
           </div>
-          <Link to="/login" onClick={handleLogout}>
+          <button aria-label="logout" type="button" onClick={handleLogout}>
             <LogoutIcon />
-          </Link>
+          </button>
         </div>
       ) : (
         <div className="navbar__auth-access">

@@ -19,6 +19,7 @@ const EditBlog = () => {
 
   return (
     <Layout>
+      <h3>Edit blog</h3>
       <BlogForm blogDetails={blogDetails} onSubmit={onSubmit} />
     </Layout>
   );

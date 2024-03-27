@@ -71,7 +71,7 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           <Field name="username">
             {({ input, meta }) => (
               <div className="form-group">
-                <label>Userame</label>
+                <label>Username</label>
                 <input {...input} type="text" placeholder="Username" readOnly />
                 {meta.error && <span>{meta.error}</span>}
               </div>
@@ -98,8 +98,9 @@ const EditProfileForm = ({ setIsEditProfileFormOpen }) => {
           <Field name="profileImage">
             {({ input, meta }) => (
               <div className="form-group">
-                <label>Profile Image</label>
+                <label htmlFor="profile_image">Profile Image</label>
                 <input
+                  id="profile_image"
                   type="file"
                   onChange={(e) => handleImageChange(e, input)}
                 />

@@ -11,6 +11,7 @@ const HomeBanner = ({ blog }) => {
   return (
     <div
       className="home-banner"
+      data-testid="background"
       style={{ backgroundImage: `url(${blog?.bannerImage})` }}
     >
       <div

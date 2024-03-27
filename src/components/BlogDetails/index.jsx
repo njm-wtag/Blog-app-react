@@ -17,7 +17,7 @@ const BlogDetails = ({ blogDetails }) => {
       {isEditable && (
         <div className="blog-details__edit button-container">
           <Link to={`/edit/${blogDetails.id}`}>
-            <EditIcon />
+            <EditIcon data-testid="edit-button" />
           </Link>
         </div>
       )}

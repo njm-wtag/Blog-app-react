@@ -34,9 +34,8 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
             <Field name="title">
               {({ input, meta }) => (
                 <div className="form-group">
-                  <label>Title</label>
-
-                  <input {...input} type="text" />
+                  <label htmlFor="title">Title</label>
+                  <input id="title" {...input} type="text" />
                   {meta.error && <span>{meta.error}</span>}
                 </div>
               )}
@@ -45,8 +44,8 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
             <Field name="tags" component="select" isMulti>
               {({ input, meta }) => (
                 <div className="form-group">
-                  <label>Tags</label>
-                  <SelectBox input={input} />
+                  <label htmlFor="tags">Tags</label>
+                  <SelectBox id="tags" input={input} />
                   {meta.error && <span>{meta.error}</span>}
                 </div>
               )}
@@ -55,8 +54,9 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
           <Field name="bannerImage">
             {({ meta, input }) => (
               <div className="form-group">
-                <label>Banner Image</label>
+                <label htmlFor="banner-image">Banner Image</label>
                 <input
+                  id="banner-image"
                   type="file"
                   onChange={(e) => handleImageChange(e, input)}
                 />
@@ -65,6 +65,7 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
                     src={
                       selectedImage ? selectedImage : blogDetails?.bannerImage
                     }
+                    alt="banner-image"
                   />
                 )}
                 {meta.error && <span>{meta.error}</span>}
@@ -74,8 +75,8 @@ const BlogForm = ({ setIsAddBlogFormOpen, blogDetails, onSubmit }) => {
           <Field name="body">
             {({ input, meta }) => (
               <div className="form-group">
-                <label>Blog Body</label>
-                <textarea {...input} type="text" />
+                <label htmlFor="body">Blog Body</label>
+                <textarea id="body" {...input} type="text" />
                 {meta.error && <span>{meta.error}</span>}
               </div>
             )}

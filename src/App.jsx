@@ -3,9 +3,9 @@ import Blog from "./Pages/Blog";
 import EditBlog from "./Pages/EditBlog";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
-import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./Pages/Profile";
 import Register from "./Pages/Register";
+import PrivateRoute from "components/PrivateRoute";
 import "./App.scss";
 
 function App() {
